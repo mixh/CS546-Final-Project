@@ -21,6 +21,28 @@ const exportedMethods = {
       }
   
       return arr;
+    },
+
+    checkPassword(password, varName){
+        if(typeof password !== 'string'){
+             throw `${varName} must be of string type`;
+        }
+
+        const passwordRegex = /^(?=,*[a-z])(?=,*[A-Z])(?=,*\d)(?=,*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if(!password.match(passwordRegex)){
+            throw `The ${varName} must contain at least 8 characters, including atleast one uppercase letter, one lowercase letter, one digit and one special character`;
+        }
+        return password;
+    },
+
+    checkEmail(email, varName){
+       if(typeof email !== 'string'){
+           throw `${varName} must be a string`;
+       }
+       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+       if(!email.match(emailRegex)){
+          throw `The ${varName} must be a valid email address`;
+       }
     }
   };
   
