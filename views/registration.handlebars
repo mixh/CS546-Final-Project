@@ -1,0 +1,42 @@
+<p>this is the registration page route </p>
+
+  <h1>Registration</h1>
+  
+  <form action="/registration" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name"><br><br>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"><br><br>
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"><br><br>
+    
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age"><br><br>
+    
+    <label for="gender">Gender:</label>
+    <input type="radio" id="male" name="gender" value="male">
+    <label for="male">Male</label>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">Female</label><br><br>
+    
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location"><br><br>
+    
+    <label for="photos">Photos:</label>
+    <input type="text" id="photos" name="photos"><br><br>
+    
+    <label for="bio">Bio:</label>
+    <textarea id="bio" name="bio"></textarea><br><br>
+    
+    <label for="preferences">Preferences:</label>
+    <input type="radio" id="pref-male" name="preferences" value="male">
+    <label for="pref-male">Male</label>
+    <input type="radio" id="pref-female" name="preferences" value="female">
+    <label for="pref-female">Female</label><br><br>
+    
+    <input type="submit" value="Register">
+  </form>
+  
+  <p>Already have an account? <a href="/login">Log in here</a>.</p>

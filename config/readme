@@ -1,0 +1,4 @@
+this folder is the mongo connection setup 
+
+- change the mongoCollections.js and settings.js to suite the process for development
+- name for the database also needs to be changed
