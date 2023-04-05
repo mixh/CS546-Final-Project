@@ -43,6 +43,16 @@ const exportedMethods = {
        if(!email.match(emailRegex)){
           throw `The ${varName} must be a valid email address`;
        }
+    },
+
+    checkAge(age, varName){
+       if(typeof age != 'number' || isNaN(age)){
+          throw `${varName} must be a valid number`;
+       }
+       if(!Number.isInteger(age) || age < 0){
+          throw `${varName} must be  a positive integer`;
+       }
+       return age;
     }
   };
   
