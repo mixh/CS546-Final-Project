@@ -24,6 +24,7 @@ router.route('/login')
 .post(async(req,res)=>{
   try {
 
+    //need to validate the following inputs @Sarthak15997
     let email = req.body.email;
     let password = req.body.password;
     let loginAuth = await userData.loginAuth(email, password);
@@ -50,6 +51,7 @@ router.route("/registration")
 })
 .post(async (req, res) => {
 
+  // need to validate all the following inputs @Sarthak15997
 const { name, email, password, age, gender, location, bio, preferences } = req.body;
 
   try {
@@ -98,35 +100,35 @@ router.route("/home")
   }
 });
 
-router.route("/profile")
-.get(checkSession, async (req, res) => {
-  try {
-    // const userId = req.session.userId;
-    // const user = await userData.get(userId);
-    res.render("profile", {title: "Profile" });
-  } catch (error) {
-    res.status(500).render({ error: error });
-  }
-})
-.post(async (req, res) => {
+// router.route("/profile")
+// .get(checkSession, async (req, res) => {
+//   try {
+//     // const userId = req.session.userId;
+//     // const user = await userData.get(userId);
+//     res.render("profile", {title: "Profile" });
+//   } catch (error) {
+//     res.status(500).render({ error: error });
+//   }
+// })
+// .post(async (req, res) => {
   
-  const { profname, profemail, profgender, profage, proflocation, interests, profbio} = req.body;
+//   const { profname, profemail, profgender, profage, proflocation, interests, profbio} = req.body;
   
-    try {
-      const profile = await userData.addProfile(
-        profname, 
-        profemail, 
-        profgender, 
-        profage, 
-        proflocation, 
-        interests, 
-        profbio
-      );
-      res.redirect('/home');
-    } catch (error) {
-      res.status(400).json({ error: error });
-      console.log(error);
-    }
-  });
+//     try {
+//       const profile = await userData.addProfile(
+//         profname, 
+//         profemail, 
+//         profgender, 
+//         profage, 
+//         proflocation, 
+//         interests, 
+//         profbio
+//       );
+//       res.redirect('/home');
+//     } catch (error) {
+//       res.status(400).json({ error: error });
+//       console.log(error);
+//     }
+//   });
 
 export default router;

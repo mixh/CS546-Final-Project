@@ -8,7 +8,7 @@ const saltRounds = 1;
 export const create = async (
     name, email, password, age, gender, location, bio, preferences)=>{
         
-        // need to write validate and trim functions for all inputs 
+        // need to write validate and trim functions for all inputs @Sarthak15997
 
         const encryptedPassword = await bcrypt.hash(password, saltRounds);;
 
@@ -38,7 +38,7 @@ export const create = async (
 
 export const get = async (id) =>{
 
-    //need to write validate function for the id;
+    //need to write validate function for the id; @Sarthak15997
 
     const userCollection = await users();
     const u = await userCollection.findOne({_id: new ObjectId(id)});
@@ -49,7 +49,7 @@ export const get = async (id) =>{
 
 export const loginAuth = async(email, password)=>{
 
-    // need to validate and trim inputs email and password
+    // need to validate and trim inputs email and password @Sarthak15997
 
     const userCollection = await users();
     const inDb = await userCollection.findOne({ email : email});
