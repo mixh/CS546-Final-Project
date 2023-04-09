@@ -64,5 +64,26 @@ export const loginAuth = async(email, password)=>{
         } else{
             return inDb;  
     }}
-
 }
+
+export const addProfile = async(profname, profemail, profgender, profage, proflocation, interests, 
+    profbio)=> {
+    let userProfile = {
+        profname: profname, 
+        profemail: profemail, 
+        profgender: profgender, 
+        profage: profage, 
+        proflocation: proflocation, 
+        interests: interests, 
+        profbio: profbio
+    };
+
+    const userCollection = await users(); 
+    const insertInfo = await userCollection.insertOne(user);
+    if (!insertInfo.acknowledged || !insertInfo.insertedId) {
+        throw "Could not create profile";
+    }
+    const newId = insertInfo.insertedId.toString();
+    const profile = await get(newId);
+    return profile;
+};
