@@ -3,6 +3,7 @@ const router = Router();
 import axios from "axios";
 import {userData} from "../data/index.js"
 import { users } from "../config/mongoCollections.js";
+import validation from '../validation.js';
 
 
 router.route('/').get(async(req,res)=>{
@@ -22,11 +23,21 @@ router.route('/login')
     }
 })
 .post(async(req,res)=>{
+  let userInfo = req.body;
+  // console.log(userInfo);
+    if (!userInfo || Object.keys(userInfo).length === 0) {
+      return res
+        .status(400)
+        .json({error: 'There are no fields in the request body'});
+    }
+  
   try {
-
-    //need to validate the following inputs @Sarthak15997
     let email = req.body.email;
     let password = req.body.password;
+    console.log("String: "+email);
+    email = validation.checkEmail(email, 'Email');
+    console.log("After call "+ email);
+    password = validation.checkPassword(password, 'Password');
     let loginAuth = await userData.loginAuth(email, password);
     console.log(loginAuth);
 
@@ -50,11 +61,27 @@ router.route("/registration")
   }
 })
 .post(async (req, res) => {
-
   // need to validate all the following inputs @Sarthak15997
-const { name, email, password, age, gender, location, bio, preferences } = req.body;
+  const regData = req.body;
+    if (!regData || Object.keys(regData).length === 0) {
+      return res
+        .status(400)
+        .json({error: 'There are no fields in the request body'});
+    }
+  
+  try{
+    regData.name = validation.checkString(regData.name, 'Name');
+    regData.email = validation.checkEmail(regData.email, 'Email');
+    regData.password = validation.checkPassword(regData.password, 'Password');
+    regData.age = validation.checkAge(regData.age, 'Age');
+    regData.location = validation.checkString(regData.location, 'Location');
+    regData.bio = validation.checkString(regData.bio, 'Bio');
+  }catch(error){
+    return res.status(400).json({error: error});
+  }
 
   try {
+    const { name, email, password, age, gender, location, bio, preferences } = req.body;
     const newUser = await userData.create(
       name,
       email,
