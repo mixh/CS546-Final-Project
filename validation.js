@@ -1,5 +1,17 @@
+import {ObjectId} from 'mongodb';
+
 const exportedMethods = {
-    checkString(strVal, varName) {
+  checkId(id, varName) {
+    if (!id) throw `Error: You must provide a ${varName}`;
+    if (typeof id !== 'string') throw `Error:${varName} must be a string`;
+    id = id.trim();
+    if (id.length === 0)
+      throw `Error: ${varName} cannot be an empty string or just spaces`;
+    if (!ObjectId.isValid(id)) throw `Error: ${varName} invalid object ID`;
+    return id;
+  },
+    
+  checkString(strVal, varName) {
       if (!strVal) throw `Error: You must supply a ${varName}!`;
       if (typeof strVal !== 'string') throw `Error: ${varName} must be a string!`;
       strVal = strVal.trim();
@@ -28,9 +40,20 @@ const exportedMethods = {
              throw `${varName} must be of string type`;
         }
 
-        const passwordRegex = /^(?=,*[a-z])(?=,*[A-Z])(?=,*\d)(?=,*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        if(!password.match(passwordRegex)){
-            throw `The ${varName} must contain at least 8 characters, including atleast one uppercase letter, one lowercase letter, one digit and one special character`;
+        if (!password) {
+          throw 'Password is required';
+        }
+        if (password.length < 8) {
+          throw 'Password must be at least 8 characters long';
+        }
+        if (!/[a-z]/.test(password)) {
+          throw 'Password must contain at least one lowercase letter';
+        }
+        if (!/[A-Z]/.test(password)) {
+          throw 'Password must contain at least one uppercase letter';
+        }
+        if (!/\d/.test(password)) {
+          throw 'Password must contain at least one number';
         }
         return password;
     },
@@ -43,17 +66,22 @@ const exportedMethods = {
        if(!email.match(emailRegex)){
           throw `The ${varName} must be a valid email address`;
        }
+       return email;
     },
 
     checkAge(age, varName){
-       if(typeof age != 'number' || isNaN(age)){
-          throw `${varName} must be a valid number`;
-       }
-       if(!Number.isInteger(age) || age < 0){
-          throw `${varName} must be  a positive integer`;
-       }
-       return age;
+      if (isNaN(age)) {
+        throw `${varName} must be a number`;
+      }
+      if (age < 18) {
+        throw "You must be at least 18 years old to use this dating website";
+      }
+      if (age > 120) {
+        throw "Invalid age";
+      }
+      return age;
     }
+  
   };
   
   export default exportedMethods;
