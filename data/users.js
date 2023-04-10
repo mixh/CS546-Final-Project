@@ -3,12 +3,18 @@ import { ObjectId } from "mongodb";
 
 import bcrypt  from "bcrypt";
 import crypto from "crypto";
+import validation from '../validation.js';
 const saltRounds = 1;
 
 export const create = async (
     name, email, password, age, gender, location, bio, preferences)=>{
         
-        // need to write validate and trim functions for all inputs @Sarthak15997
+        name = validation.checkString(name, "Name");
+        email = validation.checkEmail(email, "Email");
+        password = validation.checkPassword(password, "Password");
+        age = validation.checkAge(age, "Age");
+        location = validation.checkString(location, "Location");
+        bio = validation.checkString(bio, "Bio");
 
         const encryptedPassword = await bcrypt.hash(password, saltRounds);;
 
@@ -29,7 +35,7 @@ export const create = async (
     const userCollection = await users();
     const insertInfo = await userCollection.insertOne(user);
     if (!insertInfo.acknowledged || !insertInfo.insertedId) {
-        throw new Error("Could not add band");
+        throw "Could not add user";
     }
     const newId = insertInfo.insertedId.toString();
     const newUser = await get(newId);
@@ -37,9 +43,7 @@ export const create = async (
     }
 
 export const get = async (id) =>{
-
-    //need to write validate function for the id; @Sarthak15997
-
+    id = validation.checkId(id);
     const userCollection = await users();
     const u = await userCollection.findOne({_id: new ObjectId(id)});
     if(u== null) throw "no such user found";
@@ -48,9 +52,8 @@ export const get = async (id) =>{
 }
 
 export const loginAuth = async(email, password)=>{
-
-    // need to validate and trim inputs email and password @Sarthak15997
-
+    email = validation.checkEmail(email, "Email");
+    password = validation.checkPassword(password, "Password");
     const userCollection = await users();
     const inDb = await userCollection.findOne({ email : email});
     if(!inDb){
