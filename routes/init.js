@@ -24,7 +24,6 @@ router.route('/login')
 })
 .post(async(req,res)=>{
   let userInfo = req.body;
-  // console.log(userInfo);
     if (!userInfo || Object.keys(userInfo).length === 0) {
       return res
         .status(400)
@@ -34,12 +33,9 @@ router.route('/login')
   try {
     let email = req.body.email;
     let password = req.body.password;
-    console.log("String: "+email);
     email = validation.checkEmail(email, 'Email');
-    console.log("After call "+ email);
     password = validation.checkPassword(password, 'Password');
     let loginAuth = await userData.loginAuth(email, password);
-    console.log(loginAuth);
 
     //sessions
     req.session.userId = loginAuth._id;
