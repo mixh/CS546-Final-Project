@@ -123,35 +123,4 @@ router.route("/home")
   }
 });
 
-// router.route("/profile")
-// .get(checkSession, async (req, res) => {
-//   try {
-//     // const userId = req.session.userId;
-//     // const user = await userData.get(userId);
-//     res.render("profile", {title: "Profile" });
-//   } catch (error) {
-//     res.status(500).render({ error: error });
-//   }
-// })
-// .post(async (req, res) => {
-  
-//   const { profname, profemail, profgender, profage, proflocation, interests, profbio} = req.body;
-  
-//     try {
-//       const profile = await userData.addProfile(
-//         profname, 
-//         profemail, 
-//         profgender, 
-//         profage, 
-//         proflocation, 
-//         interests, 
-//         profbio
-//       );
-//       res.redirect('/home');
-//     } catch (error) {
-//       res.status(400).json({ error: error });
-//       console.log(error);
-//     }
-//   });
-
 export default router;
