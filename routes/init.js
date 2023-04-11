@@ -115,9 +115,12 @@ const checkSession = (req, res, next) => {
 router.route("/home")
 .get(checkSession, async (req, res) => {
   try {
-    const userId = req.session.userId;
-    const user = await userData.get(userId);
-    res.render("home", { user,  title: "Homepage"});
+    if(req.session.userId){
+
+      const userId = req.session.userId;
+      const user = await userData.get(userId);
+      res.render("home", { user,  title: "Homepage"});
+    }
   } catch (error) {
     res.status(500).render({ error: error });
   }
