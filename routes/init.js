@@ -53,14 +53,17 @@ router
   import multer from "multer";
   import path from "path";
   const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/uploads/");
-  },
-  filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    cb(null, file.originalname.split(".")[0] + ext);
-  },
-});
+    destination: function (req, file, cb) {
+      cb(null, "public/uploads/");
+    },
+    filename: function (req, file, cb) {
+      const timestamp = new Date().getTime();
+      const randomString = Math.random().toString(36).slice(2);
+      const ext = path.extname(file.originalname);
+      const filename = `${timestamp}-${randomString}${ext}`;
+      cb(null, filename);
+    },
+  });
 
 const upload = multer({ storage: storage });
   const uploadImage = upload.single("image");
