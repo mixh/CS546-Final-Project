@@ -48,6 +48,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.static('uploads'));
+
 app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 

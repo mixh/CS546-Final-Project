@@ -1,35 +1,13 @@
 <p>This is the page for profile</p>
 
-<h1>Profile</h1>
+<div class = "profile-pic">
+<img src="/{{user.image.destination}}/{{user.image.filename}}" alt="Profile Picture">
+</div>
 
-<form action="/home" method="post">
-  <label for="name">Name: </label>
-  <input type="text" id="profname" name="profname"><br><br>
-
-  <label for="email">Email: </label>
-  <input type="email" name="profemail" id="profemail"><br><br>
-
-  <label for="gender">Gender:</label>
-  <select name="gender" id="profgender">
-    <option value="">Select gender</option>
-    <option value="male">Male</option>
-    <option value="female">Female</option>
-    <option value="other">Other</option>
-  </select><br><br>
-
-  <label for="age">Age:</label>
-  <input type="number" id="profage" name="age" min="18" max="120" required><br><br>
-
-  <label for="location">Location:</label>
-  <input type="text" id="proflocation" name="proflocation" required><br><br>
-
-  <label for="interests">Interests:</label>
-  <textarea name="profinterests" id="profinterests" required></textarea><br><br>
-
-  <label for="profbio">Bio:</label>
-  <textarea name="profbio" id="profbio" required></textarea><br><br>
-
-  <input type="submit" value="Submit">
-
-</form>
-   
+<h1>Name : {{user.name}}</h1>
+<h1>Email: {{user.email}}</h1>
+<h1>Age: {{user.age}}</h1>
+<h1>Gender: {{user.gender}}</h1>
+<h1>City: {{user.location.city_name}}</h1>
+<h1>Preference: {{user.preferences}}</h1>
+{{!-- <h1>{{user.image.destination}}{{user.image.filename}}</h1>  --}}

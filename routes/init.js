@@ -43,12 +43,30 @@ router
       //sessions
       req.session.userId = loginAuth._id;
 
-      res.redirect("/home");
+      res.redirect("/home?id=" + loginAuth._id);
     } catch (error) {
       res.status(400).render("error", { error: error });
       console.log(error);
     }
   });
+
+  import multer from "multer";
+  import path from "path";
+  const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, "public/uploads/");
+    },
+    filename: function (req, file, cb) {
+      const timestamp = new Date().getTime();
+      const randomString = Math.random().toString(36).slice(2);
+      const ext = path.extname(file.originalname);
+      const filename = `${timestamp}-${randomString}${ext}`;
+      cb(null, filename);
+    },
+  });
+
+const upload = multer({ storage: storage });
+  const uploadImage = upload.single("image");
 
 router
   .route("/registration")
@@ -59,7 +77,7 @@ router
       res.status(500).render("error", { error: error });
     }
   })
-  .post(async (req, res) => {
+  .post(uploadImage, async (req, res) => {
     // need to validate all the following inputs @Sarthak15997
     const regData = req.body;
     if (!regData || Object.keys(regData).length === 0) {
@@ -88,11 +106,29 @@ router
 
       const response = await axios.get(endPoint);
 
+      if (response.status !== 200) {
+        throw "Invalid zip code";
+      }
+
       let latitude = response.data.lat;
       let longitude = response.data.lon;
       let city = response.data.name;
 
+      if (!latitude || !longitude || !city) {
+        throw "recheck your zip code : we couldnt find the zip code in US";
+      }
+
       const { name, email, password, age, gender, bio, preferences } = req.body;
+      const im = req.file;
+
+      if (!im) {
+        throw "no image input found";
+      }
+
+      const image_destination = im.destination;
+      const image_filename = im.filename;
+      const image_path = im.path;
+
       const newUser = await userData.create(
         name,
         email,
@@ -103,53 +139,24 @@ router
         latitude,
         city,
         bio,
-        preferences
+        preferences,
+        image_destination,
+        image_filename,
+        image_path
       );
+
+      console.log(im);
+
       res.redirect("/login");
     } catch (error) {
-        res.status(404).render("error", { error: "Invalid Zip Code Entered"});
+      if (axios.isAxiosError(error) && error.response.status === 404) {
+        return res.status(400).render("error", { error: "Invalid ZIP code" });
+      }
+
+      console.log(error);
+      res.status(404).render("error", { error: error });
     }
   });
-
-// .post(async (req, res) => {
-//   // need to validate all the following inputs @Sarthak15997
-//   const regData = req.body;
-//     if (!regData || Object.keys(regData).length === 0) {
-//       return res
-//         .status(400)
-//         .json({error: 'There are no fields in the request body'});
-//     }
-
-//   try{
-//     regData.name = validation.checkString(regData.name, 'Name');
-//     regData.email = validation.checkEmail(regData.email, 'Email');
-//     regData.password = validation.checkPassword(regData.password, 'Password');
-//     regData.age = validation.checkAge(regData.age, 'Age');
-//     // regData.location = validation.checkString(regData.location, 'Location');
-//     regData.zip_code = validation.checkZip(regData.zip_code, 'Zip Code');
-//     regData.bio = validation.checkString(regData.bio, 'Bio');
-//   }catch(error){
-//     return res.status(400).render("error", { error: error });
-//   }
-
-//   try {
-//     const { name, email, password, age, gender, zip_code, bio, preferences } = req.body;
-//     const newUser = await userData.create(
-//       name,
-//       email,
-//       password,
-//       age,
-//       gender,
-//       zip_code,
-//       bio,
-//       preferences
-//     );
-//     res.redirect('/login')
-//   } catch (error) {
-//     res.status(400).render("error", { error: error });
-//     console.log(error)
-//   }
-// });
 
 router.route("/logout").get(async (req, res) => {
   try {
@@ -169,14 +176,13 @@ const checkSession = (req, res, next) => {
 
 router.route("/home").get(checkSession, async (req, res) => {
   try {
-    if (req.session.userId) {
-      const userId = req.session.userId;
-      const user = await userData.get(userId);
-      res.render("home", { user, title: "Homepage" });
-    }
+    const userId = req.query.id;
+    const user = await userData.get(userId);
+    res.render("home", { user, title: "Homepage" });
   } catch (error) {
     res.status(500).render("error", { error: error });
   }
 });
+
 
 export default router;
