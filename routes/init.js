@@ -50,6 +50,20 @@ router
     }
   });
 
+  import multer from "multer";
+  import path from "path";
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname.split(".")[0] + ".png");
+  },
+});
+
+const upload = multer({ storage: storage });
+  const uploadImage = upload.single("image");
+
 router
   .route("/registration")
   .get(async (req, res) => {
@@ -59,7 +73,7 @@ router
       res.status(500).render("error", { error: error });
     }
   })
-  .post(async (req, res) => {
+  .post(uploadImage, async (req, res) => {
     // need to validate all the following inputs @Sarthak15997
     const regData = req.body;
     if (!regData || Object.keys(regData).length === 0) {
@@ -93,7 +107,8 @@ router
       let city = response.data.name;
 
       const { name, email, password, age, gender, bio, preferences } = req.body;
-      const newUser = await userData.create(
+      const im = req.file;
+      const newUser = await userData.create( 
         name,
         email,
         password,
@@ -103,10 +118,15 @@ router
         latitude,
         city,
         bio,
-        preferences
+        preferences,
+        im
       );
+
+      console.log(im);
+      
       res.redirect("/login");
     } catch (error) {
+      console.log(error);
         res.status(404).render("error", { error: "Invalid Zip Code Entered"});
     }
   });

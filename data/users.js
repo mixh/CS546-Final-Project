@@ -76,7 +76,8 @@ export const create = async (
   latitude,
   city,
   bio,
-  preferences
+  preferences,
+  image
 ) => {
   name = validation.checkString(name, "Name");
   email = validation.checkEmail(email, "Email");
@@ -102,6 +103,7 @@ export const create = async (
     likedUsers: [],
     dislikedUsers: [],
     matches: [],
+    image : image
   };
 
   const userCollection = await users();
