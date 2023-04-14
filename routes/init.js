@@ -107,7 +107,7 @@ router
       );
       res.redirect("/login");
     } catch (error) {
-        res.status(404).render("error", { error: error});
+        res.status(404).render("error", { error: "Invalid Zip Code Entered"});
     }
   });
 
