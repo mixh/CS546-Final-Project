@@ -13,6 +13,10 @@ export const create = async (
   password,
   age,
   gender,
+  university,
+  work,
+  gym,
+  bucketlist,
   longitude,
   latitude,
   city,
@@ -27,15 +31,17 @@ export const create = async (
   password = validation.checkPassword(password, "Password");
   age = validation.checkAge(age, "Age");
   bio = validation.checkString(bio, "Bio");
-
   const encryptedPassword = await bcrypt.hash(password, saltRounds);
-
   let user = {
     name: name,
     email: email.toLowerCase(),
     password: encryptedPassword,
     age: age,
     gender: gender,
+    university:university,
+    work:work,
+    gym:gym,
+    bucketlist:bucketlist,
     location: {
       type: "Point",
       coordinates: [longitude, latitude],
@@ -45,6 +51,7 @@ export const create = async (
     preferences: preferences,
     likedUsers: [],
     dislikedUsers: [],
+    likedBy: [],
     matches: [],
     image: {
       destination : image_destination,
@@ -52,7 +59,6 @@ export const create = async (
       path : image_path,
     },
   };
-
   const userCollection = await users();
 
     const existingUser = await userCollection.findOne({ email: email });
@@ -97,3 +103,40 @@ export const loginAuth = async (email, password) => {
     }
   }
 };
+
+export const getPeople = async (id) => {
+  id = validation.checkId(id);
+  const userCollection = await users();
+  const currentUser = await userCollection.findOne({ _id: id });
+  let userLikedBy= currentUser.likedBy;
+
+  if (!userLikedBy){
+
+    excludedUsers= [...currentUser.dislikedUsers,...currentUser.likedUsers,...currentUser.matches];
+    const query = excludedUsers.length > 0 ? { _id: { $nin: excludedUsers } } : {};
+    const showCollection = await userCollection.find(query).toArray();
+    //display users
+
+  }
+
+  else{
+
+    for(i in userLikedBy){
+      const showCollection = await userCollection.findOne({ _id: i });
+      //display user
+
+      const result = await userCollection.updateOne(//remove the id from likedBy
+        { _id: new ObjectID(id) },
+        { $pull: { likedBy: new ObjectID(i) } }
+      );
+
+    }
+
+  }
+
+  };
+  
+
+
+
+
