@@ -5,66 +5,7 @@ import axios from "axios";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import validation from "../validation.js";
-const saltRounds = 1;
-
-// export const create = async (
-//   name,
-//   email,
-//   password,
-//   age,
-//   gender,
-//   zip_code,
-//   bio,
-//   preferences
-// ) => {
-//   name = validation.checkString(name, "Name");
-//   email = validation.checkEmail(email, "Email");
-//   password = validation.checkPassword(password, "Password");
-//   age = validation.checkAge(age, "Age");
-//   zip_code = validation.checkZip(zip_code, "zip_code");
-//   bio = validation.checkString(bio, "Bio");
-
-//   const encryptedPassword = await bcrypt.hash(password, saltRounds);
-
-//   const API_KEY = process.env.API_KEY;
-//   const ZIP = zip_code;
-//   const COUNTRY = "US";
-//   const endPoint = `http://api.openweathermap.org/geo/1.0/zip?zip=${ZIP},${COUNTRY}&appid=${API_KEY}`;
-
-//   const response = await axios.get(endPoint);
-
-
-//   let latitude = response.data.lat;
-//   let longitude = response.data.lon;
-//   let city = response.data.name;
-
-//   let user = {
-//     name: name,
-//     email: email,
-//     password: encryptedPassword,
-//     age: age,
-//     gender: gender,
-//     location: {
-//       type: "Point",
-//       coordinates: [longitude, latitude],
-//       city_name: city,
-//     },
-//     bio: bio,
-//     preferences: preferences,
-//     likedUsers: [],
-//     dislikedUsers: [],
-//     matches: [],
-//   };
-
-//   const userCollection = await users();
-//   const insertInfo = await userCollection.insertOne(user);
-//   if (!insertInfo.acknowledged || !insertInfo.insertedId) {
-//     throw "Could not add user";
-//   }
-//   const newId = insertInfo.insertedId.toString();
-//   const newUser = await get(newId);
-//   return newUser;
-// };
+const saltRounds = 1;   //change it to 16 at final
 
 export const create = async (
   name,
@@ -77,7 +18,9 @@ export const create = async (
   city,
   bio,
   preferences,
-  image
+  image_destination,
+  image_filename,
+  image_path
 ) => {
   name = validation.checkString(name, "Name");
   email = validation.checkEmail(email, "Email");
@@ -103,7 +46,11 @@ export const create = async (
     likedUsers: [],
     dislikedUsers: [],
     matches: [],
-    image : image
+    image: {
+      destination : image_destination,
+      filename : image_filename,
+      path : image_path,
+    },
   };
 
   const userCollection = await users();

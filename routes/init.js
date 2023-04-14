@@ -43,7 +43,7 @@ router
       //sessions
       req.session.userId = loginAuth._id;
 
-      res.redirect("/home");
+      res.redirect("/home?id=" + loginAuth._id);
     } catch (error) {
       res.status(400).render("error", { error: error });
       console.log(error);
@@ -52,12 +52,13 @@ router
 
   import multer from "multer";
   import path from "path";
-const storage = multer.diskStorage({
+  const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/");
+    cb(null, "public/uploads/");
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname.split(".")[0] + ".png");
+    const ext = path.extname(file.originalname);
+    cb(null, file.originalname.split(".")[0] + ext);
   },
 });
 
@@ -108,6 +109,12 @@ router
 
       const { name, email, password, age, gender, bio, preferences } = req.body;
       const im = req.file;
+
+
+      const image_destination = im.destination;
+      const image_filename = im.filename;
+      const image_path = im.path;
+
       const newUser = await userData.create( 
         name,
         email,
@@ -119,7 +126,9 @@ router
         city,
         bio,
         preferences,
-        im
+        image_destination,
+        image_filename,
+        image_path,
       );
 
       console.log(im);
@@ -130,46 +139,6 @@ router
         res.status(404).render("error", { error: "Invalid Zip Code Entered"});
     }
   });
-
-// .post(async (req, res) => {
-//   // need to validate all the following inputs @Sarthak15997
-//   const regData = req.body;
-//     if (!regData || Object.keys(regData).length === 0) {
-//       return res
-//         .status(400)
-//         .json({error: 'There are no fields in the request body'});
-//     }
-
-//   try{
-//     regData.name = validation.checkString(regData.name, 'Name');
-//     regData.email = validation.checkEmail(regData.email, 'Email');
-//     regData.password = validation.checkPassword(regData.password, 'Password');
-//     regData.age = validation.checkAge(regData.age, 'Age');
-//     // regData.location = validation.checkString(regData.location, 'Location');
-//     regData.zip_code = validation.checkZip(regData.zip_code, 'Zip Code');
-//     regData.bio = validation.checkString(regData.bio, 'Bio');
-//   }catch(error){
-//     return res.status(400).render("error", { error: error });
-//   }
-
-//   try {
-//     const { name, email, password, age, gender, zip_code, bio, preferences } = req.body;
-//     const newUser = await userData.create(
-//       name,
-//       email,
-//       password,
-//       age,
-//       gender,
-//       zip_code,
-//       bio,
-//       preferences
-//     );
-//     res.redirect('/login')
-//   } catch (error) {
-//     res.status(400).render("error", { error: error });
-//     console.log(error)
-//   }
-// });
 
 router.route("/logout").get(async (req, res) => {
   try {
@@ -189,14 +158,13 @@ const checkSession = (req, res, next) => {
 
 router.route("/home").get(checkSession, async (req, res) => {
   try {
-    if (req.session.userId) {
-      const userId = req.session.userId;
-      const user = await userData.get(userId);
-      res.render("home", { user, title: "Homepage" });
-    }
+    const userId = req.query.id;
+    const user = await userData.get(userId);
+    res.render("home", { user, title: "Homepage" });
   } catch (error) {
     res.status(500).render("error", { error: error });
   }
 });
+
 
 export default router;
