@@ -54,6 +54,13 @@ export const create = async (
   };
 
   const userCollection = await users();
+
+    const existingUser = await userCollection.findOne({ email: email });
+    if (existingUser) {
+      throw "Email already exists";
+    }
+
+
   const insertInfo = await userCollection.insertOne(user);
   if (!insertInfo.acknowledged || !insertInfo.insertedId) {
     throw "Could not add user";

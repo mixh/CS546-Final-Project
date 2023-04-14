@@ -103,19 +103,30 @@ router
 
       const response = await axios.get(endPoint);
 
+      if (response.status !== 200) {
+        throw "Invalid zip code";
+      }
+
       let latitude = response.data.lat;
       let longitude = response.data.lon;
       let city = response.data.name;
 
+      if (!latitude || !longitude || !city) {
+        throw "recheck your zip code : we couldnt find the zip code in US";
+      }
+
       const { name, email, password, age, gender, bio, preferences } = req.body;
       const im = req.file;
 
+      if (!im) {
+        throw "no image input found";
+      }
 
       const image_destination = im.destination;
       const image_filename = im.filename;
       const image_path = im.path;
 
-      const newUser = await userData.create( 
+      const newUser = await userData.create(
         name,
         email,
         password,
@@ -128,15 +139,19 @@ router
         preferences,
         image_destination,
         image_filename,
-        image_path,
+        image_path
       );
 
       console.log(im);
-      
+
       res.redirect("/login");
     } catch (error) {
+      if (axios.isAxiosError(error) && error.response.status === 404) {
+        return res.status(400).render("error", { error: "Invalid ZIP code" });
+      }
+
       console.log(error);
-        res.status(404).render("error", { error: "Invalid Zip Code Entered"});
+      res.status(404).render("error", { error: error });
     }
   });
 
