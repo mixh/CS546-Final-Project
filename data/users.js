@@ -13,10 +13,6 @@ export const create = async (
   password,
   age,
   gender,
-  university,
-  work,
-  gym,
-  bucketlist,
   longitude,
   latitude,
   city,
@@ -24,7 +20,11 @@ export const create = async (
   preferences,
   image_destination,
   image_filename,
-  image_path
+  image_path,
+  university,
+  work,
+  gym,
+  bucketlist,
 ) => {
   name = validation.checkString(name, "Name");
   email = validation.checkEmail(email, "Email");
