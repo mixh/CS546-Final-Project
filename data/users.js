@@ -32,7 +32,7 @@ export const create = async (
 
   let user = {
     name: name,
-    email: email,
+    email: email.toLowerCase(),
     password: encryptedPassword,
     age: age,
     gender: gender,
