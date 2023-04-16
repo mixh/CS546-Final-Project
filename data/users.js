@@ -16,7 +16,7 @@ export const create = async (
         location = validation.checkString(location, "Location");
         bio = validation.checkString(bio, "Bio");
 
-        const encryptedPassword = await bcrypt.hash(password, saltRounds);;
+        const encryptedPassword = await bcrypt.hash(password, saltRounds);
 
         let user = {
           name: name,
@@ -82,11 +82,41 @@ export const addProfile = async(profname, profemail, profgender, profage, proflo
     };
 
     const userCollection = await users(); 
-    const insertInfo = await userCollection.insertOne(user);
+    const insertInfo = await userCollection.insertOne(userProfile);
     if (!insertInfo.acknowledged || !insertInfo.insertedId) {
         throw "Could not create profile";
     }
     const newId = insertInfo.insertedId.toString();
     const profile = await get(newId);
     return profile;
+}
+
+export const updateProfile = async(id, updatedProfile) =>{
+    id = validation.checkId(id);
+    updatedProfile.profname = validation.checkString(updatedProfile.profname, 'Name');
+    updatedProfile.profemail = validation.checkEmail(updatedProfile.profemail, 'Email');
+    updatedProfile.age = validation.checkAge(updatedProfile.age, 'Age');
+    updatedProfile.proflocation = validation.checkString(updatedProfile.proflocation, 'Location');
+    updatedProfile.profinterests = validation.checkString(updatedProfile.profinterests, 'Interests');
+    updatedProfile.profbio = validation.checkString(updatedProfile.profbio, 'Bio');
+
+    const userUpdateInfo = {
+        name: updatedProfile.profname,
+        email: updatedProfile.profemail,
+        age: updatedProfile.age,
+        location: updatedProfile.proflocation,
+        bio: updatedProfile.profbio,
+        interests: updatedProfile.profinterests
+    };
+    
+    const userCollection = await users();
+    const updateInfo = await userCollection.findOneAndUpdate(
+       {_id: new ObjectId(id)},
+       {$set: userUpdateInfo},
+       {returnDocument: 'after'}
+    );
+    if (updateInfo.lastErrorObject.n === 0){
+        throw `Error: Update failed, could not find a user with id of ${id}`;
+    }
+    return await updateInfo.value;
 };

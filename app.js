@@ -1,7 +1,6 @@
-//Here is where you'll set up your server as shown in lecture code
-
 import express from "express";
 const app = express();
+import methodOverride from 'method-override';
 import configRoutes from "./routes/index.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -26,6 +25,7 @@ const rewriteUnsupportedBrowserMethods = (req, res, next) => {
   next();
 };
 
+app.use(methodOverride('_method'));
 app.use("/public", staticDir);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -42,7 +42,15 @@ app.use(
 );
 
 
-app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
+app.engine("handlebars", exphbs.engine({ defaultLayout: "main",     helpers: {
+  ifEqual: function(a, b, options) {
+    if (a === b) {
+      return options.fn(this);
+    }
+    return options.inverse(this);
+  }
+}
+}));
 app.set("view engine", "handlebars");
 
 configRoutes(app);

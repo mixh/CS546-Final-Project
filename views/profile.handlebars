@@ -2,34 +2,35 @@
 
 <h1>Profile</h1>
 
-<form action="/home" method="post">
+<form action="/profile/{{profId}}" method="POST" class="prof-form">
+  <input type="hidden" name="_method" value="PUT">
   <label for="name">Name: </label>
-  <input type="text" id="profname" name="profname"><br><br>
+  <input type="text" id="profname" name="profname" class="form-field" value="{{profName}}" disabled><br><br>
 
   <label for="email">Email: </label>
-  <input type="email" name="profemail" id="profemail"><br><br>
-
+  <input type="email" name="profemail" id="profemail" class="form-field" value="{{profEmail}}" disabled><br><br>
   <label for="gender">Gender:</label>
-  <select name="gender" id="profgender">
-    <option value="">Select gender</option>
-    <option value="male">Male</option>
-    <option value="female">Female</option>
-    <option value="other">Other</option>
+  <select name="gender" id="profgender" class="form-field" disabled>
+  <option value="">Select gender</option>
+  <option value="male" {{#ifEqual profGender "male"}}selected{{/ifEqual}}>Male</option>
+  <option value="female" {{#ifEqual profGender "female"}}selected{{/ifEqual}}>Female</option>
+  <option value="other" {{#ifEqual profGender "other"}}selected{{/ifEqual}}>Other</option>
   </select><br><br>
 
   <label for="age">Age:</label>
-  <input type="number" id="profage" name="age" min="18" max="120" required><br><br>
+  <input type="number" id="profage" name="age" class="form-field" min="18" max="120" value="{{profAge}}" required disabled><br><br>
 
   <label for="location">Location:</label>
-  <input type="text" id="proflocation" name="proflocation" required><br><br>
+  <input type="text" id="proflocation" name="proflocation" class="form-field" value="{{profLocation}}" required disabled><br><br>
 
   <label for="interests">Interests:</label>
-  <textarea name="profinterests" id="profinterests" required></textarea><br><br>
+  <textarea name="profinterests" id="profinterests" class="form-field"  required disabled>{{profInterests}}</textarea><br><br>
 
   <label for="profbio">Bio:</label>
-  <textarea name="profbio" id="profbio" required></textarea><br><br>
+  <textarea name="profbio" id="profbio" class="form-field" required disabled>{{profBio}}</textarea><br><br>
 
-  <input type="submit" value="Submit">
-
-</form>
-   
+  <button type="button" class="btn btn-default" id="edit-btn">Edit</button>
+  <button type="submit" class="btn btn-default" id="save-btn">Submit</button>
+</form><br><br>
+   <a href="/home">Go Back to Home Page</a>
+   <script src="/public/js/form.js"></script>

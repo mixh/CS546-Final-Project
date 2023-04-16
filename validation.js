@@ -69,10 +69,11 @@ const exportedMethods = {
        return email;
     },
 
-    checkAge(age, varName){
-      if (isNaN(age)) {
+    checkAge(ageVal, varName){
+      const age = parseInt(ageVal);
+      if(typeof age !== 'number' || !Number.isInteger(age)){
         throw `${varName} must be a number`;
-      }
+      } 
       if (age < 18) {
         throw "You must be at least 18 years old to use this dating website";
       }
