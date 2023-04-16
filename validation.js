@@ -81,6 +81,13 @@ const exportedMethods = {
         throw "Invalid age";
       }
       return age;
+    },
+
+    checkZip(zip_code, varName){
+      if(isNaN(zip_code)){
+        throw `${varName} must be a number`;
+      }
+      return zip_code;
     }
   
   };

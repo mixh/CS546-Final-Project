@@ -1,5 +1,6 @@
 <p>This is the page for profile</p>
 
+<<<<<<< HEAD
 <h1>Profile</h1>
 
 <form action="/profile/{{profId}}" method="POST" class="prof-form">
@@ -34,3 +35,16 @@
 </form><br><br>
    <a href="/home">Go Back to Home Page</a>
    <script src="/public/js/form.js"></script>
+=======
+<div class = "profile-pic">
+<img src="/{{user.image.destination}}/{{user.image.filename}}" alt="Profile Picture">
+</div>
+
+<h1>Name : {{user.name}}</h1>
+<h1>Email: {{user.email}}</h1>
+<h1>Age: {{user.age}}</h1>
+<h1>Gender: {{user.gender}}</h1>
+<h1>City: {{user.location.city_name}}</h1>
+<h1>Preference: {{user.preferences}}</h1>
+{{!-- <h1>{{user.image.destination}}{{user.image.filename}}</h1>  --}}
+>>>>>>> d95721df68662affc6bdab0fe395000f4c90362c
