@@ -1,26 +1,36 @@
 {
   "name": "cs546-final-project",
   "version": "1.0.0",
-  "description": "final project dev-mj",
+  "description": "final project dev-sv",
   "main": "app.js",
   "type": "module",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Mihir Jain",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mixh/CS546-Final-Project.git"
+  },
+  "author": "Sarthak Vaidya",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mixh/CS546-Final-Project/issues"
+  },
+  "homepage": "https://github.com/mixh/CS546-Final-Project#readme",
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.3.28",
-    "axios": "^1.3.4",
+    "axios": "^1.3.5",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
     "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-handlebars": "^7.0.4",
     "express-session": "^1.17.3",
     "gridfs-stream": "^1.1.1",
+    "method-override": "^3.0.0",
     "mongodb": "^5.2.0",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^2.0.22",

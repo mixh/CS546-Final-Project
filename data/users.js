@@ -8,41 +8,6 @@ import validation from "../validation.js";
 const saltRounds = 1;   //change it to 16 at final
 
 export const create = async (
-<<<<<<< HEAD
-    name, email, password, age, gender, location, bio, preferences)=>{
-        
-        name = validation.checkString(name, "Name");
-        email = validation.checkEmail(email, "Email");
-        password = validation.checkPassword(password, "Password");
-        age = validation.checkAge(age, "Age");
-        location = validation.checkString(location, "Location");
-        bio = validation.checkString(bio, "Bio");
-
-        const encryptedPassword = await bcrypt.hash(password, saltRounds);
-
-        let user = {
-          name: name,
-          email: email,
-          password: encryptedPassword,
-          age: age,
-          gender: gender,
-          location: location,
-          bio: bio,
-          preferences: preferences,
-          likedUsers: [],
-          dislikedUsers: [],
-          matches: [],
-        };
-
-    const userCollection = await users();
-    const insertInfo = await userCollection.insertOne(user);
-    if (!insertInfo.acknowledged || !insertInfo.insertedId) {
-        throw "Could not add user";
-    }
-    const newId = insertInfo.insertedId.toString();
-    const newUser = await get(newId);
-    return newUser;
-=======
   name,
   email,
   password,
@@ -99,7 +64,6 @@ export const create = async (
     const existingUser = await userCollection.findOne({ email: email });
     if (existingUser) {
       throw "Email already exists";
->>>>>>> d95721df68662affc6bdab0fe395000f4c90362c
     }
 
 
@@ -137,16 +101,8 @@ export const loginAuth = async (email, password) => {
     } else {
       return inDb;
     }
-<<<<<<< HEAD
-    else{
-        const dbPassword = inDb.password;
-        let comparePassword =  await bcrypt.compare(password,dbPassword);
-        if(!comparePassword){
-            throw "Authentication failed";
-        } else{
-            return inDb;  
-    }}
 }
+};
 
 export const addProfile = async(profname, profemail, profgender, profage, proflocation, interests, 
     profbio)=> {
@@ -168,7 +124,7 @@ export const addProfile = async(profname, profemail, profgender, profage, proflo
     const newId = insertInfo.insertedId.toString();
     const profile = await get(newId);
     return profile;
-}
+};
 
 export const updateProfile = async(id, updatedProfile) =>{
     id = validation.checkId(id);
@@ -198,9 +154,6 @@ export const updateProfile = async(id, updatedProfile) =>{
         throw `Error: Update failed, could not find a user with id of ${id}`;
     }
     return await updateInfo.value;
-};
-=======
-  }
 };
 
 export const getPeople = async (id) => {
@@ -234,9 +187,3 @@ export const getPeople = async (id) => {
   }
 
   };
-  
-
-
-
-
->>>>>>> d95721df68662affc6bdab0fe395000f4c90362c
