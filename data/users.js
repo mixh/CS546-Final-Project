@@ -160,30 +160,34 @@ export const getPeople = async (id) => {
   id = validation.checkId(id);
   const userCollection = await users();
   const currentUser = await userCollection.findOne({ _id: id });
-  let userLikedBy= currentUser.likedBy;
+  let userLikedBy = currentUser.likedBy;
 
-  if (!userLikedBy){
-
-    excludedUsers= [...currentUser.dislikedUsers,...currentUser.likedUsers,...currentUser.matches];
-    const query = excludedUsers.length > 0 ? { _id: { $nin: excludedUsers } } : {};
+  if (!userLikedBy) {
+    // Find potential matches based on university, work, gym, and bucketlist
+    const query = {
+      $or: [
+        { university: currentUser.university },
+        { work: currentUser.work },
+        { gym: currentUser.gym },
+        { bucketlist: { $in: currentUser.bucketlist } }
+      ],
+      _id: { $ne: id }
+    };
+    const excludedUsers = [...currentUser.dislikedUsers, ...currentUser.likedUsers, ...currentUser.matches];
+    if (excludedUsers.length > 0) {
+      query._id.$nin = excludedUsers;
+    }
     const showCollection = await userCollection.find(query).toArray();
-    //display users
-
-  }
-
-  else{
-
-    for(i in userLikedBy){
+    return showCollection; // Return an array of users who match the criteria
+  } else {
+    for (const i of userLikedBy) {
       const showCollection = await userCollection.findOne({ _id: i });
-      //display user
+      // Display user
 
-      const result = await userCollection.updateOne(//remove the id from likedBy
+      const result = await userCollection.updateOne(
         { _id: new ObjectID(id) },
         { $pull: { likedBy: new ObjectID(i) } }
       );
-
     }
-
   }
-
-  };
+};

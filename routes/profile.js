@@ -90,4 +90,43 @@ router.route("/:id").put(async (req, res) => {
   }
 });
 
+//route is a temporary placeholder 
+//specific route is not decided yet
+
+router.route("/persondetails/:id").get(async (req, res) => {
+
+  try {
+    if(!req.params.id || !req.params.id.trim()) throw "Please enter a valid ID"
+    if(!Number(req.params.id)) throw "Input is not a number";
+    const id= req.params.id;
+    const currentUser = await userCollection.findOne({ _id: id });
+    let userLikedBy = currentUser.likedBy;
+
+    if (userLikedBy){
+      for (let i in userLikedBy) {
+        let userShow = await userCollection.findOne({ _id: i });
+        //display this one user
+        return res.render('./home', {name: userShow.name, age: userShow.age, gender:userShow.gender, bio:userShow.bio, university:userShow.university, work:userShow.work, gym:userShow.gym, bucketlist: userShow.bucketlist});
+        //remove this one user from likedBy of the current user
+        const result = await userCollection.updateOne(
+          { _id: new ObjectID(id) },
+          { $pull: { likedBy: new ObjectID(i) } }
+        );
+      }
+    }
+    else{
+      let arrayOfSim= getPeople(id)
+      for (let i in arrayOfSim){
+        let userShow = await userCollection.findOne({ _id: i });
+        //display this one user
+        return res.render('./home', {name: userShow.name, age: userShow.age, gender:userShow.gender, bio:userShow.bio, university:userShow.university, work:userShow.work, gym:userShow.gym, bucketlist: userShow.bucketlist});
+      }
+    }
+  }catch(e) {
+    if(e == "Input is not a number") return res.status(400).render('./error', {error: e});
+    return res.render('./personNotFound', {title: "People Not Found", input: req.params.id});
+  }
+  
+});
+
 export default router;
