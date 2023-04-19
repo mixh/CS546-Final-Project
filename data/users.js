@@ -5,7 +5,7 @@ import axios from "axios";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import validation from "../validation.js";
-const saltRounds = 1;   //change it to 16 at final
+const saltRounds = 1;   // TODO change it to 16 at final
 
 export const create = async (
   name,
