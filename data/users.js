@@ -2,14 +2,10 @@ import { users } from "../config/mongoCollections.js";
 import { ObjectId } from "mongodb";
 import axios from "axios";
 
-// TODO - DOTENV the API KEY I HAVE USED IT DIRECTLY RIGHT NOW
-import * as dotenv from "dotenv";
-dotenv.config();
-
-//TODO - ASK TA/PROF if passwords need to be encrypted in database or the routing file
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 import validation from "../validation.js";
-const saltRounds = 1; // TODO change it to 16 at final
+const saltRounds = 1;   //change it to 16 at final
 
 export const create = async (
   name,
@@ -17,46 +13,22 @@ export const create = async (
   password,
   age,
   gender,
-  zip,
+  longitude,
+  latitude,
+  city,
   bio,
   preferences,
   image_destination,
   image_filename,
-  image_path,
-  university,
-  work,
-  gym,
-  bucketlist
+  image_path
 ) => {
   name = validation.checkString(name, "Name");
   email = validation.checkEmail(email, "Email");
   password = validation.checkPassword(password, "Password");
   age = validation.checkAge(age, "Age");
   bio = validation.checkString(bio, "Bio");
+
   const encryptedPassword = await bcrypt.hash(password, saltRounds);
-
-  const API_KEY = process.env.API_KEY;
-  const COUNTRY = "US";
-  const geocodingEndpoint = `http://api.openweathermap.org/geo/1.0/zip?zip=${zip},${COUNTRY}&appid=${API_KEY}`;
-  const geocodingResponse = await axios.get(geocodingEndpoint);
-  const geocodingData = geocodingResponse.data;
-
-  if (!geocodingData || !geocodingData.lat || !geocodingData.lon) {
-    throw new Error("Invalid zip code or response format");
-  }
-
-  var lat = geocodingData.lat;
-  var lon = geocodingData.lon;
-
-  const reverseGeocodingEndpoint = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${API_KEY}`;
-  const reverseGeocodingResponse = await axios.get(reverseGeocodingEndpoint);
-  const reverseGeocodingData = reverseGeocodingResponse.data;
-
-  if (!reverseGeocodingData || !reverseGeocodingData[0].name) {
-    throw new Error("Could not get city name or response format");
-  }
-
-  const city = reverseGeocodingData[0].name;
 
   let user = {
     name: name,
@@ -64,43 +36,40 @@ export const create = async (
     password: encryptedPassword,
     age: age,
     gender: gender,
-    university: university,
-    work: work,
-    gym: gym,
-    bucketlist: bucketlist,
     location: {
       type: "Point",
-      coordinates: [lon, lat],
+      coordinates: [longitude, latitude],
       city_name: city,
-      zip: zip,
     },
     bio: bio,
     preferences: preferences,
     likedUsers: [],
     dislikedUsers: [],
-    likedBy: [],
     matches: [],
     image: {
-      destination: image_destination,
-      filename: image_filename,
-      path: image_path,
+      destination : image_destination,
+      filename : image_filename,
+      path : image_path,
     },
   };
+
   const userCollection = await users();
 
-  const existingUser = await userCollection.findOne({ email: email });
-  if (existingUser) {
-    throw new Error("Email already exists");
-  }
+    const existingUser = await userCollection.findOne({ email: email });
+    if (existingUser) {
+      throw "Email already exists";
+    }
+
 
   const insertInfo = await userCollection.insertOne(user);
   if (!insertInfo.acknowledged || !insertInfo.insertedId) {
-    throw new Error("Could not add user");
+    throw "Could not add user";
   }
   const newId = insertInfo.insertedId.toString();
   const newUser = await get(newId);
   return newUser;
 };
+
 
 export const get = async (id) => {
   id = validation.checkId(id);
@@ -117,66 +86,14 @@ export const loginAuth = async (email, password) => {
   const userCollection = await users();
   const inDb = await userCollection.findOne({ email: email });
   if (!inDb) {
-    throw new Error("invalid email or password");
+    throw "invalid email or password";
   } else {
     const dbPassword = inDb.password;
     let comparePassword = await bcrypt.compare(password, dbPassword);
     if (!comparePassword) {
-      throw new Error("User Authentication failed");
+      throw "Authentication failed";
     } else {
       return inDb;
-    }
-  }
-};
-
-export const update = async (id, updateData) => {
-  try {
-    // console.log(id);
-    // console.log(updateData);
-    const userCollection = await users();
-    const updateInfo = {
-      $set: updateData,
-    };
-    const result = await userCollection.updateOne(
-      { _id: new ObjectId(id) },
-      updateInfo
-    );
-    if (result.modifiedCount === 0) {
-      throw new Error(`Could not update user with id ${id}`);
-    }
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
-
-
-export const getPeople = async (id) => {
-  id = validation.checkId(id);
-  const userCollection = await users();
-  const currentUser = await userCollection.findOne({ _id: id });
-  let userLikedBy = currentUser.likedBy;
-
-  if (!userLikedBy) {
-    excludedUsers = [
-      ...currentUser.dislikedUsers,
-      ...currentUser.likedUsers,
-      ...currentUser.matches,
-    ];
-    const query =
-      excludedUsers.length > 0 ? { _id: { $nin: excludedUsers } } : {};
-    const showCollection = await userCollection.find(query).toArray();
-    //display users
-  } else {
-    for (i in userLikedBy) {
-      const showCollection = await userCollection.findOne({ _id: i });
-      //display user
-
-      const result = await userCollection.updateOne(
-        //remove the id from likedBy
-        { _id: new ObjectID(id) },
-        { $pull: { likedBy: new ObjectID(i) } }
-      );
     }
   }
 };
