@@ -1,0 +1,21 @@
+<p> potential matches for the current user, excluded current, liked and disliked users already </p>
+
+<h1>Potential Matches</h1>
+
+<div class="card-container">
+  {{#each potentialMatches}}
+    <div class="card">
+      <img src="{{this.image.destination}}/{{this.image.filename}}" alt="{{this.name}}">
+      <h2>{{this.name}}, {{this.age}}</h2>
+      <p>{{this.bio}}</p>
+      <div class="buttons">
+        <form method="POST" action="/potentialMatches/{{../currentUser._id}}/like/{{this._id}}">
+          <button type="submit" class="like-button">Like</button>
+        </form>
+        <form method="POST" action="/potentialMatches/{{../currentUser._id}}/dislike/{{this._id}}">
+          <button type="submit" class="dislike-button">Dislike</button>
+        </form>
+      </div>
+    </div>
+  {{/each}}
+</div>

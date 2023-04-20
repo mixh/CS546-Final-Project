@@ -1,0 +1,44 @@
+{{!-- In the signup.hbs file, create a form with input fields for the user's name, email, password, and zip code.
+Add a submit button to the form.
+Use Handlebars expressions to render error messages if the user enters invalid input.
+Use Handlebars expressions to render a success message if the user successfully signs up. --}}
+
+
+  <h1>Registration</h1>
+  <form method="POST" action="/register" enctype="multipart/form-data">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required><br><br>
+
+    <label for="zip_code">Zip Code:</label>
+    <input type="text" id="zip_code" name="zip_code" required><br><br>
+
+    <label for="bio">Bio:</label>
+    <textarea id="bio" name="bio" required></textarea><br><br>
+
+    <label for="image">Profile Picture:</label>
+    <input type="file" id="image" name="image" required><br><br>
+
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select><br><br>
+
+    <label for="preferences">Preferences:</label>
+    <input type="radio" id="pref-male" name="preferences" value="male">
+    <label for="pref-male">Male</label>
+    <input type="radio" id="pref-female" name="preferences" value="female">
+    <label for="pref-female">Female</label><br><br>
+
+    <input type="submit" value="Register">
+  </form>
+    <li><a href="/login">Already registered go to the login page.</a></li>
