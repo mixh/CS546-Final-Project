@@ -5,13 +5,19 @@
 {{#if users}}
   <ul>
     {{#each users}}
-      <li>
-        <h2>{{this.name}}</h2>
-            <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image">
-        <p>{{this.bio}}</p>
-        <a href="/potentialMatchesProfile/{{this._id}}">View Profile</a>
-      </li>
-    {{/each}}
+  <li>
+    <h2>{{this.name}}</h2>
+    <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image">
+    <p>{{this.bio}}</p>
+    <a href="/profile/{{this._id}}">View Profile</a>
+    <form method="POST" action="/potentialMatches/{{this._id}}/like">
+      <button type="submit">Like</button>
+    </form>
+    <form method="POST" action="/potentialMatches/{{this._id}}/dislike">
+      <button type="submit">Dislike</button>
+    </form>
+  </li>
+{{/each}}
   </ul>
 {{else}}
   <p>No potential matches found.</p>

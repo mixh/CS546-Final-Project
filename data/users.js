@@ -149,6 +149,15 @@ export const update = async (id, updateData) => {
   }
 };
 
+export const getAll = async () => {
+  const userCollection = await users();
+  const allUsers = await userCollection.find().toArray();
+  return allUsers.map((u) => {
+    u._id = u._id.toString();
+    return u;
+  });
+};
+
 
 
 export const getPeople = async (id) => {
