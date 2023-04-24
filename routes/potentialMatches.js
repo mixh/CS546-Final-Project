@@ -30,6 +30,9 @@ router.get("/:id", checkSession, async(req,res) =>{
 
     const allUsers = await userCollection.find().toArray();
 
+     const distanceParam = req.query.distance;
+     const maxDistance = distanceParam === "all" ? Infinity : 5000;
+
     // const potentialMatches = allUsers.filter(
     //   (user) => user._id.toString() !== currentUser._id.toString()
     // );
@@ -159,14 +162,3 @@ router.post("/:id/dislike", checkSession, async (req, res) => {
 
 
 export default router;
-
-
-// location: {
-//           $near: {
-//             $geometry: {
-//               type: "Point",
-//               coordinates: currentUser.location.coordinates
-//             },
-//             $maxDistance: 8046.72 // 5 miles in meters
-//           }
-//         }
