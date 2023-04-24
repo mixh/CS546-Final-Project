@@ -22,10 +22,29 @@ router.get("/:id", checkSession, async(req,res) =>{
     const currentUser = await userCollection.findOne({
       _id: new ObjectId(userId),
     });
+
+    const likedUsers = currentUser.likedUsers.map((id) => new ObjectId(id));
+    const dislikedUsers = currentUser.dislikedUsers.map(
+       (id) => new ObjectId(id)
+     );
+
+
     const allUsers = await userCollection.find().toArray();
-    const potentialMatches = allUsers.filter(
-      (user) => user._id.toString() !== currentUser._id.toString()
-    );
+    
+    // const potentialMatches = allUsers.filter(
+    //   (user) => user._id.toString() !== currentUser._id.toString()
+    // );
+
+        const potentialMatches = await userCollection
+          .find({
+            $and: [
+              { _id: { $ne: new ObjectId(userId) } },
+              { _id: { $nin: likedUsers } },
+              { _id: { $nin: dislikedUsers } },
+            ],
+          })
+          .toArray();
+
     res.render("matches/potentialMatches", { users: potentialMatches });
   } catch (error) {
     res.status(500).render("error", { error: error });
@@ -58,6 +77,30 @@ router.post("/:id/like", checkSession, async (req, res) => {
             {_id : new ObjectId (likedUserId)},
             {$push : { likedBy : userId}}
           )
+        }
+
+        if(likedUser.likedBy.includes(userId)){
+          const match = {
+            _id : new ObjectId (likedUserId),
+            messages : []
+          };
+
+          await userCollection.updateOne(
+            {
+              _id : new ObjectId(userId)
+            },{
+              $push : {matches : match}
+            }
+          )
+
+          await userCollection.updateOne(
+            {
+              _id : new ObjectId(likedUserId)
+            },{
+              $push : {matches : match}
+            }
+          )
+
         }
         console.log(likedUser);
       }
