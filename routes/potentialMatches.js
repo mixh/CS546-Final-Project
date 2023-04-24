@@ -25,25 +25,46 @@ router.get("/:id", checkSession, async(req,res) =>{
 
     const likedUsers = currentUser.likedUsers.map((id) => new ObjectId(id));
     const dislikedUsers = currentUser.dislikedUsers.map(
-       (id) => new ObjectId(id)
-     );
-
+      (id) => new ObjectId(id)
+    );
 
     const allUsers = await userCollection.find().toArray();
-    
+
     // const potentialMatches = allUsers.filter(
     //   (user) => user._id.toString() !== currentUser._id.toString()
     // );
 
-        const potentialMatches = await userCollection
-          .find({
-            $and: [
-              { _id: { $ne: new ObjectId(userId) } },
-              { _id: { $nin: likedUsers } },
-              { _id: { $nin: dislikedUsers } },
-            ],
-          })
-          .toArray();
+    // const potentialMatches = await userCollection
+    //   .find({
+    //     $and: [
+    //       { _id: { $ne: new ObjectId(userId) } },
+    //       { _id: { $nin: likedUsers } },
+    //       { _id: { $nin: dislikedUsers } },
+    //     ],
+    //   })
+    //   .toArray();
+
+    // Find users within 5 miles of the current user
+    const potentialMatches = await userCollection
+      .find({
+        $and: [
+          { _id: { $ne: new ObjectId(userId) } },
+          { _id: { $nin: likedUsers } },
+          { _id: { $nin: dislikedUsers } },
+          {
+            location: {
+              $near: {
+                $geometry: {
+                  type: "Point",
+                  coordinates: currentUser.location.coordinates,
+                },
+                $maxDistance: 5000,
+              },
+            },
+          },
+        ],
+      })
+      .toArray();
 
     res.render("matches/potentialMatches", { users: potentialMatches });
   } catch (error) {
@@ -138,3 +159,14 @@ router.post("/:id/dislike", checkSession, async (req, res) => {
 
 
 export default router;
+
+
+// location: {
+//           $near: {
+//             $geometry: {
+//               type: "Point",
+//               coordinates: currentUser.location.coordinates
+//             },
+//             $maxDistance: 8046.72 // 5 miles in meters
+//           }
+//         }

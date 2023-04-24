@@ -88,6 +88,9 @@ export const create = async (
   };
   const userCollection = await users();
 
+  // Create a 2dsphere index on the location field
+  await userCollection.createIndex({ location: "2dsphere" });
+
   const existingUser = await userCollection.findOne({ email: email });
   if (existingUser) {
     throw new Error("Email already exists");
