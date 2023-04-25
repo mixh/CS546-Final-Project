@@ -1,32 +1,30 @@
-
 {{!-- TODO
 1. Implement navbar for all handlebar files and update routes for same if current dont work.  
 2. MOVE THE SCRIPT FROM THIS PAGE TO JS FOLDER
 --}}
 
-
 <p> potential matches for the current user, excluded current, liked and disliked users already </p>
 
 <h1>Potential Matches</h1>
 
-<button id="distanceToggle" onclick="toggleDistance()">Clicking this button will only show users within 5km radius </button>
+<button id="distanceToggle" onclick="toggleDistance()"> TODO - THIS BUTTON DOESNT WORK NOW Clicking this button will only show users within radius </button>
 
 {{#if users}}
   <ul>
     {{#each users}}
-  <li>
-    <h2>{{this.name}}</h2>
-    <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image">
-    <p>{{this.bio}}</p>
-    <a href="/potentialMatchesProfile/{{this._id}}">View Profile</a>
-    <form method="POST" action="/potentialMatches/{{this._id}}/like">
-      <button type="submit">Like</button>
-    </form>
-    <form method="POST" action="/potentialMatches/{{this._id}}/dislike">
-      <button type="submit">Dislike</button>
-    </form>
-  </li>
-{{/each}}
+      <li>
+        <h2>{{this.name}}</h2>
+        <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image">
+        <p>{{this.bio}}</p>
+        <a href="/potentialMatchesProfile/{{this._id}}">View Profile</a>
+        <form method="POST" action="/potentialMatches/{{this._id}}/like">
+          <button type="submit">Like</button>
+        </form>
+        <form method="POST" action="/potentialMatches/{{this._id}}/dislike">
+          <button type="submit">Dislike</button>
+        </form>
+      </li>
+    {{/each}}
   </ul>
 {{else}}
   <p>No potential matches found.</p>

@@ -1,4 +1,4 @@
-/// TODO - THIS ROUTE IS A WORK IN PROGRESS THUS NO LINK IS PROVIDED AS OF NOW 
+/// TODO - CHANGE THE CODE FOR RADIUS AT SUBMISSION TIME. RIGHT NOW IT IS AT 50 Kms  
 
 import { Router } from "express";
 const router = Router();
@@ -30,8 +30,10 @@ router.get("/:id", checkSession, async(req,res) =>{
 
     const allUsers = await userCollection.find().toArray();
 
-     const distanceParam = req.query.distance;
-     const maxDistance = distanceParam === "all" ? Infinity : 5000;
+    // TODO - IMPLEMENT THE BUTTON FUNCTIONALITY FOR FILTER ON AND OFF 
+    // const distanceParam = req.query.distance || "all"; // provide a default value for distanceParam
+    // const maxDistance = distanceParam === "all" ? 1000000 : parseInt(distanceParam);
+
 
     // Find users within 5 miles of the current user
     const potentialMatches = await userCollection
@@ -47,7 +49,7 @@ router.get("/:id", checkSession, async(req,res) =>{
                   type: "Point",
                   coordinates: currentUser.location.coordinates,
                 },
-                $maxDistance: 5000,
+                $maxDistance: 50000
               },
             },
           },
