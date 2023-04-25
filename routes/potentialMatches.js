@@ -33,20 +33,6 @@ router.get("/:id", checkSession, async(req,res) =>{
      const distanceParam = req.query.distance;
      const maxDistance = distanceParam === "all" ? Infinity : 5000;
 
-    // const potentialMatches = allUsers.filter(
-    //   (user) => user._id.toString() !== currentUser._id.toString()
-    // );
-
-    // const potentialMatches = await userCollection
-    //   .find({
-    //     $and: [
-    //       { _id: { $ne: new ObjectId(userId) } },
-    //       { _id: { $nin: likedUsers } },
-    //       { _id: { $nin: dislikedUsers } },
-    //     ],
-    //   })
-    //   .toArray();
-
     // Find users within 5 miles of the current user
     const potentialMatches = await userCollection
       .find({

@@ -1,11 +1,15 @@
 
 {{!-- TODO
-1. Implement navbar for all handlebar files and update routes for same if current dont work.  --}}
+1. Implement navbar for all handlebar files and update routes for same if current dont work.  
+2. MOVE THE SCRIPT FROM THIS PAGE TO JS FOLDER
+--}}
 
 
 <p> potential matches for the current user, excluded current, liked and disliked users already </p>
 
 <h1>Potential Matches</h1>
+
+<button id="distanceToggle" onclick="toggleDistance()">Clicking this button will only show users within 5km radius </button>
 
 {{#if users}}
   <ul>
@@ -27,3 +31,16 @@
 {{else}}
   <p>No potential matches found.</p>
 {{/if}}
+
+<script>
+  function toggleDistance() {
+    const url = new URL(window.location.href);
+    const distance = url.searchParams.get("distance");
+    if (distance === "all") {
+      url.searchParams.set("distance", "5km");
+    } else {
+      url.searchParams.set("distance", "all");
+    }
+    window.location.href = url.toString();
+  }
+</script>

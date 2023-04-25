@@ -121,9 +121,12 @@ router.route("/:id/edit")
       
           const city = reverseGeocodingData[0].name;
       
-          updateData.location.city_name = city;
-          updateData.location.coordinates = [lon,lat];
-          updateData.location.zip = req.body.zip_code;
+          updateData.city_name = city;
+          updateData.location = {
+           type: "Point",
+           coordinates: [lon, lat],
+         };
+          updateData.zip = req.body.zip_code;
     }
   
     if (req.body.bio) {

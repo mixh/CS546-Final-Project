@@ -71,9 +71,9 @@ export const create = async (
     location: {
       type: "Point",
       coordinates: [lon, lat],
-      city_name: city,
-      zip: zip,
     },
+    city_name: city,
+    zip: zip,
     bio: bio,
     preferences: preferences,
     likedUsers: [],
@@ -88,6 +88,7 @@ export const create = async (
   };
   const userCollection = await users();
 
+  
   // Create a 2dsphere index on the location field
   await userCollection.createIndex({ location: "2dsphere" });
 
@@ -104,6 +105,7 @@ export const create = async (
   const newUser = await get(newId);
   return newUser;
 };
+
 
 export const get = async (id) => {
   id = validation.checkId(id);
