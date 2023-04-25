@@ -142,3 +142,9 @@ img {
   display: block;
   margin: auto;
 }
+
+.error {
+	color: red;
+	font-weight: bold;
+  text-align: center;
+}

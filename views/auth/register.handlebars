@@ -5,7 +5,11 @@ Use Handlebars expressions to render a success message if the user successfully 
 
 
   <h1>Registration</h1>
-  <form method="POST" action="/register" enctype="multipart/form-data">
+  <div id="error" hidden>
+    <p class="p1">Wrong Input!</p>
+  </div>
+  
+  <form method="POST" id= "myForm" action="/register" enctype="multipart/form-data">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required><br><br>
 
@@ -14,6 +18,9 @@ Use Handlebars expressions to render a success message if the user successfully 
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required><br><br>
+
+    <label for="confirm-password">Confirm Password:</label>
+    <input type="password" id="confirm-password" name="confirm-password" required><br><br>
 
     <label for="age">Age:</label>
     <input type="number" id="age" name="age" required><br><br>
@@ -31,6 +38,8 @@ Use Handlebars expressions to render a success message if the user successfully 
     <select id="gender" name="gender">
       <option value="male">Male</option>
       <option value="female">Female</option>
+      <option value="prefer not to say">Prefer not to say</option>
+
     </select><br><br>
 
     <label for="preferences">Preferences:</label>
@@ -41,4 +50,5 @@ Use Handlebars expressions to render a success message if the user successfully 
 
     <input type="submit" value="Register">
   </form>
+  <script src="/public/js/register.js"></script>
     <li><a href="/login">Already registered go to the login page.</a></li>
