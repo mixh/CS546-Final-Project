@@ -8,7 +8,7 @@ const zipInput = document.getElementById('zip_code');
 const genderInput= document.getElementById('gender');
 let errorDiv = document.getElementById('error');
 
-const loginForm = document.getElementById('myForm2');
+
 
 
 registerForm.addEventListener('submit', (event) => {
@@ -89,29 +89,5 @@ registerForm.addEventListener('submit', (event) => {
   registerForm.submit();
 });
 
-loginForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    
-    
-  
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(emailInput.value.trim())) {
-      errorDiv.hidden = false;
-      errorDiv.innerHTML = 'Please enter a valid email address';
-      emailInput.focus();
-      return;
-    }
-    
-   
-    if (passwordInput.value.trim() === '') {
-      errorDiv.hidden = false;
-      errorDiv.innerHTML = 'You must enter a password';
-      passwordInput.focus();
-      return;
-    }
-    
 
-    
-    loginForm.submit();
-  });
   
