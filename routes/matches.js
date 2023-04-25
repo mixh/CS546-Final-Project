@@ -52,7 +52,7 @@ router.get("/:id", checkSession, async(req,res) =>{
         );
         await userCollection.updateOne(
           { _id: new ObjectId(userId) },
-          { $push: { likedUsers: unMatched} }
+          { $set: { likedUsers: unMatched} }
         );
       }
 
