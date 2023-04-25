@@ -2,6 +2,7 @@ import { Router } from "express";
 const router = Router();
 import { users } from "../config/mongoCollections.js";
 import { ObjectId } from "mongodb";
+import { userData } from "../data/index.js";
 
 const checkSession = (req, res, next) => {
     if (!req.session.userId) {
@@ -24,12 +25,14 @@ router.get("/:id", checkSession, async(req,res) =>{
       const likedUsers = potentialMatches.map(match => match.likedUsers).filter(Boolean).flat();
       const likedBy = potentialMatches.map(match => match.likedBy).filter(Boolean).flat();
 
-      let matchedUser;
-      if(JSON.stringify(likedUsers) === JSON.stringify(likedBy)){
-        matchedUser = allUsers.filter((user) => user._id.toString() === likedBy.toString()
-          );
-      }
-      res.render("matches/matches", { users: matchedUser, userId: userId});
+      let matchedUser=[];
+      likedUsers.forEach((user) => {
+        if (likedBy.includes(user)) {
+          matchedUser.push(user.toString());
+        }
+    })
+    const userInfo = allUsers.filter(user => matchedUser.includes((user._id.toString())));
+    res.render("matches/matches", { users: userInfo, userId: userId});
     } catch (error) {
       res.status(500).render("error", { error: error });
     }
@@ -57,6 +60,17 @@ router.get("/:id", checkSession, async(req,res) =>{
       }
 
       res.redirect("/matches/" + userId);
+    } catch (error) {
+      res.status(500).render("error", { error: error });
+    }
+  });
+
+  router.get("/:id/viewProfile", checkSession, async(req,res) =>{
+    try {
+      const userId = req.params.id;
+      const user = await userData.get(userId);
+      console.log("User: "+ JSON.stringify(user));
+      res.render("matches/viewMatches", { user: user });
     } catch (error) {
       res.status(500).render("error", { error: error });
     }

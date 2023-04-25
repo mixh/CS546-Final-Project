@@ -9,7 +9,7 @@
     <h2>{{this.name}}</h2>
     <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image">
     <p>{{this.bio}}</p>
-    <a href="/profile/{{this._id}}">View Profile</a>
+    <a href="/matches/{{this._id}}/viewProfile">View Profile</a>
     <form method="POST" action="/matches/{{this._id}}/unmatch">
       <button type="submit">Unmatch</button>
     </form>
