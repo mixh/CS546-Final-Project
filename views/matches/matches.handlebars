@@ -1,1 +1,18 @@
-{{! matches.handlebars }
+<p>Matches for the current user, excluded current, liked and disliked users already </p>
+
+<h1>Matches</h1>
+
+{{#if users}}
+  <ul>
+    {{#each users}}
+  <li>
+    <h2>{{this.name}}</h2>
+    <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image">
+    <p>{{this.bio}}</p>
+    <a href="/profile/{{this._id}}">View Profile</a>
+  </li>
+{{/each}}
+  </ul>
+{{else}}
+  <p>No matches found.</p>
+{{/if}}

@@ -11,7 +11,7 @@ const constructorMethods = (app) => {
   app.use("/profile", profileRoutes);
   app.use("/potentialMatches",potentialMatchesRoutes);
   app.use("/potentialMatchesProfile", potentialMatchesProfileRoutes);
-  app.use("/matches", matchesRoutes)
+  app.use("/matches", matchesRoutes);
   app.use("*", (req, res) => {
     res.redirect("/");
   });
