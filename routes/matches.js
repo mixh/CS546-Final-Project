@@ -29,7 +29,34 @@ router.get("/:id", checkSession, async(req,res) =>{
         matchedUser = allUsers.filter((user) => user._id.toString() === likedBy.toString()
           );
       }
-      res.render("matches/matches", { users: matchedUser});
+      res.render("matches/matches", { users: matchedUser, userId: userId});
+    } catch (error) {
+      res.status(500).render("error", { error: error });
+    }
+  });
+
+  router.post("/:id/unmatch", checkSession, async (req, res) => {
+    try {
+      const userId = req.session.userId;
+      const unmatchedUserId = req.params.id;
+
+      const userCollection = await users();
+      const currentUser = await userCollection.findOne({
+        _id: new ObjectId(userId),
+      });
+
+      if (currentUser.likedUsers.includes(unmatchedUserId)) {
+        const likedUser = currentUser.likedUsers;
+        const unMatched = likedUser.filter(
+          (user) => JSON.stringify(user) !== JSON.stringify(unmatchedUserId)
+        );
+        await userCollection.updateOne(
+          { _id: new ObjectId(userId) },
+          { $push: { likedUsers: unMatched} }
+        );
+      }
+
+      res.redirect("/matches/" + userId);
     } catch (error) {
       res.status(500).render("error", { error: error });
     }

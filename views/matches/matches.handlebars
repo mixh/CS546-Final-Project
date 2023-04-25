@@ -10,9 +10,13 @@
     <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image">
     <p>{{this.bio}}</p>
     <a href="/profile/{{this._id}}">View Profile</a>
+    <form method="POST" action="/matches/{{this._id}}/unmatch">
+      <button type="submit">Unmatch</button>
+    </form>
   </li>
 {{/each}}
   </ul>
 {{else}}
   <p>No matches found.</p>
 {{/if}}
+<a href="/home/{{userId}}" class="button">Go to Home</a>
