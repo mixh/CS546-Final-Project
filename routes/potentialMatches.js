@@ -42,7 +42,7 @@ router.get("/:id", checkSession, async(req,res) =>{
           { university: currentUser.university },
           { work: currentUser.work },
           { gym: currentUser.gym },
-          { bucketlist: { $in: currentUser.bucketlist } }
+          { bucketlist: { $in: currentUser.bucketlist } } 
         ],
         $and: [
           { _id: { $ne: new ObjectId(userId) } },
@@ -59,11 +59,12 @@ router.get("/:id", checkSession, async(req,res) =>{
               },
             },
           },
+          { isPaused: { $ne: true } }
         ],
       })
       .toArray();
 
-    res.render("matches/potentialMatches", { users: potentialMatches });
+    res.render("matches/potentialMatches", { users: potentialMatches, userId: userId });
   } catch (error) {
     res.status(500).render("error", { error: error });
   }

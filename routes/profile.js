@@ -27,8 +27,10 @@ import fetch from "node-fetch";
 
 import { Router } from "express";
 const router = Router();
+import { users } from "../config/mongoCollections.js";
 import { userData } from "../data/index.js";
 import validation from "../validation.js";
+import { ObjectId } from "mongodb";
 
 const checkSession = (req, res, next) => {
   if (!req.session.userId) {
@@ -144,6 +146,24 @@ router.route("/:id/edit")
   }
 })
 
-
+router.route("/:id/pause").
+post(checkSession, async (req, res) => {
+  try {
+    const userId = req.params.id;
+    console.log("UserId: "+userId);
+    const userCollection = await users();
+    const user = await userCollection.findOne({ _id: new ObjectId(userId) });
+    console.log("User Pause Route: "+ JSON.stringify(user));
+    const isPaused = user.isPaused || false; // if isPaused is not set, default to false
+    console.log("isPaused: "+isPaused);
+    const userInfo = await userCollection.updateOne(
+      { _id: new ObjectId(userId) },
+      { $set: { isPaused: !isPaused } }
+    );
+  res.redirect(`/profile/${userId}`);
+  } catch (error) {
+    res.status(500).render("error", { error: error });
+  }
+});
 
 export default router;

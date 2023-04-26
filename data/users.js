@@ -67,7 +67,7 @@ export const create = async (
     university: university,
     work: work,
     gym: gym,
-    bucketlist: bucketlist,
+    bucketlist: bucketlist? bucketlist:[],
     location: {
       type: "Point",
       coordinates: [lon, lat],
@@ -85,6 +85,7 @@ export const create = async (
       filename: image_filename,
       path: image_path,
     },
+    isPaused: false,
   };
   const userCollection = await users();
 
