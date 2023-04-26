@@ -30,19 +30,26 @@ router.get("/:id", checkSession, async(req,res) =>{
 
     const allUsers = await userCollection.find().toArray();
 
-    // TODO - IMPLEMENT THE BUTTON FUNCTIONALITY FOR FILTER ON AND OFF 
+    // Check if the user's profile is paused
+    if (currentUser.isPaused) {
+      const uId = req.params.id;
+      const user = await userData.get(uId);
+      return res.render("profile/pausedProfile", { user });
+    }
+
+    // TODO - IMPLEMENT THE BUTTON FUNCTIONALITY FOR FILTER ON AND OFF
     // const distanceParam = req.query.distance || "all"; // provide a default value for distanceParam
     // const maxDistance = distanceParam === "all" ? 1000000 : parseInt(distanceParam);
-
 
     // Find users within 5 miles of the current user
     const potentialMatches = await userCollection
       .find({
-        $or: [//checks if either of the places are same
+        $or: [
+          //checks if either of the places are same
           { university: currentUser.university },
           { work: currentUser.work },
           { gym: currentUser.gym },
-          { bucketlist: { $in: currentUser.bucketlist } } 
+          { bucketlist: { $in: currentUser.bucketlist } },
         ],
         $and: [
           { _id: { $ne: new ObjectId(userId) } },
@@ -55,16 +62,19 @@ router.get("/:id", checkSession, async(req,res) =>{
                   type: "Point",
                   coordinates: currentUser.location.coordinates,
                 },
-                $maxDistance: 50000
+                $maxDistance: 50000,
               },
             },
           },
-          { isPaused: { $ne: true } }
+          { isPaused: { $ne: true } },
         ],
       })
       .toArray();
 
-    res.render("matches/potentialMatches", { users: potentialMatches, userId: userId });
+    res.render("matches/potentialMatches", {
+      users: potentialMatches,
+      userId: userId,
+    });
   } catch (error) {
     res.status(500).render("error", { error: error });
   }
