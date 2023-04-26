@@ -49,7 +49,7 @@ router.get("/:id", checkSession, async(req,res) =>{
           { university: currentUser.university },
           { work: currentUser.work },
           { gym: currentUser.gym },
-          { bucketlist: { $in: currentUser.bucketlist } },
+          { bucketlist: { $in: currentUser.bucketlist? currentUser.bucketlist:[]} },
         ],
         $and: [
           { _id: { $ne: new ObjectId(userId) } },

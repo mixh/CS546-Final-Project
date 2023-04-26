@@ -85,11 +85,46 @@ router.get("/:id", checkSession, async(req,res) =>{
     try {
       const userId = req.params.id;
       const user = await userData.get(userId);
-      console.log("User: "+ JSON.stringify(user));
       res.render("matches/viewMatches", { user: user });
     } catch (error) {
       res.status(500).render("error", { error: error });
     }
   });
+
+router.route("/:id/search").
+get(async(req,res) => {
+   const userCollection = await users();
+   const userId = req.params.id;
+   const {search} = req.query;
+   const currentUser = await userCollection.findOne({
+     _id: new ObjectId(userId),
+   });
+
+   let filter = {
+    _id: { $ne: new ObjectId(userId) },
+    isPaused: false,
+    name: { $regex: new RegExp(search, "i") },
+    $and: [
+      { _id: { $in: currentUser.likedUsers.map(id => new ObjectId(id)) } },
+      { _id: { $nin: currentUser.dislikedUsers.map(id => new ObjectId(id)) } }
+    ]
+  };
+
+   if(!search){
+    filter = {
+      ...filter,
+      name: { $ne: null }
+    }
+   }
+
+   const searchUsers = await userCollection.find(filter).toArray();
+
+   res.render("matches/matches",{
+     title:"Matches",
+     users: searchUsers,
+     userId,
+     search,
+   });
+})
 
   export default router;
