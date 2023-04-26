@@ -26,6 +26,8 @@ let errorDiv = document.getElementById('error');
 //     });
 // }
 
+//Not alphabetically
+
 function populateColleges() {
   const select = document.getElementById("colleges");
   const baseUrl = "https://api.data.gov/ed/collegescorecard/v1/schools?&_fields=school.name&api_key=h9bvToe5RfPIMYmDlCoSfeMftX4AYcYxAO3jDhtj";
@@ -66,6 +68,51 @@ function populateColleges() {
       console.error(error);
     });
 }
+
+//alphabetically
+
+// function populateColleges() {
+//   const select = document.getElementById("colleges");
+//   const baseUrl = "https://api.data.gov/ed/collegescorecard/v1/schools?&_fields=school.name&api_key=h9bvToe5RfPIMYmDlCoSfeMftX4AYcYxAO3jDhtj&_sort=school.name";
+//   const perPage = 100;
+//   let totalPages = 0;
+//   let currentPage = 0;
+
+//   // Add "My university is not listed" as the first option
+//   const defaultOption = document.createElement("option");
+//   defaultOption.value = "";
+//   defaultOption.text = "My university is not listed";
+//   select.insertBefore(defaultOption, select.firstChild);
+
+//   // Make the first request to get the total number of pages
+//   fetch(`${baseUrl}&per_page=${perPage}`)
+//     .then(response => response.json())
+//     .then(data => {
+//       totalPages = data.metadata.total / perPage;
+
+//       // Make additional requests to retrieve all the data
+//       for (let i = 0; i < totalPages; i++) {
+//         fetch(`${baseUrl}&per_page=${perPage}&page=${i}`)
+//           .then(response => response.json())
+//           .then(data => {
+//             data.results.forEach(college => {
+//               const option = document.createElement("option");
+//               option.value = college["school.name"];
+//               option.text = college["school.name"];
+//               select.appendChild(option);
+//             });
+//           })
+//           .catch(error => {
+//             console.error(error);
+//           });
+//       }
+//     })
+//     .catch(error => {
+//       console.error(error);
+//     });
+// }
+
+
 
 
 
