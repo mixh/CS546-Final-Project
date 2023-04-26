@@ -90,6 +90,7 @@ router
 
     try {
       regData.name = validation.checkString(regData.name, "Name");
+      regData.company = validation.checkString(regData.company, "Work");
       regData.email = validation.checkEmail(regData.email, "Email");
       regData.password = validation.checkPassword(regData.password, "Password");
       regData.age = validation.checkAge(regData.age, "Age");
