@@ -67,7 +67,7 @@ export const create = async (
     university: university,
     work: work,
     gym: gym,
-    bucketlist: bucketlist? bucketlist:[],
+    bucketlist: bucketlist,
     location: {
       type: "Point",
       coordinates: [lon, lat],
