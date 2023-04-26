@@ -48,6 +48,10 @@ router.get("/:id", checkSession, async(req,res) =>{
         _id: new ObjectId(userId),
       });
 
+      const unmatchedUser = await userCollection.findOne({
+        _id: new ObjectId(unmatchedUserId),
+      });
+
       if (currentUser.likedUsers.includes(unmatchedUserId)) {
         const likedUser = currentUser.likedUsers;
         const unMatched = likedUser.filter(
@@ -55,7 +59,19 @@ router.get("/:id", checkSession, async(req,res) =>{
         );
         await userCollection.updateOne(
           { _id: new ObjectId(userId) },
-          { $set: { likedUsers: unMatched} }
+          { $set: { likedUsers: unMatched } }
+        );
+      }
+
+      // Remove userId from unmatchedUser's matches array
+      if (unmatchedUser.likedBy.includes(userId)) {
+        const matchesUser = unmatchedUser.likedBy;
+        const unMatched = matchesUser.filter(
+          (user) => JSON.stringify(user) !== JSON.stringify(userId)
+        );
+        await userCollection.updateOne(
+          { _id: new ObjectId(unmatchedUserId) },
+          { $set: { likedBy: unMatched } }
         );
       }
 
