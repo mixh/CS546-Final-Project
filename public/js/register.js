@@ -27,6 +27,16 @@ let errorDiv = document.getElementById('error');
 //     });
 // }
 
+function isValidEmail(email) {
+  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return emailRegex.test(email);
+}
+
+function isValidPassword(password){
+    const passRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*(\W|_)).{8,}$/;
+    return passRegex.test(password);
+}
+
 //Not alphabetically
 
 function populateColleges() {
@@ -406,16 +416,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   populateFitness();
 });
 
-
-
-
-
-
-
 registerForm.addEventListener('submit', (event) => {
   event.preventDefault();
   
-
   if (nameInput.value.trim() === '') {
     errorDiv.hidden = false;
     errorDiv.innerHTML = 'You must enter a name';
@@ -424,7 +427,29 @@ registerForm.addEventListener('submit', (event) => {
     return;
   }
   
+  if (nameInput.length < 2 || nameInput.length > 50 ) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'Enter correct name';
+    frmLabel.className = 'error';
+    firstNameInput.focus();
+    return;
+  }
   
+  if (emailInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter an email';
+    frmLabel.className = 'error';
+    firstNameInput.focus();
+    return;
+  }
+  
+  if (!isValidEmail(emailInput.value)) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'Please enter valid email address.';
+    frmLabel.className = 'error';
+    firstNameInput.focus();
+    return;
+  }
 
   // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   // if (!emailPattern.test(emailInput.value.trim())) {
@@ -441,7 +466,13 @@ registerForm.addEventListener('submit', (event) => {
     passwordInput.focus();
     return;
   }
-  
+
+  if (!isValidPassword(passwordInput.value)) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'Please enter a valid Password.';
+    passwordInput.focus();
+    return;
+  }
   
   if (confirmPasswordInput.value.trim() === '') {
     errorDiv.hidden = false;
@@ -449,6 +480,15 @@ registerForm.addEventListener('submit', (event) => {
     confirmPasswordInput.focus();
     return;
   }
+
+  if (!isValidPassword(confirmPasswordInput.value)) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a password again';
+    confirmPasswordInput.focus();
+    return;
+}
+
+
   if (passwordInput.value.trim() !== confirmPasswordInput.value.trim()) {
     errorDiv.hidden = false;
     errorDiv.innerHTML = 'You must enter a value';
@@ -473,33 +513,36 @@ registerForm.addEventListener('submit', (event) => {
   if (zipInput.value.trim() === '') {
     errorDiv.hidden = false;
     errorDiv.innerHTML = 'Please enter your zip code';
-    ageInput.focus();
+    zipInput.focus();
     return;
   }
 
   if (genderInput.value.trim() === '') {
     errorDiv.hidden = false;
     errorDiv.innerHTML = 'You must enter a gender';
-    ageInput.focus();
+    genderInput.focus();
     return;
   }
 
-  try {
-    validation.checkString(nameInput, "Name");
-    validation.checkString(companyInput, "Work");
-    validation.checkEmail(emailInput, "Email");
-    validation.checkPassword(passwordInput, "Password");
-    validation.checkAge(ageInput, "Age");
-    validation.checkZip(zipInput, "Zip Code");
-    validation.checkString(bioInput, "Bio");
-  } catch (error) {
+  if (bioInput.value.trim() === '') {
     errorDiv.hidden = false;
-    errorDiv.innerHTML = error;
+    errorDiv.innerHTML = 'You must enter a bio';
+    bioInput.focus();
     return;
   }
 
-
-
-  
+  // try {
+  //   validation.checkString(nameInput, "Name");
+  //   validation.checkString(companyInput, "Work");
+  //   validation.checkEmail(emailInput, "Email");
+  //   validation.checkPassword(passwordInput, "Password");
+  //   validation.checkAge(ageInput, "Age");
+  //   validation.checkZip(zipInput, "Zip Code");
+  //   validation.checkString(bioInput, "Bio");
+  // } catch (error) {
+  //   errorDiv.hidden = false;
+  //   errorDiv.innerHTML = error;
+  //   return;
+  // }
   registerForm.submit();
 });
