@@ -32,6 +32,25 @@ router.get("/:id", checkSession, async(req,res) =>{
         }
     })
     const userInfo = allUsers.filter(user => matchedUser.includes((user._id.toString())));
+ 
+    let matchesId = [];
+    currentUser.matches.forEach((user)=>{
+      matchesId.push(user.toString());
+    });
+
+    userInfo.forEach((user)=>{
+      if(!matchesId.includes(user._id.toString())){
+        matchesId.push(user._id.toString());
+      }
+    });
+
+    for (const id of matchesId){
+      const matchesInfo = await userCollection.updateOne(
+         {_id : new ObjectId (userId)},
+         {$addToSet : { matches : id}}
+      );
+    }
+     
     res.render("matches/matches", { users: userInfo, userId: userId});
     } catch (error) {
       res.status(500).render("error", { error: error });
