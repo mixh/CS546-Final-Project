@@ -10,9 +10,6 @@ const genderInput= document.getElementById('gender');
 const bioInput= document.getElementById('bio');
 let errorDiv = document.getElementById('error');
 
-import validation from "../validation.js";
-
-
 // function populateColleges() {
 //   const select = document.getElementById("colleges");
 //   fetch("https://api.data.gov/ed/collegescorecard/v1/schools?per_page=100&_fields=school.name&api_key=h9bvToe5RfPIMYmDlCoSfeMftX4AYcYxAO3jDhtj")
@@ -262,11 +259,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
   populatePlaces();
 });
 
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", function(event) {
   populateColleges();
 });
@@ -511,6 +503,3 @@ registerForm.addEventListener('submit', (event) => {
   
   registerForm.submit();
 });
-
-
-  
