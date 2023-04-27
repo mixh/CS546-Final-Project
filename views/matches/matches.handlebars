@@ -1,1 +1,50 @@
-{{! matches.handlebars }
+<p>Matches for the current user, excluded current, liked and disliked users
+  already
+</p>
+
+<h1>Matches</h1>
+
+<form method="GET" action="/matches/{{userId}}/search">
+  <input type="text" name="search" placeholder="Search.." />
+  <button type="submit">Search</button>
+</form>
+{{#if search}}
+  <ul>
+    {{#each users}}
+      <li>
+        <h2>{{this.name}}</h2>
+        <img
+          src="/{{this.image.destination}}/{{this.image.filename}}"
+          alt="Profile image"
+        />
+        <p>{{this.bio}}</p>
+        <a href="/matches/{{this._id}}/viewProfile">View Profile</a>
+        <form method="POST" action="/matches/{{this._id}}/unmatch">
+          <button type="submit">Unmatch</button>
+        </form>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  {{#if users}}
+    <ul>
+      {{#each users}}
+        <li>
+          <h2>{{this.name}}</h2>
+          <img
+            src="/{{this.image.destination}}/{{this.image.filename}}"
+            alt="Profile image"
+          />
+          <p>{{this.bio}}</p>
+          <a href="/matches/{{this._id}}/viewProfile">View Profile</a>
+          <form method="POST" action="/matches/{{this._id}}/unmatch">
+            <button type="submit">Unmatch</button>
+          </form>
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>No matches found.</p>
+  {{/if}}
+{{/if}}
+<a href="/home/{{userId}}" class="button">Go to Home</a>

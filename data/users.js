@@ -29,6 +29,7 @@ export const create = async (
   bucketlist
 ) => {
   name = validation.checkString(name, "Name");
+  work = validation.checkString(work, "Work");
   email = validation.checkEmail(email, "Email");
   password = validation.checkPassword(password, "Password");
   age = validation.checkAge(age, "Age");
@@ -71,9 +72,9 @@ export const create = async (
     location: {
       type: "Point",
       coordinates: [lon, lat],
-      city_name: city,
-      zip: zip,
     },
+    city_name: city,
+    zip: zip,
     bio: bio,
     preferences: preferences,
     likedUsers: [],
@@ -85,8 +86,13 @@ export const create = async (
       filename: image_filename,
       path: image_path,
     },
+    isPaused: false,
   };
   const userCollection = await users();
+
+  
+  // Create a 2dsphere index on the location field
+  await userCollection.createIndex({ location: "2dsphere" });
 
   const existingUser = await userCollection.findOne({ email: email });
   if (existingUser) {
@@ -101,6 +107,7 @@ export const create = async (
   const newUser = await get(newId);
   return newUser;
 };
+
 
 export const get = async (id) => {
   id = validation.checkId(id);
@@ -147,6 +154,15 @@ export const update = async (id, updateData) => {
   } catch (error) {
     throw new Error(error);
   }
+};
+
+export const getAll = async () => {
+  const userCollection = await users();
+  const allUsers = await userCollection.find().toArray();
+  return allUsers.map((u) => {
+    u._id = u._id.toString();
+    return u;
+  });
 };
 
 

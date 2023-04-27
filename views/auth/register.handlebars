@@ -5,7 +5,12 @@ Use Handlebars expressions to render a success message if the user successfully 
 
 
   <h1>Registration</h1>
-  <form method="POST" action="/register" enctype="multipart/form-data">
+  <div id="error" hidden>
+    <p class="p1">Wrong Input!</p>
+  </div>
+  <script src="/public/js/register.js"></script>
+  
+  <form method="POST" id= "myForm" action="/register" enctype="multipart/form-data">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required><br><br>
 
@@ -14,6 +19,9 @@ Use Handlebars expressions to render a success message if the user successfully 
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required><br><br>
+
+    <label for="confirm-password">Confirm Password:</label>
+    <input type="password" id="confirm-password" name="confirm-password" required><br><br>
 
     <label for="age">Age:</label>
     <input type="number" id="age" name="age" required><br><br>
@@ -31,14 +39,27 @@ Use Handlebars expressions to render a success message if the user successfully 
     <select id="gender" name="gender">
       <option value="male">Male</option>
       <option value="female">Female</option>
+      <option value="prefer not to say">Prefer not to say</option>
+
     </select><br><br>
 
-    <label for="preferences">Preferences:</label>
-    <input type="radio" id="pref-male" name="preferences" value="male">
-    <label for="pref-male">Male</label>
-    <input type="radio" id="pref-female" name="preferences" value="female">
-    <label for="pref-female">Female</label><br><br>
+    <label for="colleges">University:</label>
+    <select id="colleges" name="colleges"></select><br><br>
+  
+
+    <label for="company">Place of Work: eg- Google</label>
+    <input type="text" id="company" name="company" ><br><br>
+
+    <label for="places-dropdown">A place you want to visit:</label>
+    <select id="places-dropdown"></select><br><br>
+
+    <label for="gyms-dropdown">Your gym/classes:</label>
+    <select id="gyms-dropdown">
+      <option value="select-gym">Select a gym/class</option>
+    </select><br><br>
+
 
     <input type="submit" value="Register">
   </form>
-    <li><a href="/login">Already registered go to the login page.</a></li>
+  
+  <li><a href="/login">Already registered go to the login page.</a></li>

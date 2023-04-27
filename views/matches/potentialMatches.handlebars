@@ -1,21 +1,61 @@
+{{!-- TODO
+1. Implement navbar for all handlebar files and update routes for same if current dont work.  
+2. MOVE THE SCRIPT FROM THIS PAGE TO JS FOLDER
+--}}
+
 <p> potential matches for the current user, excluded current, liked and disliked users already </p>
 
 <h1>Potential Matches</h1>
 
-<div class="card-container">
-  {{#each potentialMatches}}
-    <div class="card">
-      <img src="{{this.image.destination}}/{{this.image.filename}}" alt="{{this.name}}">
-      <h2>{{this.name}}, {{this.age}}</h2>
-      <p>{{this.bio}}</p>
-      <div class="buttons">
-        <form method="POST" action="/potentialMatches/{{../currentUser._id}}/like/{{this._id}}">
-          <button type="submit" class="like-button">Like</button>
-        </form>
-        <form method="POST" action="/potentialMatches/{{../currentUser._id}}/dislike/{{this._id}}">
-          <button type="submit" class="dislike-button">Dislike</button>
-        </form>
-      </div>
-    </div>
-  {{/each}}
+<a href="/home/{{userId}}" class="button">Go to Home</a>
+
+<div id="distanceToggleContainer">
+  <button id="showAllProfilesButton" onclick="showAllProfiles()">Show all profiles</button>
+  <button id="showWithin5kmButton" onclick="showProfilesWithin5km()">Show profiles within 5km radius only</button>
 </div>
+
+
+{{#if users}}
+  <ul>
+    {{#each users}}
+      <li>
+        <h2>{{this.name}}</h2>
+        <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image">
+        <p>{{this.bio}}</p>
+        <a href="/potentialMatchesProfile/{{this._id}}">View Profile</a>
+        <form method="POST" action="/potentialMatches/{{this._id}}/like">
+          <button type="submit">Like</button>
+        </form>
+        <form method="POST" action="/potentialMatches/{{this._id}}/dislike">
+          <button type="submit">Dislike</button>
+        </form>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>No potential matches found.</p>
+{{/if}}
+
+<script>
+const url = new URL(window.location.href);
+const distance = url.searchParams.get("distance");
+
+if (distance === "all") {
+  document.getElementById("showAllProfilesButton").style.display = "none";
+} else {
+  document.getElementById("showWithin5kmButton").style.display = "none";
+}
+
+function showAllProfiles() {
+  const url = new URL(window.location.href);
+  url.searchParams.set("distance", "all");
+  window.location.href = url.toString();
+}
+
+function showProfilesWithin5km() {
+  const url = new URL(window.location.href);
+  url.searchParams.set("distance", "5km");
+  window.location.href = url.toString();
+}
+
+</script>
