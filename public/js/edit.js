@@ -283,36 +283,36 @@ document.addEventListener("DOMContentLoaded", function(event) {
 editForm.addEventListener('submit', (event) => {
   event.preventDefault();
   
-  try{
-  if (nameInput.value.trim()) {
-    validation.checkString(nameInput, "Name");
-    return;
-  }
+//   try{
+//   if (nameInput.value.trim()) {
+//     validation.checkString(nameInput, "Name");
+//     return;
+//   }
 
-  if (ageInput.value.trim()) {
-    validation.checkAge(ageInput, "Age");
-    return;
-  }
+//   if (ageInput.value.trim()) {
+//     validation.checkAge(ageInput, "Age");
+//     return;
+//   }
 
-  if (zipInput.value.trim()) {
-    validation.checkZip(zipInput, "Zip");
-    return;
-  }
+//   if (zipInput.value.trim()) {
+//     validation.checkZip(zipInput, "Zip");
+//     return;
+//   }
 
-  if (bioInput.value.trim()) {
-    validation.checkString(bioInput, "Bio");
-    return;
-  }
-  if (companyInput.value.trim()) {
-    validation.checkString(companyInput, "Work");
-    return;
+//   if (bioInput.value.trim()) {
+//     validation.checkString(bioInput, "Bio");
+//     return;
+//   }
+//   if (companyInput.value.trim()) {
+//     validation.checkString(companyInput, "Work");
+//     return;
   
-  }
-}catch (error) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = error;
-    return;
-  }
+//   }
+// }catch (error) {
+//     errorDiv.hidden = false;
+//     errorDiv.innerHTML = error;
+//     return;
+//   }
 
 
   
