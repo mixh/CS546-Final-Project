@@ -8,7 +8,6 @@ Use Handlebars expressions to render a success message if the user successfully 
   <div id="error" hidden>
     <p class="p1">Wrong Input!</p>
   </div>
-  <script src="/public/js/register.js"></script>
   
   <form method="POST" id= "myForm" action="/register" enctype="multipart/form-data">
     <label for="name">Name:</label>
@@ -53,10 +52,10 @@ Use Handlebars expressions to render a success message if the user successfully 
     <input type="text" id="company" name="company" ><br><br>
 
     <label for="places-dropdown">A place you want to visit:</label>
-    <select id="places-dropdown"></select><br><br>
+    <select name="places-dropdown" id="places-dropdown"></select><br><br>
 
     <label for="gyms-dropdown">Your gym/classes:</label>
-    <select id="gyms-dropdown">
+    <select name="gyms-dropdown" id="gyms-dropdown">
       <option value="select-gym">Select a gym/class</option>
     </select><br><br>
 
@@ -65,3 +64,4 @@ Use Handlebars expressions to render a success message if the user successfully 
   </form>
   
   <li><a href="/login">Already registered go to the login page.</a></li>
+  <script src="public/js/register.js"></script>
