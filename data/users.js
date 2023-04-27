@@ -29,7 +29,7 @@ export const create = async (
   bucketlist
 ) => {
   name = validation.checkString(name, "Name");
-  name = validation.checkString(work, "Work");
+  work = validation.checkString(work, "Work");
   email = validation.checkEmail(email, "Email");
   password = validation.checkPassword(password, "Password");
   age = validation.checkAge(age, "Age");
