@@ -37,43 +37,65 @@ router.get("/:id", checkSession, async(req,res) =>{
       return res.render("profile/pausedProfile", { user });
     }
 
-    // TODO - IMPLEMENT THE BUTTON FUNCTIONALITY FOR FILTER ON AND OFF
-    // const distanceParam = req.query.distance || "all"; // provide a default value for distanceParam
-    // const maxDistance = distanceParam === "all" ? 1000000 : parseInt(distanceParam);
+    // Check the "distance" query parameter
+    const distance = req.query.distance || "all";
 
     // Find users within 5 miles of the current user
-    const potentialMatches = await userCollection
-      .find({
-        $or: [
-          //checks if either of the places are same
-          { university: currentUser.university },
-          { work: currentUser.work },
-          { gym: currentUser.gym },
-          { bucketlist: { $in: currentUser.bucketlist? currentUser.bucketlist:[]} },
-        ],
-        $and: [
-          { _id: { $ne: new ObjectId(userId) } },
-          { _id: { $nin: likedUsers } },
-          { _id: { $nin: dislikedUsers } },
-          {
-            location: {
-              $near: {
-                $geometry: {
-                  type: "Point",
-                  coordinates: currentUser.location.coordinates,
-                },
-                $maxDistance: 50000,
-              },
-            },
-          },
-          { isPaused: { $ne: true } },
-        ],
-      })
-      .toArray();
+  let potentialMatches = [];
+   if (distance === "5km") {
+     potentialMatches = await userCollection
+       .find({
+         $or: [
+           //checks if either of the places are same
+           { university: currentUser.university },
+           { work: currentUser.work },
+           { gym: currentUser.gym },
+           { bucketlist: { $in: currentUser.bucketlist? currentUser.bucketlist:[] } },
+         ],
+         $and: [
+           { _id: { $ne: new ObjectId(userId) } },
+           { _id: { $nin: likedUsers } },
+           { _id: { $nin: dislikedUsers } },
+           {
+             location: {
+               $near: {
+                 $geometry: {
+                   type: "Point",
+                   coordinates: currentUser.location.coordinates,
+                 },
+                 $maxDistance: 5000,
+               },
+             },
+           },
+           { isPaused: { $ne: true } },
+         ],
+       })
+       .toArray();
+   } else {
+     // Find all potential matches
+     potentialMatches = await userCollection
+       .find({
+         $or: [
+           //checks if either of the places are same
+           { university: currentUser.university },
+           { work: currentUser.work },
+           { gym: currentUser.gym },
+           { bucketlist: { $in: currentUser.bucketlist } },
+         ],
+         $and: [
+           { _id: { $ne: new ObjectId(userId) } },
+           { _id: { $nin: likedUsers } },
+           { _id: { $nin: dislikedUsers } },
+           { isPaused: { $ne: true } },
+         ],
+       })
+       .toArray();
+   }
 
     res.render("matches/potentialMatches", {
       users: potentialMatches,
       userId: userId,
+      distance: distance,
     });
   } catch (error) {
     res.status(500).render("error", { error: error });

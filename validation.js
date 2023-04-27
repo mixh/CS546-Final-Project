@@ -74,7 +74,7 @@ const exportedMethods = {
         throw `${varName} must be a number`;
       }
       if (age < 18) {
-        throw "You must be at least 18 years old to use this dating website";
+        throw "You must be at least 18 years old to use this website";
       }
       if (age > 120) {
         throw "Invalid age";

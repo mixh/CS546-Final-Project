@@ -86,10 +86,12 @@ router.route("/:id/edit")
     } 
   
     if (req.body.name) {
+      validation.checkString(req.body.name,"Name");
       updateData.name = xss(req.body.name);
     }
   
     if (req.body.age) {
+      validation.checkAge(req.body.age,"Age");
       updateData.age = req.body.age;
     }
 
@@ -98,6 +100,7 @@ router.route("/:id/edit")
     }
 
     if(req.body.zip_code){
+      validation.checkString(req.body.zip_code);
       const zip = req.body.zip_code;
       
           const API_KEY = process.env.API_KEY;
@@ -132,7 +135,28 @@ router.route("/:id/edit")
     }
   
     if (req.body.bio) {
+      validation.checkString(req.body.bio,"Bio");
       updateData.bio = xss(req.body.bio);
+    }
+
+    if (req.body.colleges){
+      updateData.university= req.body.colleges;
+    }
+    if (req.body.gender){
+      updateData.gender= req.body.gender;
+    }
+
+    if (req.body.company){
+      validation.checkString(req.body.company,"Work");
+      updateData.work= xss(req.body.company);
+    }
+    
+    if (req.body.places-dropdown){
+      updateData.bucketlist= req.body.places-dropdown;
+    }
+
+    if (req.body.gyms-dropdown){
+      updateData.gym= req.body.gyms-dropdown;
     }
 
     // console.log(userData);

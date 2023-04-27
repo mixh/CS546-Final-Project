@@ -3,7 +3,12 @@
   2. DECIDE IF YOU WANT TO ALLOW USERS TO EDIT THEIR EMAIL AND PASSWORD ALSO 
   3. ADD OTHER FIELDS THAT ARE REQUIRED INTERESTS AND OTHER PARAMETERS  --}}
 
-<form method="post" enctype="multipart/form-data">
+
+<script src="/public/js/edit.js"></script>
+<div id="error" hidden>
+    <p class="p1">Wrong Input!</p>
+</div>
+<form method="post" id= "myForm2" action="/edit"  enctype="multipart/form-data">
   <div>
     <label for="name">Name:</label>
     <input type="text" name="name" value="{{user.name}}">
@@ -26,6 +31,38 @@
   <div>
     <label for="image">Profile image:</label>
     <input type="file" name="image">
+  </div>
+
+  <div>
+    <select id="gender" name="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="prefer not to say">Prefer not to say</option>
+
+    </select><br><br>
+  </div>
+
+  <div>
+
+    <label for="colleges">University:</label>
+    <select id="colleges" name="colleges"></select><br><br>
+  </div>
+
+  <div>
+
+    <label for="company">Place of Work: eg- Google</label>
+    <input type="text" id="company" name="company" ><br><br>
+  </div>
+
+  <div>
+    <label for="places-dropdown">A place you want to visit:</label>
+    <select id="places-dropdown"></select><br><br>
+  </div>
+
+  <div>
+    <label for="gyms-dropdown">Your gym/classes:</label>
+    <select id="gyms-dropdown">
+    </select><br><br>
   </div>
   <div>
     <button type="submit">Save changes</button>

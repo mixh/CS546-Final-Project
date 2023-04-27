@@ -1,9 +1,6 @@
-const registerForm = document.getElementById('myForm');
+const registerForm = document.getElementById('myForm2');
 const nameInput = document.getElementById('name');
-const companyInput = document.getElementById('company');
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const confirmPasswordInput = document.getElementById('confirm-password');
+const companyInput = document.getElementById('company');;
 const ageInput = document.getElementById('age');
 const zipInput = document.getElementById('zip_code');
 const genderInput= document.getElementById('gender');
@@ -11,8 +8,6 @@ const bioInput= document.getElementById('bio');
 let errorDiv = document.getElementById('error');
 
 import validation from "../validation.js";
-
-
 // function populateColleges() {
 //   const select = document.getElementById("colleges");
 //   fetch("https://api.data.gov/ed/collegescorecard/v1/schools?per_page=100&_fields=school.name&api_key=h9bvToe5RfPIMYmDlCoSfeMftX4AYcYxAO3jDhtj")
@@ -420,96 +415,43 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 
-registerForm.addEventListener('submit', (event) => {
+editForm.addEventListener('submit', (event) => {
   event.preventDefault();
   
-
-  if (nameInput.value.trim() === '') {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must enter a name';
-    frmLabel.className = 'error';
-    firstNameInput.focus();
-    return;
-  }
-  
-  
-
-  // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  // if (!emailPattern.test(emailInput.value.trim())) {
-  //   errorDiv.hidden = false;
-  //   errorDiv.innerHTML = 'Please enter a valid email address';
-  //   emailInput.focus();
-  //   return;
-  // }
-  
- 
-  if (passwordInput.value.trim() === '') {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must enter a password';
-    passwordInput.focus();
-    return;
-  }
-  
-  
-  if (confirmPasswordInput.value.trim() === '') {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must enter a password again';
-    confirmPasswordInput.focus();
-    return;
-  }
-  if (passwordInput.value.trim() !== confirmPasswordInput.value.trim()) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must enter a value';
-    confirmPasswordInput.focus();
-    return;
-  }
-  
-  
-  if (ageInput.value.trim() === '') {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must enter your age';
-    ageInput.focus();
-    return;
-  }
-
-  if (Number(ageInput.value.trim())<13) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must be atleast 13 years old';
-    ageInput.focus();
-    return;
-  }
-  if (zipInput.value.trim() === '') {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'Please enter your zip code';
-    ageInput.focus();
-    return;
-  }
-
-  if (genderInput.value.trim() === '') {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must enter a gender';
-    ageInput.focus();
-    return;
-  }
-
-  try {
+  try{
+  if (nameInput.value.trim()) {
     validation.checkString(nameInput, "Name");
-    validation.checkString(companyInput, "Work");
-    validation.checkEmail(emailInput, "Email");
-    validation.checkPassword(passwordInput, "Password");
+    return;
+  }
+
+  if (ageInput.value.trim()) {
     validation.checkAge(ageInput, "Age");
-    validation.checkZip(zipInput, "Zip Code");
+    return;
+  }
+
+  if (zipInput.value.trim()) {
+    validation.checkZip(zipInput, "Zip");
+    return;
+  }
+
+  if (bioInput.value.trim()) {
     validation.checkString(bioInput, "Bio");
-  } catch (error) {
+    return;
+  }
+  if (companyInput.value.trim()) {
+    validation.checkString(companyInput, "Work");
+    return;
+  
+  }
+}catch (error) {
     errorDiv.hidden = false;
     errorDiv.innerHTML = error;
     return;
   }
 
 
-
   
-  registerForm.submit();
+  editForm.submit();
 });
 
 
