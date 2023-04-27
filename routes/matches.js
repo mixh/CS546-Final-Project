@@ -3,6 +3,7 @@ const router = Router();
 import { users } from "../config/mongoCollections.js";
 import { ObjectId } from "mongodb";
 import { userData } from "../data/index.js";
+import xss from "xss";
 
 const checkSession = (req, res, next) => {
     if (!req.session.userId) {
@@ -95,7 +96,7 @@ router.route("/:id/search").
 get(async(req,res) => {
    const userCollection = await users();
    const userId = req.params.id;
-   const {search} = req.query;
+   const {search} = xss(req.query);
    const currentUser = await userCollection.findOne({
      _id: new ObjectId(userId),
    });
