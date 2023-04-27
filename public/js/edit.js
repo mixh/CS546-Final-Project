@@ -7,7 +7,7 @@ const genderInput= document.getElementById('gender');
 const bioInput= document.getElementById('bio');
 let errorDiv = document.getElementById('error');
 
-import validation from "../validation.js";
+// import validation from "../validation.js";
 // function populateColleges() {
 //   const select = document.getElementById("colleges");
 //   fetch("https://api.data.gov/ed/collegescorecard/v1/schools?per_page=100&_fields=school.name&api_key=h9bvToe5RfPIMYmDlCoSfeMftX4AYcYxAO3jDhtj")
@@ -418,7 +418,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 editForm.addEventListener('submit', (event) => {
   event.preventDefault();
   
-  try{
+  /* try{
   if (nameInput.value.trim()) {
     validation.checkString(nameInput, "Name");
     return;
@@ -447,10 +447,111 @@ editForm.addEventListener('submit', (event) => {
     errorDiv.hidden = false;
     errorDiv.innerHTML = error;
     return;
+  } */
+  
+  if (nameInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a name';
+    frmLabel.className = 'error';
+    firstNameInput.focus();
+    return;
+  }
+  
+  if (nameInput.length < 2 || nameInput.length > 50 ) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'Enter correct name';
+    frmLabel.className = 'error';
+    firstNameInput.focus();
+    return;
+  }
+  
+  if (emailInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter an email';
+    frmLabel.className = 'error';
+    firstNameInput.focus();
+    return;
+  }
+  
+  if (!isValidEmail(emailInput.value)) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'Please enter valid email address.';
+    frmLabel.className = 'error';
+    firstNameInput.focus();
+    return;
+  }
+ 
+  if (passwordInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a password';
+    passwordInput.focus();
+    return;
   }
 
-
+  if (!isValidPassword(passwordInput.value)) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'Please enter a valid Password.';
+    passwordInput.focus();
+    return;
+  }
   
+  if (confirmPasswordInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a password again';
+    confirmPasswordInput.focus();
+    return;
+  }
+
+  if (!isValidPassword(confirmPasswordInput.value)) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a password again';
+    confirmPasswordInput.focus();
+    return;
+}
+
+
+  if (passwordInput.value.trim() !== confirmPasswordInput.value.trim()) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a value';
+    confirmPasswordInput.focus();
+    return;
+  }
+  
+  
+  if (ageInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter your age';
+    ageInput.focus();
+    return;
+  }
+
+  if (Number(ageInput.value.trim())<13) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must be atleast 13 years old';
+    ageInput.focus();
+    return;
+  }
+  if (zipInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'Please enter your zip code';
+    zipInput.focus();
+    return;
+  }
+
+  if (genderInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a gender';
+    genderInput.focus();
+    return;
+  }
+
+  if (bioInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a bio';
+    bioInput.focus();
+    return;
+  }
+
   editForm.submit();
 });
 
