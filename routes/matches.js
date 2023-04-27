@@ -103,18 +103,22 @@ get(async(req,res) => {
    let filter = {
     _id: { $ne: new ObjectId(userId) },
     isPaused: false,
-    name: { $regex: new RegExp(search, "i") },
     $and: [
       { _id: { $in: currentUser.likedUsers.map(id => new ObjectId(id)) } },
       { _id: { $nin: currentUser.dislikedUsers.map(id => new ObjectId(id)) } }
     ]
   };
 
-   if(!search){
+   if(search){
     filter = {
       ...filter,
-      name: { $ne: null }
-    }
+      name: { $regex: new RegExp(search, "i") },
+    };
+   }else{
+     filter = {
+      ...filter,
+      name: { $ne: null },
+     };
    }
 
    const searchUsers = await userCollection.find(filter).toArray();
