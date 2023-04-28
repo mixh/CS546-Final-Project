@@ -1,8 +1,32 @@
 <p>Matches for the current user, excluded current, liked and disliked users
   already
 </p>
-
 <h1>Matches</h1>
+
+<nav>
+  <ul style="list-style: none; display: flex; justify-content: space-between; align-items: center; background-color: #333; padding: 10px;">
+    <li style="margin-right: auto;">
+      <a href="/home/{{user._id}}" class="button" style="color: white; text-decoration: none;">Home</a>
+    </li>
+    <li style="margin-right: 10px;">
+      <a href="/matches/{{user._id}}" class="button" style="color: white; text-decoration: none;">Matches</a>
+    </li>
+    <li style="margin-right: 10px;">
+      <a href="/potentialMatches/{{user._id}}?distance=all" class="button" style="color: white; text-decoration: none;">Potential Matches</a>
+    </li>
+    <li style="margin-right: 10px;">
+      <a href="/profile/{{user._id}}" class="button" style="color: white; text-decoration: none;">Profile</a>
+    </li>
+    <li style="margin-right: 10px;">
+      <a href="/messages/{{user._id}}/messages" class="button" style="color: white; text-decoration: none;">Messages</a>
+    </li>
+    <li>
+      <a href="/logout" class="button" style="color: white; text-decoration: none;">Logout</a>
+    </li>
+  </ul>
+</nav>
+
+
 
 <form method="GET" action="/matches/{{userId}}/search">
   <input type="text" name="search" placeholder="Search.." />
