@@ -1,6 +1,8 @@
 import { users } from "../config/mongoCollections.js";
 import { ObjectId } from "mongodb";
 import axios from "axios";
+//import { geolocation } from 'node-geolocation';
+
 
 // TODO - DOTENV the API KEY I HAVE USED IT DIRECTLY RIGHT NOW
 import * as dotenv from "dotenv";
@@ -36,29 +38,35 @@ export const create = async (
   bio = validation.checkString(bio, "Bio");
   const encryptedPassword = await bcrypt.hash(password, saltRounds);
 
-  const API_KEY = process.env.API_KEY;
-  const COUNTRY = "US";
-  const geocodingEndpoint = `http://api.openweathermap.org/geo/1.0/zip?zip=${zip},${COUNTRY}&appid=${API_KEY}`;
-  const geocodingResponse = await axios.get(geocodingEndpoint);
-  const geocodingData = geocodingResponse.data;
+   let city_name='xyz'
+    let latitude=40.7321
+  let longitude=-74.0660
+  // geolocation((err, data) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //      latitude = data.latitude;
+  //      longitude = data.longitude;
+  //     console.log(`Latitude: ${latitude}`);
+  //     console.log(`Longitude: ${longitude}`);
+  //   }
+  // });
 
-  if (!geocodingData || !geocodingData.lat || !geocodingData.lon) {
-    throw new Error("Invalid zip code or response format");
-  }
-
-  var lat = geocodingData.lat;
-  var lon = geocodingData.lon;
-
-  const reverseGeocodingEndpoint = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${API_KEY}`;
-  const reverseGeocodingResponse = await axios.get(reverseGeocodingEndpoint);
-  const reverseGeocodingData = reverseGeocodingResponse.data;
-
-  if (!reverseGeocodingData || !reverseGeocodingData[0].name) {
-    throw new Error("Could not get city name or response format");
-  }
-
-  const city = reverseGeocodingData[0].name;
-
+  axios.get('https://ipinfo.io/json')
+  .then(response => {
+    const { city, region, country, loc } = response.data;
+    const [lat, lng] = loc.split(',');
+     //console.log(`City: ${city}`);
+    // console.log(`Region: ${region}`);
+    // console.log(`Country: ${country}`);
+    // console.log(`Latitude: ${lat}`);
+    // console.log(`Longitude: ${lng}`);
+    latitude=lat
+    longitude=lng
+    city_name=city
+  })
+  
+const city=city_name
   let user = {
     name: name,
     email: email.toLowerCase(),
@@ -71,7 +79,7 @@ export const create = async (
     bucketlist: bucketlist,
     location: {
       type: "Point",
-      coordinates: [lon, lat],
+      coordinates: [longitude, latitude],
     },
     city_name: city,
     zip: zip,
