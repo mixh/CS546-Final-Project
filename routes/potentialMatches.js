@@ -64,13 +64,13 @@ router.get("/:id", checkSession, async(req,res) =>{
             },
           },
           { isPaused: { $ne: true } },
-        ],
-         $or: [
-           //checks if either of the places are same
-           { university: currentUser.university ? (u = true) : null  },
-           { work: currentUser.work ? (w = true) : null  },
-           { gym: currentUser.gym ? (g = true) : null}
-         ],
+        ]
+        //  $or: [
+        //    //checks if either of the places are same
+        //    { university: currentUser.university ? (u = true) : null  },
+        //    { work: currentUser.work ? (w = true) : null  },
+        //    { gym: currentUser.gym ? (g = true) : null}
+        //  ],
        })
        .toArray();
    } else {
@@ -82,14 +82,14 @@ router.get("/:id", checkSession, async(req,res) =>{
            { _id: { $nin: likedUsers } },
            { _id: { $nin: dislikedUsers } },
            { isPaused: { $ne: true } },
-         ],
-         $or: [
-          //checks if either of the places are same
-          { university: currentUser.university ? (u = true) : null  },
-          { work: currentUser.work ? (w = true) : null  },
-          { gym: currentUser.gym ? (g = true) : null}
-          // ,{ bucketlist: { $in: currentUser.bucketlist? currentUser.bucketlist:[] } },
-        ]
+         ]
+        //  $or: [
+        //   //checks if either of the places are same
+        //   { university: currentUser.university ? (u = true) : null  },
+        //   { work: currentUser.work ? (w = true) : null  },
+        //   { gym: currentUser.gym ? (g = true) : null}
+        //   // ,{ bucketlist: { $in: currentUser.bucketlist? currentUser.bucketlist:[] } },
+        // ]
        })
        .toArray();
    }
