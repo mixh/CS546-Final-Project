@@ -7,10 +7,12 @@ function checkEmail(email, varName){
   if(typeof email !== 'string'){
       throw `${varName} must be a string`;
   }
+  console.log(email)
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if(!email.match(emailRegex)){
-     throw `The ${varName} must be a valid email address`;
+  if (!emailRegex.test(email)) {
+    throw `The ${varName} must be a valid email address`;
   }
+  
 }
 
 function checkPassword(password,varName){
@@ -54,8 +56,8 @@ loginForm.addEventListener('submit', (event) => {
       return;
     }
     try {
-      checkEmail(emailInput, "Email");
-      checkPassword(passwordInput, "Password");;
+      checkEmail(emailInput.value.trim(), "Email");
+      checkPassword(passwordInput.value.trim(), "Password");;
     } catch (error) {
       errorDiv.hidden = false;
       errorDiv.innerHTML = error;

@@ -343,26 +343,26 @@ editForm.addEventListener('submit', (event) => {
   
   try{
   if (nameInput.value.trim()) {
-    checkString(nameInput, "Name");
+    checkString(nameInput.value.trim(), "Name");
     return;
   }
 
   if (ageInput.value.trim()) {
-    checkAge(ageInput, "Age");
+    checkAge(ageInput.value.trim(), "Age");
     return;
   }
 
   if (zipInput.value.trim()) {
-    checkZip(zipInput, "Zip");
+    checkZip(zipInput.value.trim(), "Zip");
     return;
   }
 
   if (bioInput.value.trim()) {
-    checkString(bioInput, "Bio");
+    checkString(bioInput.value.trim(), "Bio");
     return;
   }
   if (companyInput.value.trim()) {
-    checkString(companyInput, "Work");
+    checkString(companyInput.value.trim(), "Work");
     return;
   
   }

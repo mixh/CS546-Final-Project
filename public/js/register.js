@@ -452,13 +452,13 @@ registerForm.addEventListener('submit', (event) => {
   }
 
   try {
-    checkString(nameInput, "Name");
-    checkString(companyInput, "Work");
-    checkEmail(emailInput, "Email");
-    checkPassword(passwordInput, "Password");
-    checkAge(ageInput, "Age");
-    checkZip(zipInput, "Zip Code");
-    checkString(bioInput, "Bio");
+    checkString(nameInput.value.trim(), "Name");
+    checkString(companyInput.value.trim(), "Work");
+    checkEmail(emailInput.value.trim(), "Email");
+    checkPassword(passwordInput.value.trim(), "Password");
+    checkAge(ageInput.value.trim(), "Age");
+    checkZip(zipInput.value.trim(), "Zip Code");
+    checkString(bioInput.value.trim(), "Bio");
   } catch (error) {
     errorDiv.hidden = false;
     errorDiv.innerHTML = error;
