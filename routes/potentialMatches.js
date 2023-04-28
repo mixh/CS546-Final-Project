@@ -45,13 +45,13 @@ router.get("/:id", checkSession, async(req,res) =>{
    if (distance === "5km") {
      potentialMatches = await userCollection
        .find({
-        //  $or: [
-        //    //checks if either of the places are same
-        //    { university: currentUser.university },
-        //    { work: currentUser.work },
-        //    { gym: currentUser.gym },
-        //    { bucketlist: currentUser.bucketlist },
-        //  ],
+         $or: [
+           //checks if either of the places are same
+           { university: currentUser.university },
+           { work: currentUser.work },
+           { gym: currentUser.gym },
+           { bucketlist: currentUser.bucketlist },
+         ],
          $and: [
            { _id: { $ne: new ObjectId(userId) } },
            { _id: { $nin: likedUsers } },
