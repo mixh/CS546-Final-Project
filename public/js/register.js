@@ -173,7 +173,7 @@ const places = [
 function populatePlaces() {
   const dropdown = document.getElementById("places-dropdown");
   const defaultOption = document.createElement("option");
-  defaultOption.value = "NA";
+  defaultOption.value = "Don't have one currently :)";
   defaultOption.text = "I don't have a bucketlist place I'd like to visit";
   dropdown.appendChild(defaultOption);
   // Add each place to the dropdown as an option
