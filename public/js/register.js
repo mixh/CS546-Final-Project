@@ -66,7 +66,6 @@ function checkZip(zip_code, varName){
 
 
 const places = [
-  "I don't have a bucketlist place",
   "Yellowstone National Park",
   "Grand Canyon",
   "Mount Rushmore",
@@ -173,7 +172,10 @@ const places = [
 // Define a function to populate the dropdown with places
 function populatePlaces() {
   const dropdown = document.getElementById("places-dropdown");
-  
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "NA";
+  defaultOption.text = "I don't have a bucketlist place I'd like to visit";
+  dropdown.appendChild(defaultOption);
   // Add each place to the dropdown as an option
   places.forEach(place => {
     const option = document.createElement("option");
@@ -190,7 +192,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 const fitnessOptions = [
-  "I don't go or wish to disclose",
   "Orangetheory Fitness",
   "Barry's Bootcamp",
   "SoulCycle",
@@ -318,7 +319,10 @@ const fitnessOptions = [
 
 function populateFitness() {
   const dropdown = document.getElementById("gyms-dropdown");
-  
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "NA";
+  defaultOption.text = "Not Applicable or other";
+  dropdown.appendChild(defaultOption);
   // Add each place to the dropdown as an option
   fitnessOptions.forEach(fitnessOptions => {
     const option = document.createElement("option");
@@ -19806,7 +19810,7 @@ universities=[
 function populateColleges() {
   const select = document.getElementById("colleges");
   const defaultOption = document.createElement("option");
-  defaultOption.value = "";
+  defaultOption.value = "NA";
   defaultOption.text = "My university is not listed";
   select.appendChild(defaultOption);
 
