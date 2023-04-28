@@ -112,6 +112,59 @@ const places = [
   "Tahiti"
 ];
 
+//error handling
+function checkString(strVal, varName){
+  if (typeof strVal !== 'string') throw `Error: ${varName} must be a string!`;
+  if (!isNaN(strVal))
+  throw `Error: ${strVal} is not a valid value for ${varName} as it only contains digits`;
+}
+
+function checkPassword(password,varName){
+  if(typeof password !== 'string'){
+    throw `${varName} must be of string type`;
+}
+
+if (password.length < 8) {
+ throw 'Password must be at least 8 characters long';
+}
+if (!/[a-z]/.test(password)) {
+ throw 'Password must contain at least one lowercase letter';
+}
+if (!/[A-Z]/.test(password)) {
+ throw 'Password must contain at least one uppercase letter';
+}
+if (!/\d/.test(password)) {
+ throw 'Password must contain at least one number';
+}
+}
+function checkEmail(email, varName){
+  if(typeof email !== 'string'){
+      throw `${varName} must be a string`;
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!email.match(emailRegex)){
+     throw `The ${varName} must be a valid email address`;
+  }
+}
+
+function checkAge(age, varName){
+  if (isNaN(age)) {
+    throw `${varName} must be a number`;
+  }
+  if (age < 18) {
+    throw "You must be at least 18 years old to use this website";
+  }
+  if (age > 120) {
+    throw "Invalid age";
+  }
+}
+
+function checkZip(zip_code, varName){
+  if(isNaN(zip_code)){
+    throw `${varName} must be a number`;
+  }
+} 
+
 
 // Define a function to populate the dropdown with places
 function populatePlaces() {
@@ -283,138 +336,36 @@ document.addEventListener("DOMContentLoaded", function(event) {
 editForm.addEventListener('submit', (event) => {
   event.preventDefault();
   
-//   try{
-//   if (nameInput.value.trim()) {
-//     validation.checkString(nameInput, "Name");
-//     return;
-//   }
+  try{
+  if (nameInput.value.trim()) {
+    checkString(nameInput, "Name");
+    return;
+  }
 
-//   if (ageInput.value.trim()) {
-//     validation.checkAge(ageInput, "Age");
-//     return;
-//   }
+  if (ageInput.value.trim()) {
+    checkAge(ageInput, "Age");
+    return;
+  }
 
-//   if (zipInput.value.trim()) {
-//     validation.checkZip(zipInput, "Zip");
-//     return;
-//   }
+  if (zipInput.value.trim()) {
+    checkZip(zipInput, "Zip");
+    return;
+  }
 
-//   if (bioInput.value.trim()) {
-//     validation.checkString(bioInput, "Bio");
-//     return;
-//   }
-//   if (companyInput.value.trim()) {
-//     validation.checkString(companyInput, "Work");
-//     return;
+  if (bioInput.value.trim()) {
+    checkString(bioInput, "Bio");
+    return;
+  }
+  if (companyInput.value.trim()) {
+    checkString(companyInput, "Work");
+    return;
   
-//   }
-// }catch (error) {
-//     errorDiv.hidden = false;
-//     errorDiv.innerHTML = error;
-//     return;
-//   }
-if (nameInput.value.trim() === '') {
-  errorDiv.hidden = false;
-  errorDiv.innerHTML = 'You must enter a name';
-  frmLabel.className = 'error';
-  firstNameInput.focus();
-  return;
-}
-
-if (nameInput.length < 2 || nameInput.length > 50 ) {
-  errorDiv.hidden = false;
-  errorDiv.innerHTML = 'Enter correct name';
-  frmLabel.className = 'error';
-  firstNameInput.focus();
-  return;
-}
-
-if (emailInput.value.trim() === '') {
-  errorDiv.hidden = false;
-  errorDiv.innerHTML = 'You must enter an email';
-  frmLabel.className = 'error';
-  firstNameInput.focus();
-  return;
-}
-
-if (!isValidEmail(emailInput.value)) {
-  errorDiv.hidden = false;
-  errorDiv.innerHTML = 'Please enter valid email address.';
-  frmLabel.className = 'error';
-  firstNameInput.focus();
-  return;
-}
-
-if (passwordInput.value.trim() === '') {
-  errorDiv.hidden = false;
-  errorDiv.innerHTML = 'You must enter a password';
-  passwordInput.focus();
-  return;
-}
-
-if (!isValidPassword(passwordInput.value)) {
-  errorDiv.hidden = false;
-  errorDiv.innerHTML = 'Please enter a valid Password.';
-  passwordInput.focus();
-  return;
-}
-
-if (confirmPasswordInput.value.trim() === '') {
-  errorDiv.hidden = false;
-  errorDiv.innerHTML = 'You must enter a password again';
-  confirmPasswordInput.focus();
-  return;
-}
-
-if (!isValidPassword(confirmPasswordInput.value)) {
-  errorDiv.hidden = false;
-  errorDiv.innerHTML = 'You must enter a password again';
-  confirmPasswordInput.focus();
-  return;
-}
-
-
-if (passwordInput.value.trim() !== confirmPasswordInput.value.trim()) {
-  errorDiv.hidden = false;
-  errorDiv.innerHTML = 'You must enter a value';
-  confirmPasswordInput.focus();
-  return;
-}
-
-
-if (ageInput.value.trim() === '') {
-  errorDiv.hidden = false;
-  errorDiv.innerHTML = 'You must enter your age';
-  ageInput.focus();
-  return;
-}
-
-if (Number(ageInput.value.trim())<13) {
-  errorDiv.hidden = false;
-  errorDiv.innerHTML = 'You must be atleast 13 years old';
-  ageInput.focus();
-  return;
-}
-if (zipInput.value.trim() === '') {
-  errorDiv.hidden = false;
-  errorDiv.innerHTML = 'Please enter your zip code';
-  zipInput.focus();
-  return;
-}
-
-if (genderInput.value.trim() === '') {
-  errorDiv.hidden = false;
-  errorDiv.innerHTML = 'You must enter a gender';
-  genderInput.focus();
-  return;
-}
-
-if (bioInput.value.trim() === '') {
-  errorDiv.hidden = false;
-  errorDiv.innerHTML = 'You must enter a bio';
-  bioInput.focus();
-  return;
-}
+  }
+}catch (error) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = error;
+    return;
+  }
 
   
   editForm.submit();
