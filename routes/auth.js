@@ -150,7 +150,7 @@ router
         image_filename,
         image_path,
         university,
-        company,
+        company.toLowerCase(),
         gym,
         place);
 

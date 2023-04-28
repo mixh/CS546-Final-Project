@@ -15,7 +15,7 @@ const checkSession = (req, res, next) => {
   next();
 };
 
-router.get("/:id", checkSession, async(req,res) =>{
+router.get("/:id", checkSession, async (req, res) => {
   try {
     const userId = req.params.id;
     const userCollection = await users();
@@ -40,72 +40,77 @@ router.get("/:id", checkSession, async(req,res) =>{
     // Check the "distance" query parameter
     const distance = req.query.distance || "all";
 
-    // Find users within 5 miles of the current user
-  let potentialMatches = [];
-  let u = false;
-  let w= false;
-  let g=false;
-   if (distance === "5km") {
-     potentialMatches = await userCollection
-       .find({
-         $and: [
-          { _id: { $ne: new ObjectId(userId) } },
-          { _id: { $nin: likedUsers } },
-          { _id: { $nin: dislikedUsers } },
-          {
-            location: {
-              $near: {
-                $geometry: {
-                  type: "Point",
-                  coordinates: currentUser.location.coordinates,
+    // Define the $and query for finding potential matches
+    const andQuery = [
+      { _id: { $ne: new ObjectId(userId) } },
+      { _id: { $nin: likedUsers } },
+      { _id: { $nin: dislikedUsers } },
+      { isPaused: { $ne: true } },
+    ];
+
+    // Define the $or query for finding potential matches
+    const orQuery = [
+      //checks if either of the places are same
+      { university: currentUser.university },
+      { work: currentUser.work },
+      { gym: currentUser.gym },
+      // { bucketlist: { $in: currentUser.bucketlist? currentUser.bucketlist:[] } },
+    ];
+    const orQueryFiltered = orQuery.filter((obj) => {
+      return Object.values(obj)[0] !== undefined && Object.values(obj)[0] !== null;
+    });
+
+    // Find potential matches based on distance and $and/$or queries
+    let potentialMatches = [];
+    if (distance === "5km") {
+      potentialMatches = await userCollection
+        .find({
+          $and: [
+            ...andQuery,
+            {
+              location: {
+                $near: {
+                  $geometry: {
+                    type: "Point",
+                    coordinates: currentUser.location.coordinates,
+                  },
+                  $maxDistance: 5000,
                 },
-                $maxDistance: 5000,
               },
             },
-          },
-          { isPaused: { $ne: true } },
-        ]
-        //  $or: [
-        //    //checks if either of the places are same
-        //    { university: currentUser.university ? (u = true) : null  },
-        //    { work: currentUser.work ? (w = true) : null  },
-        //    { gym: currentUser.gym ? (g = true) : null}
-        //  ],
-       })
-       .toArray();
-   } else {
-     // Find all potential matches
-     potentialMatches = await userCollection
-       .find({
-         $and: [
-           { _id: { $ne: new ObjectId(userId) } },
-           { _id: { $nin: likedUsers } },
-           { _id: { $nin: dislikedUsers } },
-           { isPaused: { $ne: true } },
-         ]
-        //  $or: [
-        //   //checks if either of the places are same
-        //   { university: currentUser.university ? (u = true) : null  },
-        //   { work: currentUser.work ? (w = true) : null  },
-        //   { gym: currentUser.gym ? (g = true) : null}
-        //   // ,{ bucketlist: { $in: currentUser.bucketlist? currentUser.bucketlist:[] } },
-        // ]
-       })
-       .toArray();
-   }
+          ],
+          $or: [...orQueryFiltered],
+        })
+        .toArray();
+    } else {
+      potentialMatches = await userCollection
+        .find({
+          $and: andQuery,
+          $or: [...orQueryFiltered],
+        })
+        .toArray();
+    }
+
+    // Set flags to indicate which fields matched for each potential match
+    const potentialMatchesWithFlags = potentialMatches.map((match) => {
+      return {
+        ...match,
+        u: orQueryFiltered[0] ? match.university === currentUser.university : false,
+        w: orQueryFiltered[1] ? match.work === currentUser.work : false,
+        g: orQueryFiltered[2] ? match.gym === currentUser.gym : false,
+      };
+    });
 
     res.render("matches/potentialMatches", {
-      users: potentialMatches,
+      users: potentialMatchesWithFlags,
       userId: userId,
       distance: distance,
-      u: u,
-      w: w,
-      g: g
     });
   } catch (error) {
     res.status(500).render("error", { error: error });
   }
-})
+});
+
 
 router.post("/:id/like", checkSession, async (req, res) => {
   try {
