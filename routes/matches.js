@@ -82,6 +82,17 @@ router.get("/:id", checkSession, async(req,res) =>{
           { $set: { likedUsers: unMatched } }
         );
       }
+      
+      if (currentUser.matches.includes(unmatchedUserId)) {
+        const matchedUser = currentUser.matches;
+        const unMatched = matchedUser.filter(
+          (user) => JSON.stringify(user) !== JSON.stringify(unmatchedUserId)
+        );
+        await userCollection.updateOne(
+          { _id: new ObjectId(userId) },
+          { $set: { matches: unMatched } }
+        );
+      }
 
       // Remove userId from unmatchedUser's matches array
       if (unmatchedUser.likedBy.includes(userId)) {

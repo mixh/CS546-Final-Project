@@ -68,4 +68,31 @@ router.post("/:userId/messages/:matchUserId/send", checkSession, async (req, res
   }
 });
 
+router.get("/:userId/messages", checkSession, async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const userCollection = await users();
+    const currentUser = await userCollection.findOne({
+        _id: new ObjectId(userId),
+    });
+
+    let filter = {
+      _id: { $ne: new ObjectId(userId) },
+      isPaused: false,
+      $and: [
+        { _id: { $in: currentUser.matches.map(id => new ObjectId(id)) } },
+      ]
+    };
+
+    const userMessageInfo = await userCollection.find(filter).toArray();
+
+    res.render("messages/message", {
+      users: userMessageInfo,
+      userId: userId,
+    });
+  } catch (error) {
+    res.status(500).render("error", { error: error });
+  }
+});
+
 export default router;
