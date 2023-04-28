@@ -26,6 +26,7 @@
     {{/each}}
   </ul>
 {{else}}
+
   {{#if users}}
     <ul>
       {{#each users}}
@@ -40,6 +41,10 @@
           <form method="POST" action="/matches/{{this._id}}/unmatch">
             <button type="submit">Unmatch</button>
           </form>
+
+          <a href="/messages/{{../userId}}/messages/{{this._id}}">Message {{this.name}}</a>
+
+
         </li>
       {{/each}}
     </ul>

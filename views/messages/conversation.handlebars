@@ -1,0 +1,17 @@
+
+<body>
+  <h1>Conversation with {{muName}}</h1>
+
+  <ul>
+    {{#each messages}}
+    <li> {{createdAt}} </li>
+    <li> {{senderName}}: {{content}}</li>
+    <br>
+    {{/each}}
+  </ul>
+
+  <form action="/messages/{{userId}}/messages/{{matchUserId}}/send" method="post">
+    <input type="text" name="content" placeholder="Type your message..." required>
+    <input type="submit" value="Send">
+  </form>
+</body>
