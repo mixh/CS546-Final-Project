@@ -42,6 +42,9 @@ router.get("/:id", checkSession, async(req,res) =>{
 
     // Find users within 5 miles of the current user
   let potentialMatches = [];
+  let u = false;
+  let w= false;
+  let g=false;
    if (distance === "5km") {
      potentialMatches = await userCollection
        .find({
@@ -64,9 +67,9 @@ router.get("/:id", checkSession, async(req,res) =>{
         ],
          $or: [
            //checks if either of the places are same
-           { university: currentUser.university },
-           { work: currentUser.work },
-           { gym: currentUser.gym }
+           { university: currentUser.university ? (u = true) : null  },
+           { work: currentUser.work ? (w = true) : null  },
+           { gym: currentUser.gym ? (g = true) : null}
          ],
        })
        .toArray();
@@ -82,9 +85,9 @@ router.get("/:id", checkSession, async(req,res) =>{
          ],
          $or: [
           //checks if either of the places are same
-          { university: currentUser.university },
-          { work: currentUser.work },
-          { gym: currentUser.gym }
+          { university: currentUser.university ? (u = true) : null  },
+          { work: currentUser.work ? (w = true) : null  },
+          { gym: currentUser.gym ? (g = true) : null}
           // ,{ bucketlist: { $in: currentUser.bucketlist? currentUser.bucketlist:[] } },
         ]
        })
@@ -95,6 +98,9 @@ router.get("/:id", checkSession, async(req,res) =>{
       users: potentialMatches,
       userId: userId,
       distance: distance,
+      u: u,
+      w: w,
+      g: g
     });
   } catch (error) {
     res.status(500).render("error", { error: error });

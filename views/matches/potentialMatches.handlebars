@@ -22,7 +22,18 @@
         <h2>{{this.name}}</h2>
         <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image">
         <p>{{this.bio}}</p>
+        <p>A place I want to visit: {{this.bucketlist}}</p>
         <a href="/potentialMatchesProfile/{{this._id}}">View Profile</a>
+        {{#if u}}
+          <p>You both go to {{{this.university}}}</p>
+        {{/if}}
+        {{#if w}}
+          <p>You both work at {{{this.work}}}</p>
+        {{/if}}
+        {{#if g}}
+          <p>You both workout at {{{this.gym}}}</p>
+        {{/if}}
+
         <form method="POST" action="/potentialMatches/{{this._id}}/like">
           <button type="submit">Like</button>
         </form>

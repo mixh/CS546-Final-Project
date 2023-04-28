@@ -93,9 +93,13 @@ router
       regData.company = validation.checkString(regData.company, "Work");
       regData.email = validation.checkEmail(regData.email, "Email");
       regData.password = validation.checkPassword(regData.password, "Password");
+      regData.confpassword = validation.checkPassword(regData.confpassword, "Confirm Password");
       regData.age = validation.checkAge(regData.age, "Age");
       regData.zip_code = validation.checkZip(regData.zip_code, "Zip Code");
       regData.bio = validation.checkString(regData.bio, "Bio");
+      regData.place = validation.checkString(regData.place, "Place");
+      regData.gym = validation.checkString(regData.gym, "Gym");
+      regData.colleges = validation.checkString(regData.colleges, "College");
     } catch (error) {
       return res.status(400).render("error", { error: error });
     }
@@ -107,18 +111,17 @@ router
       const name = xss(req.body.name);
       const email = xss(req.body.email);
       const password = xss(req.body.password);
-      const confPassword= xss(req.body.confirm-password);
+      const confpassword= xss(req.body.confpassword);
       const bio = xss(req.body.bio);
-      const preferences = xss(req.body.preferences);
       const zip_code = req.body.zip_code;
       const age = req.body.age;
       const gender = req.body.gender;
       const university= req.body.colleges;
-      const place= req.body.places-dropdown;
-      const gym= req.body.gyms-dropdown;
+      const place= req.body.place;
+      const gym= req.body.gym;
       const company = xss(req.body.company);
 
-      if(password!==confPassword){
+      if(password!==confpassword){
         throw "please enter the same password"
       }
 
@@ -143,7 +146,6 @@ router
         gender,
         zip_code,
         bio,
-        preferences,
         image_destination,
         image_filename,
         image_path,
