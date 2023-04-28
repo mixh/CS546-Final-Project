@@ -3,7 +3,7 @@ const nameInput = document.getElementById('name');
 const companyInput = document.getElementById('company');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
-const confirmPasswordInput = document.getElementById('confirm-password');
+const confirmPasswordInput = document.getElementById('confpassword');
 const ageInput = document.getElementById('age');
 const zipInput = document.getElementById('zip_code');
 const genderInput= document.getElementById('gender');
@@ -171,7 +171,7 @@ const places = [
 
 // Define a function to populate the dropdown with places
 function populatePlaces() {
-  const dropdown = document.getElementById("places-dropdown");
+  const dropdown = document.getElementById("place");
   const defaultOption = document.createElement("option");
   defaultOption.value = "Don't have one currently :)";
   defaultOption.text = "I don't have a bucketlist place I'd like to visit";
@@ -318,7 +318,7 @@ const fitnessOptions = [
   "Acro Yoga"];
 
 function populateFitness() {
-  const dropdown = document.getElementById("gyms-dropdown");
+  const dropdown = document.getElementById("gym");
   const defaultOption = document.createElement("option");
   defaultOption.value = "NA";
   defaultOption.text = "Not Applicable or other";
@@ -362,14 +362,6 @@ registerForm.addEventListener('submit', (event) => {
     firstNameInput.focus();
     return;
   }
-  
-  if (!isValidEmail(emailInput.value)) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'Please enter valid email address.';
-    frmLabel.className = 'error';
-    firstNameInput.focus();
-    return;
-  }
 
   // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   // if (!emailPattern.test(emailInput.value.trim())) {
@@ -386,13 +378,6 @@ registerForm.addEventListener('submit', (event) => {
     passwordInput.focus();
     return;
   }
-
-  if (!isValidPassword(passwordInput.value)) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'Please enter a valid Password.';
-    passwordInput.focus();
-    return;
-  }
   
   if (confirmPasswordInput.value.trim() === '') {
     errorDiv.hidden = false;
@@ -401,17 +386,11 @@ registerForm.addEventListener('submit', (event) => {
     return;
   }
 
-  if (!isValidPassword(confirmPasswordInput.value)) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must enter a password again';
-    confirmPasswordInput.focus();
-    return;
-}
 
 
   if (passwordInput.value.trim() !== confirmPasswordInput.value.trim()) {
     errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must enter a value';
+    errorDiv.innerHTML = 'Your Passwords do not match';
     confirmPasswordInput.focus();
     return;
   }
@@ -453,17 +432,60 @@ registerForm.addEventListener('submit', (event) => {
 
   try {
     checkString(nameInput.value.trim(), "Name");
+  } catch (error) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = error;
+    return;
+  }
+  
+  try {
     checkString(companyInput.value.trim(), "Work");
+  } catch (error) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = error;
+    return;
+  }
+  
+  try {
     checkEmail(emailInput.value.trim(), "Email");
+  } catch (error) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = error;
+    return;
+  }
+  
+  try {
     checkPassword(passwordInput.value.trim(), "Password");
+  } catch (error) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = error;
+    return;
+  }
+  
+  try {
     checkAge(ageInput.value.trim(), "Age");
+  } catch (error) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = error;
+    return;
+  }
+  
+  try {
     checkZip(zipInput.value.trim(), "Zip Code");
+  } catch (error) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = error;
+    return;
+  }
+  
+  try {
     checkString(bioInput.value.trim(), "Bio");
   } catch (error) {
     errorDiv.hidden = false;
     errorDiv.innerHTML = error;
     return;
   }
+  
   registerForm.submit();
 });
 

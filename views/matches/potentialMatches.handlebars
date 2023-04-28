@@ -24,11 +24,13 @@
         <p>{{this.bio}}</p>
         <p>A place I want to visit: {{this.bucketlist}}</p>
         <a href="/potentialMatchesProfile/{{this._id}}">View Profile</a>
-        {{#if flag===1}}
+        {{#if u}}
           <p>You both go to {{{this.university}}}</p>
-        {{#if flag===2}}
+        {{/if}}
+        {{#if w}}
           <p>You both work at {{{this.work}}}</p>
-        {{#if flag===3}}
+        {{/if}}
+        {{#if g}}
           <p>You both workout at {{{this.gym}}}</p>
         {{/if}}
 
