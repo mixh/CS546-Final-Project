@@ -1,0 +1,150 @@
+/* Apply default font size and color */
+body {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  /* Add larger font size for form labels */
+  label {
+    font-size: 1.2rem;
+  }
+  
+  /* Increase contrast for form labels and input fields */
+  label, input, select, textarea {
+    color: #000;
+    background-color: #fff;
+  }
+  
+  /* Apply outline style to all input fields when focused with keyboard */
+  input:focus, select:focus, textarea:focus {
+    outline: 2px solid #1c7cd6;
+  }
+  
+  /* Make error message visible when input is incorrect */
+  /* #error {
+    display: block;
+    color: red;
+    margin-top: 1rem;
+  } */
+  
+  /* Set max-width for form and center it on the page */
+  form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Add margin and padding to form elements */
+  form label,
+  form input,
+  form select,
+  form textarea,
+  form button {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+  }
+  
+  /* Style the submit button */
+  form button[type="submit"] {
+    background-color: #1c7cd6;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+  }
+  
+  /* Style the link to the login page */
+  a {
+    color: #1c7cd6;
+    text-decoration: none;
+  }
+
+  /* Style select elements */
+select {
+    font-size: 1rem;
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Style select elements when hovered */
+  select:hover {
+    border-color: #1c7cd6;
+  }
+  
+  /* Style select elements when focused */
+  select:focus {
+    border-color: #1c7cd6;
+    box-shadow: 0 0 0 2px #1c7cd6;
+  }
+  
+  /* Style the dropdown arrow */
+  select::-ms-expand,
+  select::-webkit-select-arrow {
+    color: #1c7cd6;
+  }
+  
+  /* Style option elements */
+  select option {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    background-color: #fff;
+  }
+  
+  /* Style disabled option elements */
+  select option:disabled {
+    color: #999;
+  }
+  
+  /* Style option elements when hovered */
+  select option:hover {
+    background-color: #1c7cd6;
+    color: #fff;
+  }
+  
+  /* Style the placeholder option */
+  select option[value="select-gender"],
+  select option[value=""] {
+    color: #999;
+  }
+  
+  /* Style the college select */
+  #colleges {
+    max-width: 300px;
+  }
+  
+  /* Style the places and gyms selects */
+  #places-dropdown,
+  #gyms-dropdown {
+    max-width: 400px;
+  }
+  
+  /* Style the company input */
+  #company {
+    font-size: 1rem;
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  input[type="file"] {
+    font-size: 1rem;
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    width: 50%;
+    height: 2.5rem; /* increase height to make it bigger */
+  }
+  
+  
