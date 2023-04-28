@@ -2,3 +2,26 @@
         <form method="POST" action="/matches/{{this._id}}/message">
         <button type="submit">Message</button>
         </form> --}}
+
+{{#if users}}
+    <ul>
+      {{#each users}}
+        <li>
+          <h2>{{this.name}}</h2>
+          <img
+            src="/{{this.image.destination}}/{{this.image.filename}}"
+            alt="Profile image"
+          />
+          <p>{{this.bio}}</p>
+          <a href="/matches/{{this._id}}/viewProfile">View Profile</a><br><br>
+
+          <a href="/messages/{{../userId}}/messages/{{this._id}}">Message {{this.name}}</a>
+
+
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>No matches found.</p>
+  {{/if}}
+  <a href="/home/{{userId}}" class="button">Go to Home</a>

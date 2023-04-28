@@ -45,29 +45,28 @@ router.get("/:id", checkSession, async(req,res) =>{
    if (distance === "5km") {
      potentialMatches = await userCollection
        .find({
-        //  $or: [
-        //    //checks if either of the places are same
-        //    { university: currentUser.university },
-        //    { work: currentUser.work },
-        //    { gym: currentUser.gym },
-        //    { bucketlist: currentUser.bucketlist },
-        //  ],
          $and: [
-           { _id: { $ne: new ObjectId(userId) } },
-           { _id: { $nin: likedUsers } },
-           { _id: { $nin: dislikedUsers } },
-           {
-             location: {
-               $near: {
-                 $geometry: {
-                   type: "Point",
-                   coordinates: currentUser.location.coordinates,
-                 },
-                 $maxDistance: 5000,
-               },
-             },
-           },
-           { isPaused: { $ne: true } },
+          { _id: { $ne: new ObjectId(userId) } },
+          { _id: { $nin: likedUsers } },
+          { _id: { $nin: dislikedUsers } },
+          {
+            location: {
+              $near: {
+                $geometry: {
+                  type: "Point",
+                  coordinates: currentUser.location.coordinates,
+                },
+                $maxDistance: 5000,
+              },
+            },
+          },
+          { isPaused: { $ne: true } },
+        ],
+         $or: [
+           //checks if either of the places are same
+           { university: currentUser.university },
+           { work: currentUser.work },
+           { gym: currentUser.gym }
          ],
        })
        .toArray();
@@ -75,19 +74,19 @@ router.get("/:id", checkSession, async(req,res) =>{
      // Find all potential matches
      potentialMatches = await userCollection
        .find({
-         $or: [
-           //checks if either of the places are same
-           { university: currentUser.university },
-           { work: currentUser.work },
-           { gym: currentUser.gym },
-           { bucketlist: { $in: currentUser.bucketlist? currentUser.bucketlist:[] } },
-         ],
          $and: [
            { _id: { $ne: new ObjectId(userId) } },
            { _id: { $nin: likedUsers } },
            { _id: { $nin: dislikedUsers } },
            { isPaused: { $ne: true } },
          ],
+         $or: [
+          //checks if either of the places are same
+          { university: currentUser.university },
+          { work: currentUser.work },
+          { gym: currentUser.gym }
+          // ,{ bucketlist: { $in: currentUser.bucketlist? currentUser.bucketlist:[] } },
+        ]
        })
        .toArray();
    }
