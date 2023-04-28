@@ -11,32 +11,35 @@
 <form method="post" id= "myForm2" action="/edit"  enctype="multipart/form-data">
   <div>
     <label for="name">Name:</label>
-    <input type="text" name="name" value="{{user.name}}">
+    <input id="name" type="text" name="name" value="{{user.name}}">
   </div>
   <div>
     <label for="age">Age:</label>
-    <input type="number" name="age" value="{{user.age}}">
+    <input type="number" id="age" name="age" value="{{user.age}}">
   </div>
 
 
   <div>
     <label for="zip_code"> Update your Zip code to update your location:</label>
-    <input type="number" name="zip_code" value="{{user.zip}}">
+    <input type="number" id="zip_code" name="zip_code" value="{{user.zip}}">
   </div>
 
   <div>
     <label for="bio">Bio:</label>
-    <textarea name="bio">{{user.bio}}</textarea>
+    <textarea id="bio" name="bio">{{user.bio}}</textarea>
   </div>
   <div>
     <label for="image">Profile image:</label>
-    <input type="file" name="image">
-  </div>
+    <input type="file" id="image" name="image">
+  </div><br><br>
 
   <div>
+    <label for="gender">Gender:</label>
     <select id="gender" name="gender">
+      <option value="select-gender">Select Gender</option>
       <option value="male">Male</option>
       <option value="female">Female</option>
+      <option value="other">Other</option>
       <option value="prefer not to say">Prefer not to say</option>
 
     </select><br><br>
