@@ -11,15 +11,58 @@ const bioInput= document.getElementById('bio');
 let errorDiv = document.getElementById('error');
 
 
-function isValidEmail(email) {
-  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  return emailRegex.test(email);
+//error handling
+function checkString(strVal, varName){
+  if (typeof strVal !== 'string') throw `Error: ${varName} must be a string!`;
+  if (!isNaN(strVal))
+  throw `Error: ${strVal} is not a valid value for ${varName} as it only contains digits`;
 }
 
-function isValidPassword(password){
-    const passRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*(\W|_)).{8,}$/;
-    return passRegex.test(password);
+function checkPassword(password,varName){
+  if(typeof password !== 'string'){
+    throw `${varName} must be of string type`;
 }
+
+if (password.length < 8) {
+ throw 'Password must be at least 8 characters long';
+}
+if (!/[a-z]/.test(password)) {
+ throw 'Password must contain at least one lowercase letter';
+}
+if (!/[A-Z]/.test(password)) {
+ throw 'Password must contain at least one uppercase letter';
+}
+if (!/\d/.test(password)) {
+ throw 'Password must contain at least one number';
+}
+}
+function checkEmail(email, varName){
+  if(typeof email !== 'string'){
+      throw `${varName} must be a string`;
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!email.match(emailRegex)){
+     throw `The ${varName} must be a valid email address`;
+  }
+}
+
+function checkAge(age, varName){
+  if (isNaN(age)) {
+    throw `${varName} must be a number`;
+  }
+  if (age < 18) {
+    throw "You must be at least 18 years old to use this website";
+  }
+  if (age > 120) {
+    throw "Invalid age";
+  }
+}
+
+function checkZip(zip_code, varName){
+  if(isNaN(zip_code)){
+    throw `${varName} must be a number`;
+  }
+} 
 
 
 const places = [
@@ -404,19 +447,19 @@ registerForm.addEventListener('submit', (event) => {
     return;
   }
 
-  // try {
-  //   validation.checkString(nameInput, "Name");
-  //   validation.checkString(companyInput, "Work");
-  //   validation.checkEmail(emailInput, "Email");
-  //   validation.checkPassword(passwordInput, "Password");
-  //   validation.checkAge(ageInput, "Age");
-  //   validation.checkZip(zipInput, "Zip Code");
-  //   validation.checkString(bioInput, "Bio");
-  // } catch (error) {
-  //   errorDiv.hidden = false;
-  //   errorDiv.innerHTML = error;
-  //   return;
-  // }
+  try {
+    checkString(nameInput, "Name");
+    checkString(companyInput, "Work");
+    checkEmail(emailInput, "Email");
+    checkPassword(passwordInput, "Password");
+    checkAge(ageInput, "Age");
+    checkZip(zipInput, "Zip Code");
+    checkString(bioInput, "Bio");
+  } catch (error) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = error;
+    return;
+  }
   registerForm.submit();
 });
 
