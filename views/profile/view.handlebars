@@ -13,7 +13,6 @@ Include an option for the user to edit their profile. --}}
   <p>City: {{user.city_name}}</p>
   <p>Zip : {{user.zip}}</p>
   <p>Bio: {{user.bio}}</p>
-  <p>Preferences : {{user.preferences}}</p>
 </div>
   {{#if user.isPaused}}
   <form method="POST" action="/profile/{{user._id}}/pause">
