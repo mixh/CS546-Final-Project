@@ -8,11 +8,12 @@
 <div id="error" hidden>
     <p class="p1">Wrong Input!</p>
 </div>
-<form method="post" id= "myForm2" action="/edit"  enctype="multipart/form-data">
+<form method="POST" id= "editForm" action="/edit"  enctype="multipart/form-data">
   <div>
     <label for="name">Name:</label>
     <input id="name" type="text" name="name" value="{{user.name}}">
   </div>
+  
   <div>
     <label for="age">Age:</label>
     <input type="number" id="age" name="age" value="{{user.age}}">
@@ -58,17 +59,17 @@
   </div>
 
   <div>
-    <label for="places-dropdown">A place you want to visit:</label>
-    <select id="places-dropdown"></select><br><br>
+    <label for="place">A place you want to visit:</label>
+    <select id="place"></select><br><br>
   </div>
 
   <div>
-    <label for="gyms-dropdown">Your gym/classes:</label>
-    <select id="gyms-dropdown">
+    <label for="gym">Your gym/classes:</label>
+    <select id="gym">
     </select><br><br>
   </div>
   <div>
-    <button type="submit">Save changes</button>
+    <input type="submit" value="Save Changes">
     <a href="/profile/{{user._id}}">Cancel</a>
   </div>
 </form>

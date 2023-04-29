@@ -151,12 +151,12 @@ router.route("/:id/edit")
       updateData.work= xss(req.body.company);
     }
     
-    if (req.body.places-dropdown){
-      updateData.bucketlist= req.body.places-dropdown;
+    if (req.body.place){
+      updateData.bucketlist= req.body.place;
     }
 
-    if (req.body.gyms-dropdown){
-      updateData.gym= req.body.gyms-dropdown;
+    if (req.body.gym){
+      updateData.gym= req.body.gym;
     }
 
     // console.log(userData);
