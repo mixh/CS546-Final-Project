@@ -494,7 +494,7 @@ registerForm.addEventListener('submit', (event) => {
 
 //DO NOT TOUCH!!!!
 
-universities=[
+const universities=[
   {
     Name: "A Better U Beauty Barber Academy"
   },

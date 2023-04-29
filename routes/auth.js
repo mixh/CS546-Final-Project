@@ -98,8 +98,6 @@ router
       regData.zip_code = validation.checkZip(regData.zip_code, "Zip Code");
       regData.bio = validation.checkString(regData.bio, "Bio");
       regData.place = validation.checkString(regData.place, "Place");
-      regData.gym = validation.checkString(regData.gym, "Gym");
-      regData.colleges = validation.checkString(regData.colleges, "College");
     } catch (error) {
       return res.status(400).render("error", { error: error });
     }

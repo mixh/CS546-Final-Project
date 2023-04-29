@@ -1,4 +1,4 @@
-const registerForm = document.getElementById('myForm2');
+const editForm = document.getElementById('editForm');
 const nameInput = document.getElementById('name');
 const companyInput = document.getElementById('company');;
 const ageInput = document.getElementById('age');
@@ -168,9 +168,9 @@ function checkZip(zip_code, varName){
 
 // Define a function to populate the dropdown with places
 function populatePlaces() {
-  const dropdown = document.getElementById("places-dropdown");
+  const dropdown = document.getElementById("place");
   const defaultOption = document.createElement("option");
-  defaultOption.value = "NA";
+  defaultOption.value = "Don't have one currently :)";
   defaultOption.text = "I don't have a bucketlist place I'd like to visit";
   dropdown.appendChild(defaultOption);
   // Add each place to the dropdown as an option
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 
-const fitnessOptions = [
+const fitnessOptions = ["NA",
   "Orangetheory Fitness",
   "Barry's Bootcamp",
   "SoulCycle",
@@ -314,11 +314,11 @@ const fitnessOptions = [
   "Acro Yoga"];
 
 function populateFitness() {
-  const dropdown = document.getElementById("gyms-dropdown");
+  const dropdown = document.getElementById("gym");
   const defaultOption = document.createElement("option");
-  defaultOption.value = "NA";
-  defaultOption.text = "Not Applicable or other";
-  dropdown.appendChild(defaultOption);
+  // defaultOption.value = "NA";
+  // defaultOption.text = "Not Applicable or other";
+  // dropdown.appendChild(defaultOption);
   // Add each place to the dropdown as an option
   fitnessOptions.forEach(fitnessOptions => {
     const option = document.createElement("option");
@@ -380,7 +380,10 @@ editForm.addEventListener('submit', (event) => {
 
 //DO NOT TOUCH!!!!
 
-universities=[
+const universities=[
+  {
+    Name: "NA"
+  },
   {
     Name: "A Better U Beauty Barber Academy"
   },
@@ -19717,10 +19720,10 @@ universities=[
 
 function populateColleges() {
   const select = document.getElementById("colleges");
-  const defaultOption = document.createElement("option");
-  defaultOption.value = "NA";
-  defaultOption.text = "My university is not listed";
-  select.appendChild(defaultOption);
+  // const defaultOption = document.createElement("option");
+  // defaultOption.value = "NA";
+  // defaultOption.text = "My university is not listed";
+  // select.appendChild(defaultOption);
 
   universities.forEach(college => {
     const option = document.createElement("option");
