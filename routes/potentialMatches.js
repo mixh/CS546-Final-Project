@@ -56,8 +56,10 @@ router.get("/:id", checkSession, async (req, res) => {
       { gym: currentUser.gym },
       // { bucketlist: { $in: currentUser.bucketlist? currentUser.bucketlist:[] } },
     ];
+    // Filter out objects where the value is undefined or "NA"
     const orQueryFiltered = orQuery.filter((obj) => {
-      return Object.values(obj)[0] !== undefined && Object.values(obj)[0] !== null;
+      const value = Object.values(obj)[0];
+      return value !== undefined && value !== "NA";
     });
 
     // Find potential matches based on distance and $and/$or queries
