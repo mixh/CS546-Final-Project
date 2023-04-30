@@ -137,23 +137,34 @@ export const loginAuth = async (email, password) => {
 
 export const update = async (id, updateData) => {
   try {
-    // console.log(id);
-    // console.log(updateData);
     const userCollection = await users();
-    const updateInfo = {
-      $set: updateData,
-    };
-    const result = await userCollection.updateOne(
-      { _id: new ObjectId(id) },
-      updateInfo
-    );
-    if (result.modifiedCount === 0) {
-      throw new Error(`Could not update user with id ${id}`);
+    const userData = await userCollection.findOne({ _id: new ObjectId(id) });
+    if (!userData) {
+      throw new Error(`User with id ${id} not found`);
     }
+    const updateInfo = {};
+    let hasChanges = false;
+    for (const [key, value] of Object.entries(updateData)) {
+      if (JSON.stringify(value) !== JSON.stringify(userData[key])) {
+        updateInfo[key] = value;
+        hasChanges = true;
+      }
+    }
+    if (hasChanges) {
+      const result = await userCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: updateInfo }
+      );
+      if (result.modifiedCount === 0) {
+        throw new Error(`Could not update user with id ${id}`);
+      }
+    }
+    return updateInfo; // returns the actual changes made in the database
   } catch (error) {
     throw new Error(error);
   }
 };
+
 
 export const getAll = async () => {
   const userCollection = await users();

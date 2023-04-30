@@ -100,7 +100,7 @@ router.route("/:id/edit")
     }
 
     if(req.body.zip_code){
-      validation.checkString(req.body.zip_code);
+      validation.checkZip(req.body.zip_code, "Edited ZipCode");
       const zip = req.body.zip_code;
       
           const API_KEY = process.env.API_KEY;
@@ -142,6 +142,7 @@ router.route("/:id/edit")
     if (req.body.colleges){
       updateData.university= req.body.colleges;
     }
+
     if (req.body.gender){
       updateData.gender= req.body.gender;
     }
@@ -151,9 +152,11 @@ router.route("/:id/edit")
       updateData.work= xss(req.body.company);
     }
     
-    if (req.body.place){
-      updateData.bucketlist= req.body.place;
+    // console.log(req.body.places)
+    if (req.body.places){
+      updateData.bucketlist= req.body.places;
     }
+    // console.log(updateData.bucketlist)
 
     if (req.body.gym){
       updateData.gym= req.body.gym;
