@@ -7,7 +7,6 @@ function checkEmail(email, varName){
   if(typeof email !== 'string'){
       throw `${varName} must be a string`;
   }
-  console.log(email)
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     throw `The ${varName} must be a valid email address`;

@@ -39,7 +39,6 @@ router.get("/:id", checkSession, async (req, res) => {
 
     // Check the "distance" query parameter
     const distance = req.query.distance || "all";
-    // console.log(distance);
 
     // Define the $and query for finding potential matches
     const andQuery = [
@@ -168,11 +167,8 @@ router.post("/:id/like", checkSession, async (req, res) => {
           )
 
         }
-        console.log(likedUser);
       }
 
-
-    console.log(distance);
     res.redirect("/potentialMatches/" + userId + "?distance=" + distance);
   } catch (error) {
     res.status(500).render("error", { error: error });

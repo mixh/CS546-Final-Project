@@ -62,7 +62,6 @@ router.route("/login")
       res.redirect("/home/" + loginAuth._id);
     } catch (error) {
       res.status(400).render("error", { error: error });
-      console.log(error);
     }
   });
 
@@ -152,11 +151,8 @@ router
         gym,
         place);
 
-      // console.log(im);
-
       res.redirect("/login");
     } catch (error) {
-      console.log(error);
       res.status(404).render("error", { error: error.message });
     }
   });
