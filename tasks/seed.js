@@ -85,7 +85,7 @@ const u = [
     bucketlist: "Niagara Falls",
   },  {
     name: "Alice Johnson",
-    email: "alice@example.com",
+    email: "alicejohnson@example.com",
     password: "Password1234$",
     age: 28,
     gender: "female",
@@ -101,7 +101,7 @@ const u = [
   },
   {
     name: "David Smith",
-    email: "david@example.com",
+    email: "davidsmith@example.com",
     password: "Password1234$",
     age: 32,
     gender: "male",
@@ -117,7 +117,7 @@ const u = [
   },
   {
     name: "Emily Lee",
-    email: "emily@example.com",
+    email: "emilylee@example.com",
     password: "Password1234$",
     age: 24,
     gender: "female",
@@ -497,7 +497,7 @@ const u = [
     bucketlist: "Niagara Falls"
   }, {
     name: "Alice Smith",
-    email: "alice.smith@example.com",
+    email: "alicesmith@example.com",
     password: "Password1234$",
     age: 28,
     gender: "female",
@@ -513,7 +513,7 @@ const u = [
   },
   {
     name: "Bob Johnson",
-    email: "bob.johnson@example.com",
+    email: "bobjohnson@example.com",
     password: "Password1234$",
     age: 31,
     gender: "male",
@@ -529,7 +529,7 @@ const u = [
   },
   {
     name: "Karen Lee",
-    email: "karen.lee@example.com",
+    email: "karenlee@example.com",
     password: "Password1234$",
     age: 24,
     gender: "female",
@@ -656,7 +656,6 @@ const u = [
   }
 
 ];
-
 
 async function main() {
   const db = await dbConnection();
