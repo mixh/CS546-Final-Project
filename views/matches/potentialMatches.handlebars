@@ -6,8 +6,53 @@
 <p> potential matches for the current user, excluded current, liked and disliked users already </p>
 
 <h1>Potential Matches</h1>
-<link rel="stylesheet" href="/public/css/potentialmatches.css">
-<a href="/home/{{userId}}" class="button">Go to Home</a>
+{{!-- <link rel="stylesheet" href="/public/css/potentialmatches.css"> --}}
+<link rel="stylesheet" href="/public/css/matches.css">
+{{!-- <a href="/home/{{userId}}" class="button">Go to Home</a>
+<li style="margin-right: 10px;">
+      <a href="/matches/{{user._id}}" class="button" style="color: white; text-decoration: none;">Matches</a> --}}
+
+  <ul style="list-style: none; display: flex; justify-content: space-between; align-items: center; background-color: #333; padding: 10px;">
+    <li style="margin-right: auto;">
+      {{!-- <a href="/home/{{user._id}}" class="button" style="color: white; text-decoration: none;">Home</a> --}}
+      <form method="GET" action="/home/{{userId}}">
+          {{!-- <input type="text" name="home"  /> --}}
+          <button type="submit",name="home">home</button>
+      </form>
+    </li>
+    <li style="margin-right: 10px;">
+      {{!-- <a href="/matches/{{user._id}}" class="button" style="color: white; text-decoration: none;">Matches</a> --}}
+      <form method="GET" action="/matches/{{userId}}">
+          {{!-- <input type="text" name="matches"  /> --}}
+          <button type="submit",name="matches">matches</button>
+      </form>
+    </li>
+    <li style="margin-right: 10px;">
+      {{!-- <a href="/potentialMatches/{{user._id}}?distance=all" class="button" style="color: white; text-decoration: none;">Potential Matches</a>
+       --}}
+       <form method="GET" action="/potentialMatches/{{userId}}">
+          {{!-- <input type="text" name="potentialMatches"  /> --}}
+          <button type="submit",name="potentialMatches">potentialMatches</button>
+      </form>
+    </li>
+    <li style="margin-right: 10px;">
+      {{!-- <a href="/profile/{{user._id}}" class="button" style="color: white; text-decoration: none;">Profile</a> --}}
+      <form method="GET" action="/profile/{{userId}}">
+          {{!-- <input type="text" name="profile"  /> --}}
+          <button type="submit",name="profile">profile</button>
+      </form>
+    </li>
+    <li style="margin-right: 10px;">
+      {{!-- <a href="/messages/{{user._id}}/messages" class="button" style="color: white; text-decoration: none;">Messages</a> --}}
+      <form method="GET" action="/messages/{{userId}}/messages">
+          {{!-- <input type="text" name="profile"  /> --}}
+          <button type="submit",name="profile">messages</button>
+      </form>
+    </li>
+    <li>
+      <a href="/logout" class="button" style="color: white; text-decoration: none;">Logout</a>
+    </li>
+  </ul>
 
 <div id="distanceToggleContainer">
   <button id="showAllProfilesButton" onclick="showAllProfiles()">Show all profiles</button>
