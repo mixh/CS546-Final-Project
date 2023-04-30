@@ -39,6 +39,7 @@ router.get("/:id", checkSession, async (req, res) => {
 
     // Check the "distance" query parameter
     const distance = req.query.distance || "all";
+    // console.log(distance);
 
     // Define the $and query for finding potential matches
     const andQuery = [
@@ -118,6 +119,8 @@ router.post("/:id/like", checkSession, async (req, res) => {
   try {
     const userId = req.session.userId;
     const likedUserId = req.params.id;
+    const distance = req.query.distance || "all";
+
 
     const userCollection = await users();
     const currentUser = await userCollection.findOne({
@@ -169,8 +172,8 @@ router.post("/:id/like", checkSession, async (req, res) => {
       }
 
 
-
-    res.redirect("/potentialMatches/" + userId);
+    console.log(distance);
+    res.redirect("/potentialMatches/" + userId + "?distance=" + distance);
   } catch (error) {
     res.status(500).render("error", { error: error });
   }
@@ -180,7 +183,8 @@ router.post("/:id/dislike", checkSession, async (req, res) => {
   try {
     const userId = req.session.userId;
     const dislikedUserId = req.params.id;
-
+    const distance = req.query.distance || "all";
+    
     const userCollection = await users();
     const currentUser = await userCollection.findOne({
       _id: new ObjectId(userId),
@@ -193,7 +197,7 @@ router.post("/:id/dislike", checkSession, async (req, res) => {
       );
     }
 
-    res.redirect("/potentialMatches/" + userId);
+    res.redirect("/potentialMatches/" + userId + "?distance=" + distance);
   } catch (error) {
     res.status(500).render("error", { error: error });
   }

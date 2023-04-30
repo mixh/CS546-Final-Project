@@ -34,10 +34,10 @@
           <p>You both workout at {{{this.gym}}}</p>
         {{/if}}
 
-        <form method="POST" action="/potentialMatches/{{this._id}}/like">
+        <form method="POST" action="/potentialMatches/{{this._id}}/like?distance={{../distance}}">
           <button type="submit">Like</button>
         </form>
-        <form method="POST" action="/potentialMatches/{{this._id}}/dislike">
+        <form method="POST" action="/potentialMatches/{{this._id}}/dislike?distance={{../distance}}">
           <button type="submit">Dislike</button>
         </form>
       </li>
