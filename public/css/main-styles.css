@@ -3,6 +3,8 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f1f1f1;
   margin: 0;
+  font-size: 16px;
+  color: #333;
 }
 
 /* Style for the header */
@@ -117,4 +119,34 @@ img {
   border-radius: 50%;
   margin: 2rem auto;
   box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
+}
+
+#distanceToggleContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#showAllProfilesButton,
+#showWithin5kmButton {
+  background-color: #fff;
+  color: #ff69b4;
+  border: 2px solid #ff69b4;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+#showWithin5kmButton.active {
+  background-color: #ff69b4;
+  color: #fff;
+}
+
+.error {
+	color: red;
+	font-weight: bold;
+  text-align: center;
 }

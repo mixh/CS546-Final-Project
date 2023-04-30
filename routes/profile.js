@@ -27,8 +27,10 @@ import fetch from "node-fetch";
 
 import { Router } from "express";
 const router = Router();
+import { users } from "../config/mongoCollections.js";
 import { userData } from "../data/index.js";
 import validation from "../validation.js";
+import { ObjectId } from "mongodb";
 
 const checkSession = (req, res, next) => {
   if (!req.session.userId) {
@@ -84,10 +86,12 @@ router.route("/:id/edit")
     } 
   
     if (req.body.name) {
+      validation.checkString(req.body.name,"Name");
       updateData.name = xss(req.body.name);
     }
   
     if (req.body.age) {
+      validation.checkAge(req.body.age,"Age");
       updateData.age = req.body.age;
     }
 
@@ -96,6 +100,7 @@ router.route("/:id/edit")
     }
 
     if(req.body.zip_code){
+      validation.checkZip(req.body.zip_code, "Edited ZipCode");
       const zip = req.body.zip_code;
       
           const API_KEY = process.env.API_KEY;
@@ -121,13 +126,40 @@ router.route("/:id/edit")
       
           const city = reverseGeocodingData[0].name;
       
-          updateData.location.city_name = city;
-          updateData.location.coordinates = [lon,lat];
-          updateData.location.zip = req.body.zip_code;
+          updateData.city_name = city;
+          updateData.location = {
+           type: "Point",
+           coordinates: [lon, lat],
+         };
+          updateData.zip = req.body.zip_code;
     }
   
     if (req.body.bio) {
+      validation.checkString(req.body.bio,"Bio");
       updateData.bio = xss(req.body.bio);
+    }
+
+    if (req.body.colleges){
+      updateData.university= req.body.colleges;
+    }
+
+    if (req.body.gender){
+      updateData.gender= req.body.gender;
+    }
+
+    if (req.body.company){
+      validation.checkString(req.body.company,"Work");
+      updateData.work= xss(req.body.company);
+    }
+    
+    // console.log(req.body.places)
+    if (req.body.places){
+      updateData.bucketlist= req.body.places;
+    }
+    // console.log(updateData.bucketlist)
+
+    if (req.body.gym){
+      updateData.gym= req.body.gym;
     }
 
     // console.log(userData);
@@ -141,6 +173,24 @@ router.route("/:id/edit")
   }
 })
 
-
+router.route("/:id/pause").
+post(checkSession, async (req, res) => {
+  try {
+    const userId = req.params.id;
+    console.log("UserId: "+userId);
+    const userCollection = await users();
+    const user = await userCollection.findOne({ _id: new ObjectId(userId) });
+    console.log("User Pause Route: "+ JSON.stringify(user));
+    const isPaused = user.isPaused || false; // if isPaused is not set, default to false
+    console.log("isPaused: "+isPaused);
+    const userInfo = await userCollection.updateOne(
+      { _id: new ObjectId(userId) },
+      { $set: { isPaused: !isPaused } }
+    );
+  res.redirect(`/profile/${userId}`);
+  } catch (error) {
+    res.status(500).render("error", { error: error });
+  }
+});
 
 export default router;

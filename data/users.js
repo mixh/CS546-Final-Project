@@ -19,7 +19,6 @@ export const create = async (
   gender,
   zip,
   bio,
-  preferences,
   image_destination,
   image_filename,
   image_path,
@@ -29,6 +28,7 @@ export const create = async (
   bucketlist
 ) => {
   name = validation.checkString(name, "Name");
+  work = validation.checkString(work, "Work");
   email = validation.checkEmail(email, "Email");
   password = validation.checkPassword(password, "Password");
   age = validation.checkAge(age, "Age");
@@ -58,6 +58,7 @@ export const create = async (
 
   const city = reverseGeocodingData[0].name;
 
+
   let user = {
     name: name,
     email: email.toLowerCase(),
@@ -71,11 +72,10 @@ export const create = async (
     location: {
       type: "Point",
       coordinates: [lon, lat],
-      city_name: city,
-      zip: zip,
     },
+    city_name: city,
+    zip: zip,
     bio: bio,
-    preferences: preferences,
     likedUsers: [],
     dislikedUsers: [],
     likedBy: [],
@@ -85,8 +85,13 @@ export const create = async (
       filename: image_filename,
       path: image_path,
     },
+    isPaused: false,
   };
   const userCollection = await users();
+
+  
+  // Create a 2dsphere index on the location field
+  await userCollection.createIndex({ location: "2dsphere" });
 
   const existingUser = await userCollection.findOne({ email: email });
   if (existingUser) {
@@ -101,6 +106,7 @@ export const create = async (
   const newUser = await get(newId);
   return newUser;
 };
+
 
 export const get = async (id) => {
   id = validation.checkId(id);
@@ -131,22 +137,42 @@ export const loginAuth = async (email, password) => {
 
 export const update = async (id, updateData) => {
   try {
-    // console.log(id);
-    // console.log(updateData);
     const userCollection = await users();
-    const updateInfo = {
-      $set: updateData,
-    };
-    const result = await userCollection.updateOne(
-      { _id: new ObjectId(id) },
-      updateInfo
-    );
-    if (result.modifiedCount === 0) {
-      throw new Error(`Could not update user with id ${id}`);
+    const userData = await userCollection.findOne({ _id: new ObjectId(id) });
+    if (!userData) {
+      throw new Error(`User with id ${id} not found`);
     }
+    const updateInfo = {};
+    let hasChanges = false;
+    for (const [key, value] of Object.entries(updateData)) {
+      if (JSON.stringify(value) !== JSON.stringify(userData[key])) {
+        updateInfo[key] = value;
+        hasChanges = true;
+      }
+    }
+    if (hasChanges) {
+      const result = await userCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: updateInfo }
+      );
+      if (result.modifiedCount === 0) {
+        throw new Error(`Could not update user with id ${id}`);
+      }
+    }
+    return updateInfo; // returns the actual changes made in the database
   } catch (error) {
     throw new Error(error);
   }
+};
+
+
+export const getAll = async () => {
+  const userCollection = await users();
+  const allUsers = await userCollection.find().toArray();
+  return allUsers.map((u) => {
+    u._id = u._id.toString();
+    return u;
+  });
 };
 
 

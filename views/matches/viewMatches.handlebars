@@ -1,0 +1,16 @@
+
+
+ <link rel="stylesheet" type="text/css" href="/public/css/login.css">
+<div>
+  <h1>Profile</h1>
+  {{#if user.image.path}}
+    <img src="/{{user.image.destination}}/{{user.image.filename}}" alt="Profile image">
+  {{else}}
+    <p>No image uploaded</p>
+  {{/if}}
+  <p>Name: {{user.name}}</p>
+  <p>Age: {{user.age}}</p>
+  <p>City: {{user.city_name}}</p>
+  <p>Zip : {{user.zip}}</p>
+  <p>Bio: {{user.bio}}</p>
+</div>

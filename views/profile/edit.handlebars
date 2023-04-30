@@ -3,32 +3,73 @@
   2. DECIDE IF YOU WANT TO ALLOW USERS TO EDIT THEIR EMAIL AND PASSWORD ALSO 
   3. ADD OTHER FIELDS THAT ARE REQUIRED INTERESTS AND OTHER PARAMETERS  --}}
 
-<form method="post" enctype="multipart/form-data">
+<div id="editError" class="error" hidden>
+</div>
+<form method="post" enctype="multipart/form-data" id="editForm">
+
   <div>
     <label for="name">Name:</label>
-    <input type="text" name="name" value="{{user.name}}">
-  </div>
-  <div>
-    <label for="age">Age:</label>
-    <input type="number" name="age" value="{{user.age}}">
+    <input type="text" id= "name" name="name" value="{{user.name}}">
   </div>
 
+  <div>
+    <label for="age">Age:</label>
+    <input type="number"  id = "age" name="age" value="{{user.age}}">
+  </div>
 
   <div>
     <label for="zip_code"> Update your Zip code to update your location:</label>
-    <input type="number" name="zip_code" value="{{user.location.zip}}">
+    <input type="number" id = "zip_code"  name="zip_code" value="{{user.zip}}">
   </div>
 
   <div>
     <label for="bio">Bio:</label>
-    <textarea name="bio">{{user.bio}}</textarea>
+    <textarea id = "bio" name="bio">{{user.bio}}</textarea>
   </div>
+  
   <div>
-    <label for="image">Profile image:</label>
+    <label for="image"> Change your Profile image:</label>
     <input type="file" name="image">
   </div>
+
+  <div>
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender">
+      <option value="select-gender">Select Gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+      <option value="prefer not to say">Prefer not to say</option>
+    </select><br><br>
+  </div>
+
+  <div>
+    <label for="colleges">University:</label>
+    <select id="colleges" name="colleges">
+
+    </select><br><br>
+  </div>
+  <div>
+    <label for="place">A place you want to visit:</label>
+    <select id="place" name="places"></select><br><br>
+  </div>
+
+  <div>
+    <label for="company">Place of Work: </label>
+    <input type="text" name="company" id="company" value="{{user.work}}">
+  </div>
+
+    <div>
+    <label for="gym">Your gym/classes:</label>
+    <select id="gym" name="gym"></select><br><br>
+  </div>
+
+
   <div>
     <button type="submit">Save changes</button>
     <a href="/profile/{{user._id}}">Cancel</a>
   </div>
+
 </form>
+<script src="/public/js/edit2.js"></script>
+

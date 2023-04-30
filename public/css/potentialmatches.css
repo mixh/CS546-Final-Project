@@ -1,0 +1,126 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+  }
+  
+  a {
+    color: #0077c0;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  button {
+    background-color: #0077c0;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  button:hover {
+    background-color: #005ea3;
+  }
+  
+  input[type="text"] {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 10px;
+    width: 300px;
+  }
+  
+  /* Page-specific styles */
+  
+  /* Matches page */
+  #distanceToggleContainer {
+    margin: 20px 0;
+  }
+  
+  #distanceToggleContainer button {
+    margin-right: 20px;
+  }
+  
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-basis: calc(33.33% - 10px);
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+  
+  li h2 {
+    margin: 0 0 10px;
+  }
+  
+  li img {
+    border-radius: 50%;
+    height: 150px;
+    margin-bottom: 10px;
+    object-fit: cover;
+    width: 150px;
+  }
+  
+  li p {
+    margin: 0 0 10px;
+  }
+  
+  li a {
+    background-color: #0077c0;
+    border-radius: 5px;
+    color: #fff;
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px 10px;
+  }
+  
+  li form {
+    display: inline-block;
+    margin-left: 10px;
+  }
+  
+  li form button {
+    background-color: #e20000;
+    margin-left: 10px;
+  }
+  
+  /* Potential matches page */
+  #showAllProfilesButton,
+  #showWithin5kmButton {
+    background-color: #0077c0;
+    border-radius: 5px;
+    color: #fff;
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px 10px;
+  }
+  
+  #showAllProfilesButton:hover,
+  #showWithin5kmButton:hover {
+    background-color: #005ea3;
+  }
+  

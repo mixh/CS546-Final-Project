@@ -3,11 +3,13 @@ Add a submit button to the form.
 Use Handlebars expressions to render error messages if the user enters invalid credentials.
 Use Handlebars expressions to render a success message if the user successfully logs in. --}}
 
-<p> this is the login page route</p>
-
+{{!-- <p> this is the login page route</p> --}}
   <h1>Login</h1>
-  
-  <form action="/login" method="post">
+  <div id="error" hidden>
+    <p class="p1">Wrong Input!</p>
+  </div>
+  <link rel="stylesheet" type="text/css" href="/public/css/login.css">
+  <form action="/login" method="post" id="myForm2">
     <label for="email">Email:</label>
     <input type="email" id="email" name="email"><br><br>
     
@@ -16,5 +18,6 @@ Use Handlebars expressions to render a success message if the user successfully 
     
     <input type="submit" value="Log In">
   </form>
+  <script src="/public/js/login.js"></script>
   
   <p> Need to register? <a href="/register" class="button">Register here</a>.</p>

@@ -1,6 +1,46 @@
 {{!-- In the view.hbs file, display the user's name, email, city name, and location coordinates.
 Include an option for the user to edit their profile. --}}
-
+<link rel="stylesheet" href="/public/css/matches.css">
+  <ul style="list-style: none; display: flex; justify-content: space-between; align-items: center; background-color: #333; padding: 10px;">
+    <li style="margin-right: auto;">
+      <a href="/home/{{user._id}}" class="button" style="color: white; text-decoration: none;">Home</a>
+      {{!-- <form method="GET" action="/home/{{userId}}">
+          {{!-- <input type="text" name="home"  /> --}}
+          <button type="submit",name="home"></button>
+      </form> --}}
+    </li>
+    <li style="margin-right: 10px;">
+      <a href="/matches/{{user._id}}" class="button" style="color: white; text-decoration: none;">Matches</a>
+      {{!-- <form method="GET" action="/matches/{{userId}}">
+          {{!-- <input type="text" name="matches"  /> --}}
+          <button type="submit",name="matches"></button>
+      </form> --}}
+    </li>
+    <li style="margin-right: 10px;">
+      <a href="/potentialMatches/{{user._id}}?distance=all" class="button" style="color: white; text-decoration: none;">Potential Matches</a>
+       {{!-- <form method="GET" action="/potentialMatches/{{userId}}">
+          {{!-- <input type="text" name="potentialMatches"  /> --}}
+          <button type="submit",name="potentialMatches"></button>
+      </form> --}}
+    </li>
+    <li style="margin-right: 10px;">
+      <a href="/profile/{{user._id}}" class="button" style="color: white; text-decoration: none;">Profile</a>
+      {{!-- <form method="GET" action="/profile/{{userId}}">
+          {{!-- <input type="text" name="profile"  /> --}}
+          <button type="submit",name="profile"></button>
+      </form> --}}
+    </li>
+    <li style="margin-right: 10px;">
+      <a href="/messages/{{user._id}}/messages" class="button" style="color: white; text-decoration: none;">Messages</a>
+      {{!-- <form method="GET" action="/messages/{{userId}}/messages">
+          {{!-- <input type="text" name="profile"  /> --}}
+          <button type="submit",name="profile"></button>
+      </form> --}}
+    </li>
+    <li>
+      <a href="/logout" class="button" style="color: white; text-decoration: none;">Logout</a>
+    </li>
+  </ul>
 <div>
   <h1>Profile</h1>
   {{#if user.image.path}}
@@ -10,9 +50,23 @@ Include an option for the user to edit their profile. --}}
   {{/if}}
   <p>Name: {{user.name}}</p>
   <p>Age: {{user.age}}</p>
-  <p>City: {{user.location.city_name}}</p>
-  <p>Zip : {{user.location.zip}}</p>
+  <p>City: {{user.city_name}}</p>
+  <p>Zip : {{user.zip}}</p>
   <p>Bio: {{user.bio}}</p>
-  <p>Preferences : {{user.preferences}}</p>
+  <p>University : {{user.university}} </p>
+  <p>Bucketlist : {{user.bucketlist}}</p>
+  <p>Gym : {{user.gym}} </p>
+  <p>Work : {{user.work}} </p>
 </div>
-  <a href="/profile/{{user._id}}/edit">Edit profile</a>
+  {{#if user.isPaused}}
+  <form method="POST" action="/profile/{{user._id}}/pause">
+    <button type="submit">Unpause profile</button>
+  </form><br><br>
+  {{else}}
+  <form method="POST" action="/profile/{{user._id}}/pause">
+    <button type="submit">Pause profile</button>
+  </form><br><br>
+  {{/if}}
+  <a href="/profile/{{user._id}}/edit?gender={{user.gender}}&university={{user.university}}&bucketlist={{user.bucketlist}}&gym={{user.gym}}">Edit profile</a><br><br>
+  <a href="/home/{{user._id}}" class="button">Go to Home</a>
+  
