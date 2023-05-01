@@ -126,7 +126,8 @@ router.route("/:id/search").
 get(async(req,res) => {
    const userCollection = await users();
    const userId = req.params.id;
-   const {search} = xss(req.query);
+   const {search} = (req.query);
+   const sanitizedSearch = xss(search);
    const currentUser = await userCollection.findOne({
      _id: new ObjectId(userId),
    });
@@ -143,7 +144,7 @@ get(async(req,res) => {
    if(search){
     filter = {
       ...filter,
-      name: { $regex: new RegExp(search, "i") },
+      name: { $regex: new RegExp(sanitizedSearch, "i") },
     };
    }else{
      filter = {
