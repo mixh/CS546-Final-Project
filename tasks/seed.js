@@ -6,7 +6,7 @@ import { dbConnection, closeConnection } from "../config/mongoConnection.js";
 const u = [
   {
     name: "Alice Smith",
-    email: "alice@example.com",
+    email: "alice-smilth123@example.com",
     password: "Password1234$",
     age: 26,
     gender: "female",
@@ -179,8 +179,8 @@ const u = [
     gym: "Anytime Fitness",
     bucketlist: "Hollywood Sign"
   }, {
-    name: "Alice Smith",
-    email: "alice.smith@example.com",
+    name: "Alice Sharma",
+    email: "alice.sharma@example.com",
     password: "Password1234$",
     age: 26,
     gender: "female",
@@ -496,8 +496,8 @@ const u = [
     gym: "24 Hour Fitness",
     bucketlist: "Niagara Falls"
   }, {
-    name: "Alice Smith",
-    email: "alicesmith@example.com",
+    name: "Alicia Kapoor",
+    email: "aliciakapoor@example.com",
     password: "Password1234$",
     age: 28,
     gender: "female",
