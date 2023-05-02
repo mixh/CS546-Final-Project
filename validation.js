@@ -62,7 +62,8 @@ const exportedMethods = {
        if(typeof email !== 'string'){
            throw `${varName} must be a string`;
        }
-       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      //  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+       const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
        if(!email.match(emailRegex)){
           throw `The ${varName} must be a valid email address`;
        }
