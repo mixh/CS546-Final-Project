@@ -137,7 +137,8 @@ get(async(req,res) => {
     isPaused: false,
     $and: [
       { _id: { $in: currentUser.likedUsers.map(id => new ObjectId(id)) } },
-      { _id: { $nin: currentUser.dislikedUsers.map(id => new ObjectId(id)) } }
+      { _id: { $in: currentUser.likedBy.map(id => new ObjectId(id)) } },
+      { _id: { $nin: currentUser.dislikedUsers.map(id => new ObjectId(id)) } },
     ]
   };
 
