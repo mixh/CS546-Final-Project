@@ -139,4 +139,12 @@ body {
   a.button:hover {
     background-color: #555;
   }
+  #messageslist {
+    display: flex;
+    flex-direction: column;
+  
+  }
+  #messageslist li {
+    display: inline-block;
+  }
   
