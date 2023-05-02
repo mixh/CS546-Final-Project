@@ -33,7 +33,7 @@ app.use(
   session({
     secret: "keyboard cat",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { secure: false },
   })
 );
@@ -44,6 +44,20 @@ app.use((req, res, next) => {
   res.setHeader("Expires", "0");
   next();
 });
+
+app.use("/login", async(req,res,next) =>{
+  if(req.session && req.session.userId){
+    return res.redirect("/home/" + req.session.userId)
+  }
+  next();
+})
+
+app.use("/register", async(req,res,next) => {
+  if (req.session && req.session.userId) {
+    return res.redirect("/home/" + req.session.userId);
+  }
+  next();
+})
 
 app.use(express.static("uploads"));
 

@@ -25,7 +25,23 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 const uploadImage = upload.single("image");
 
-router.route("/").get(async (req, res) => {
+// router.route("/").get(async (req, res) => {
+//   try {
+//     res.render("about", { title: "about" });
+//   } catch (error) {
+//     res.status(500).render("error", { error: error });
+//   }
+// });
+
+router.route("/").get(async (req, res,next) => {
+
+  if(req.session && req.session.userId){
+
+          res.redirect("/home/" + req.session.userId);
+  } else {
+    res.redirect("/login")
+  }
+}, async(req,res) => {
   try {
     res.render("about", { title: "about" });
   } catch (error) {
