@@ -175,6 +175,18 @@ export const getAll = async () => {
   });
 };
 
+export const deleteUserById = async (id) => {
+  id = validation.checkId(id,"id");
+  const userCollection = await users();
+  const deletionInfo = await userCollection.deleteOne({
+    _id: new ObjectId(id),
+  });
+  if (deletionInfo.deletedCount === 0) {
+    throw new Error(`Could not delete user with id ${id}`);
+  }
+};
+
+
 
 
 export const getPeople = async (id) => {
