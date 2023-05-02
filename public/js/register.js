@@ -8,8 +8,9 @@ const ageInput = document.getElementById('age');
 const zipInput = document.getElementById('zip_code');
 const genderInput= document.getElementById('gender');
 const bioInput= document.getElementById('bio');
+const placeInput = document.getElementById('place');
+let file = document.getElementById('image');
 let errorDiv = document.getElementById('error');
-
 
 //error handling
 function checkString(strVal, varName){
@@ -336,6 +337,71 @@ document.addEventListener("DOMContentLoaded", function(event) {
   populateFitness();
 });
 
+function checkUserMatch() {
+  const emailInp = $('#email');
+  const emailError = $('#emailError');
+  const email = emailInp.val().trim();
+    if(email === ""){
+      $("#emailError").html("");
+      emailInp.get(0).setCustomValidity("");
+    }else{
+        try{
+          checkEmail(email, "Email");
+          emailError.text("");
+          emailInp.get(0).setCustomValidity("");
+          
+          $.ajax({
+            url: "/validateUser",
+            method: "POST",
+            data: JSON.stringify({ email }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+              if (!data.exists) {
+                console.log("Inside not data exists!");
+                $("#email-status").html('');
+                $("#emailError").html("");
+                emailInp.get(0).setCustomValidity("");
+                $("#email-status").html(
+                  '<i class="fa-solid fa-check" style="color: green;"></i>'
+                );
+                emailError.text("");
+                emailInp
+                  .get(0)
+                  .setCustomValidity("");
+              } else {
+                $("#email-status").html(
+                  '<i class="fa-sharp fa-solid fa-circle-xmark" style="color: red;"></i>'
+                );
+                emailError.text("This email is already present");
+                emailInp.get(0).setCustomValidity("This email is already present");
+              }
+            },
+            error: function (e) {
+              console.log("Error: "+ e.responseText);
+              $("#email-status").html('');
+              $("#email-status").html('<i class="fa-sharp fa-solid fa-circle-xmark" style="color: red;"></i>'
+              );
+              emailError.text(e.responseJSON.error);
+              emailInp.get(0).setCustomValidity(e.responseJSON.error);
+            },
+          })
+        }catch(error){
+          $("#email-status").html('<i class="fa fa-times-circle" style="color: red;"></i>');
+          emailError.text(error);
+          emailInp.get(0).setCustomValidity(error);
+        }
+      }
+    }
+
+emailInput.addEventListener("keyup", () => {
+  console.log("Inside confirm email input");
+  checkUserMatch();
+});
+
+/* emailInput.on("input", () =>{
+}); */
+
 registerForm.addEventListener('submit', (event) => {
   event.preventDefault();
   
@@ -386,7 +452,147 @@ registerForm.addEventListener('submit', (event) => {
     return;
   }
 
+  if (passwordInput.value.trim() !== confirmPasswordInput.value.trim()) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'Your Passwords do not match';
+    confirmPasswordInput.focus();
+    return;
+  }
+  
+  if (ageInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter your age';
+    ageInput.focus();
+    return;
+  }
 
+  if (Number(ageInput.value.trim())<13) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must be atleast 13 years old';
+    ageInput.focus();
+    return;
+  }
+
+  if (zipInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'Please enter your zip code';
+    zipInput.focus();
+    return;
+  }
+
+  if (genderInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a gender';
+    genderInput.focus();
+    return;
+  }
+
+  if (bioInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a bio';
+    bioInput.focus();
+    return;
+  }
+
+  try {
+    checkString(nameInput.value.trim(), "Name");
+  } catch (error) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = error;
+    return;
+  }
+  
+  try {
+    checkString(companyInput.value.trim(), "Work");
+  } catch (error) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = error;
+    return;
+  }
+  
+  try {
+    checkEmail(emailInput.value.trim(), "Email");
+  } catch (error) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = error;
+    return;
+  }
+  
+  try {
+    checkPassword(passwordInput.value.trim(), "Password");
+  } catch (error) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = error;
+    return;
+  }
+  
+  try {
+    checkAge(ageInput.value.trim(), "Age");
+  } catch (error) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = error;
+    return;
+  }
+  
+  try {
+    checkZip(zipInput.value.trim(), "Zip Code");
+  } catch (error) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = error;
+    return;
+  }
+  
+  try {
+    checkString(bioInput.value.trim(), "Bio");
+  } catch (error) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = error;
+    return;
+  }
+  
+  registerForm.submit();
+});
+
+/* $("#registerBtn").on('click', function(event){
+  event.preventDefault();
+  
+  if (nameInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a name';
+    frmLabel.className = 'error';
+    firstNameInput.focus();
+    return;
+  }
+  
+  if (nameInput.length < 2 || nameInput.length > 50 ) {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'Enter correct name';
+    frmLabel.className = 'error';
+    firstNameInput.focus();
+    return;
+  }
+  
+  if (emailInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter an email';
+    // frmLabel.className = 'error';
+    emailInput.focus();
+    return;
+  }
+  
+  if (passwordInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a password';
+    passwordInput.focus();
+    return;
+  }
+  
+  if (confirmPasswordInput.value.trim() === '') {
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a password again';
+    confirmPasswordInput.focus();
+    return;
+  }
 
   if (passwordInput.value.trim() !== confirmPasswordInput.value.trim()) {
     errorDiv.hidden = false;
@@ -484,13 +690,54 @@ registerForm.addEventListener('submit', (event) => {
     errorDiv.hidden = false;
     errorDiv.innerHTML = error;
     return;
-  }
-  
-  registerForm.submit();
-});
-
-
-
+  } */
+ /*  let regForm = $('#myForm')[0];
+  let formData = new FormData(regForm); */
+  // let fd = new FormData($("form").get(0));
+  // console.log("Form Data: "+JSON.stringify(fd));
+  // formData.append('image', file.files[0]);
+  /* let requestConfig = {
+      method: 'POST',
+      url: '/register',
+      data: {
+        name: nameInput.value.trim(),
+        email: emailInput.value.trim(),
+        password: passwordInput.value.trim(),
+        confpassword: confirmPasswordInput.value.trim(),
+        age: ageInput.value.trim(),
+        company: companyInput.value.trim(),
+        zip_code: zipInput.value.trim(),
+        bio: bioInput.value.trim(), 
+        place: placeInput.value.trim(),
+        },
+        // contentType: "application/json",
+        // processData: false,
+    };
+    
+    $.ajax(requestConfig).then(function (responseMessage) {
+      console.log("Response Message: "+responseMessage);
+      let newElement = $(responseMessage);
+      $('body').html(responseMessage);
+    }); */
+    
+    /* $.ajax({
+      url: '/register',
+      data: fd,
+      dataType: 'json',
+      type: 'POST',
+      // enctype: 'multipart/form-data',
+      processData: false,
+      contentType: false,
+      // cache: false,
+       success: function (data) {
+        console.log('Success:', data);
+        $('body').html(data);
+      },
+      error: function (e) {
+        console.log('Error:', e);
+      },
+    }); */
+// });
 
 //DO NOT TOUCH!!!!
 

@@ -6,7 +6,7 @@ import { dbConnection, closeConnection } from "../config/mongoConnection.js";
 const u = [
   {
     name: "Alice Smith",
-    email: "alice-smilth123@example.com",
+    email: "alicesmith123@example.com",
     password: "Password1234$",
     age: 26,
     gender: "female",

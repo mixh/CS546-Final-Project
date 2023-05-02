@@ -10,6 +10,7 @@ import xss from "xss";
 
 import multer from "multer";
 import path from "path";
+import { users } from "../config/mongoCollections.js";
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/uploads/");
@@ -58,23 +59,23 @@ router.route("/login")
   }
 })
 .post(async (req, res) => {
-    let userInfo = req.body;
+   let userInfo = req.body;
     if (!userInfo || Object.keys(userInfo).length === 0) {
       return res
         .status(400)
         .render("error", { error: "There are no fields in the request body" });
     }
-
+    
     try {
       let email = xss(req.body.email);
       let password = xss(req.body.password);
       email = validation.checkEmail(email, "Email");
       password = validation.checkPassword(password, "Password");
       let loginAuth = await userData.loginAuth(email, password);
-
+    
       //sessions
       req.session.userId = loginAuth._id;
-
+      
       res.redirect("/home/" + loginAuth._id);
     } catch (error) {
       res.status(400).render("error", { error: error });
@@ -103,7 +104,7 @@ router
         .status(400)
         .json({ error: "There are no fields in the request body" });
     }
-
+    
     try {
       regData.name = validation.checkString(regData.name, "Name");
       regData.company = validation.checkString(regData.company, "Work");
@@ -121,7 +122,6 @@ router
     try {
 
       // const { name, email, password, age, gender, bio, preferences } = req.body;
-
       const name = xss(req.body.name);
       const email = xss(req.body.email);
       const password = xss(req.body.password);
@@ -138,11 +138,9 @@ router
       if(password!==confpassword){
         throw "please enter the same password"
       }
-
-
-
       
       const im = req.file;
+      // const im = req.body.file;
       if (!im) {
         throw "no image input found";
       }
@@ -150,8 +148,7 @@ router
       const image_destination = im.destination;
       const image_filename = im.filename;
       const image_path = im.path;
-      
-
+    
       const newUser = await userData.create(
         name,
         email,
@@ -192,7 +189,37 @@ router.route("/logout").get(async (req, res) => {
     }
     next();
   };
+  
+  router.route("/validateUser").post(async (req, res) => {
+    const regData = req.body;
+    console.log("Reg Data: "+ JSON.stringify(regData));
+    if (!regData || Object.keys(regData).length === 0) {
+      return res
+      .status(400)
+      .json({ error: "There are no fields in the request body" });
+  }
 
+  try{
+    regData.email = validation.checkEmail(regData.email, "Email");
+  }catch(error){
+    return res.status(400).send({ error: error });
+  }
 
+  try {
+    const userCollection = await users();
+    const email = xss(req.body.email);
+    const user = await userCollection.findOne({email: email});
+    console.log("User: "+user);
+
+    if(user){
+      res.status(200).send({exists: true});
+    }else{
+       res.status(200).send({exists: false});
+    }
+
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+  });
 
   export default router;
