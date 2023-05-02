@@ -3,56 +3,18 @@
 2. MOVE THE SCRIPT FROM THIS PAGE TO JS FOLDER
 --}}
 
+<link rel="stylesheet" href="/public/css/potentialmatches.css">
+
 <p> potential matches for the current user, excluded current, liked and disliked users already </p>
 
 <h1>Potential Matches</h1>
-{{!-- <link rel="stylesheet" href="/public/css/potentialmatches.css"> --}}
-<link rel="stylesheet" href="/public/css/matches.css">
-{{!-- <a href="/home/{{userId}}" class="button">Go to Home</a>
-<li style="margin-right: 10px;">
-      <a href="/matches/{{user._id}}" class="button" style="color: white; text-decoration: none;">Matches</a> --}}
 
-  <ul style="list-style: none; display: flex; justify-content: space-between; align-items: center; background-color: #333; padding: 10px;">
-    <li style="margin-right: auto;">
-      {{!-- <a href="/home/{{user._id}}" class="button" style="color: white; text-decoration: none;">Home</a> --}}
-      <form method="GET" action="/home/{{userId}}">
-          {{!-- <input type="text" name="home"  /> --}}
-          <button type="submit",name="home">home</button>
-      </form>
-    </li>
-    <li style="margin-right: 10px;">
-      {{!-- <a href="/matches/{{user._id}}" class="button" style="color: white; text-decoration: none;">Matches</a> --}}
-      <form method="GET" action="/matches/{{userId}}">
-          {{!-- <input type="text" name="matches"  /> --}}
-          <button type="submit",name="matches">matches</button>
-      </form>
-    </li>
-    <li style="margin-right: 10px;">
-      {{!-- <a href="/potentialMatches/{{user._id}}?distance=all" class="button" style="color: white; text-decoration: none;">Potential Matches</a>
-       --}}
-       <form method="GET" action="/potentialMatches/{{userId}}">
-          {{!-- <input type="text" name="potentialMatches"  /> --}}
-          <button type="submit",name="potentialMatches">potentialMatches</button>
-      </form>
-    </li>
-    <li style="margin-right: 10px;">
-      {{!-- <a href="/profile/{{user._id}}" class="button" style="color: white; text-decoration: none;">Profile</a> --}}
-      <form method="GET" action="/profile/{{userId}}">
-          {{!-- <input type="text" name="profile"  /> --}}
-          <button type="submit",name="profile">profile</button>
-      </form>
-    </li>
-    <li style="margin-right: 10px;">
-      {{!-- <a href="/messages/{{user._id}}/messages" class="button" style="color: white; text-decoration: none;">Messages</a> --}}
-      <form method="GET" action="/messages/{{userId}}/messages">
-          {{!-- <input type="text" name="profile"  /> --}}
-          <button type="submit",name="profile">messages</button>
-      </form>
-    </li>
-    <li>
-      <a href="/logout" class="button" style="color: white; text-decoration: none;">Logout</a>
-    </li>
-  </ul>
+<!-- Navbar -->
+{{!-- {{> navbar}} --}}
+
+
+
+{{!-- <link rel="stylesheet" href="/public/css/matches.css"> --}}
 
 <div id="distanceToggleContainer">
   <button id="showAllProfilesButton" onclick="showAllProfiles()">Show all profiles</button>
@@ -60,36 +22,42 @@
 </div>
 
 
-{{#if users}}
-  <ul>
-    {{#each users}}
-      <li>
-        <h2>{{this.name}}</h2>
-        <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image">
-        <p>{{this.bio}}</p>
-        <p>A place I want to visit: {{this.bucketlist}}</p>
-        <a href="/potentialMatchesProfile/{{this._id}}">View Profile</a>
-        {{#if u}}
-          <p>You both go to {{{this.university}}}</p>
-        {{/if}}
-        {{#if w}}
-          <p>You both work at {{{this.work}}}</p>
-        {{/if}}
-        {{#if g}}
-          <p>You both workout at {{{this.gym}}}</p>
-        {{/if}}
 
-        <form method="POST" action="/potentialMatches/{{this._id}}/like?distance={{../distance}}">
-          <button type="submit">Like</button>
-        </form>
-        <form method="POST" action="/potentialMatches/{{this._id}}/dislike?distance={{../distance}}">
-          <button type="submit">Dislike</button>
-        </form>
-      </li>
-    {{/each}}
-  </ul>
+
+<!-- User Card -->
+{{#if users}}
+  <div id="user-card">
+    <h2>{{users.[0].name}}</h2>
+    <a href="/potentialMatchesProfile/{{users.[0]._id}}">View Profile</a>
+    <img src="/{{users.[0].image.destination}}/{{users.[0].image.filename}}" alt="Profile image">
+    <p>{{users.[0].bio}}</p>
+    <p>A place I want to visit: {{users.[0].bucketlist}}</p>
+    {{#if users.[0].u}}
+      <p>You both go to {{{users.[0].university}}}</p>
+    {{/if}}
+    {{#if users.[0].w}}
+      <p>You both work at {{{users.[0].work}}}</p>
+    {{/if}}
+    {{#if users.[0].g}}
+      <p>You both workout at {{{users.[0].gym}}}</p>
+    {{/if}}
+
+    <form method="POST" action="/potentialMatches/{{users.[0]._id}}/like?distance={{../distance}}">
+      <button type="submit">Like</button>
+    </form>
+    <form method="POST" action="/potentialMatches/{{users.[0]._id}}/dislike?distance={{../distance}}">
+      <button type="submit">Dislike</button>
+    </form>
+  </div>
 {{else}}
   <p>No potential matches found.</p>
 {{/if}}
 
+<!-- Navigation Buttons -->
+<div id="navigation-buttons">
+  <button id="previous-button" onclick="showPreviousUser()">Previous</button>
+  <button id="next-button" onclick="showNextUser()">Next</button>
+</div>
+
+<!-- Script -->
 <script src="/public/js/potentialMatch.js"></script>
