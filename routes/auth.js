@@ -222,4 +222,19 @@ router.route("/logout").get(async (req, res) => {
   }
   });
 
+  router.route("/validate-email").post(async (req, res) => {
+    try {
+      const userCollection = await users();
+      const email = xss(req.body.email);
+      const user = await userCollection.findOne({ email: email });
+      if (user) {
+        res.status(200).send({ exists: true });
+      } else {
+        res.status(404).send({ exists: false });
+      }
+    } catch (error) {
+      res.status(500).send({ error: error.message });
+    }
+  });
+
   export default router;

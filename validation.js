@@ -36,6 +36,9 @@ const exportedMethods = {
     },
 
     checkPassword(password, varName){
+        if(password.trim() === ""){
+          throw `${varName} cannot be empty`;
+        }
         if(typeof password !== 'string'){
              throw `${varName} must be of string type`;
         }
@@ -59,6 +62,9 @@ const exportedMethods = {
     },
 
     checkEmail(email, varName){
+       if(email.trim() === ""){
+         throw `${varName} cannot be empty`;
+       }
        if(typeof email !== 'string'){
            throw `${varName} must be a string`;
        }
