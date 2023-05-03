@@ -26,14 +26,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 const uploadImage = upload.single("image");
 
-// router.route("/").get(async (req, res) => {
-//   try {
-//     res.render("about", { title: "about" });
-//   } catch (error) {
-//     res.status(500).render("error", { error: error });
-//   }
-// });
-
 router.route("/").get(async (req, res,next) => {
 
   if(req.session && req.session.userId){
@@ -83,10 +75,6 @@ router.route("/login")
     }
   });
 
-  // TODO -
-          // 1. CHANGE THIS REGISTRATION FORM IF YOU TAKE MORE INPUTS FROM THE USER IN THE SIGNUP PAGE
-          //     MAKE SURE THE FIELDS MATCH THE DB FUNCTION FIELDS
-          // 2.  USE XSS FOR ALL XSS INPUTS 
 router
   .route("/register")
   .get(async (req, res) => {
@@ -221,6 +209,20 @@ router.route("/logout").get(async (req, res) => {
     res.status(500).send({ error: error.message });
   }
   });
+
+ router.route("/delete/:id").get(checkSession, async (req, res) => {
+   try {
+     const id = req.session.userId;
+     if (!req.session || req.session.userId !== id) {
+       return res.status(401).render("error", { error: "Unauthorized" });
+     }
+     await userData.deleteUserById(id);
+     req.session.destroy();
+     res.redirect("/login");
+   } catch (error) {
+     res.status(500).render("error", { error: error });
+   }
+ });
 
   router.route("/validate-email").post(async (req, res) => {
     try {
