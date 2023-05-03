@@ -55,6 +55,7 @@
 </form>
 {{#if search}}
   <ul>
+    {{#if users}}
     {{#each users}}
       <li>
         <h2>{{this.name}}</h2>
@@ -70,6 +71,9 @@
       </li>
     {{/each}}
   </ul>
+  {{else}}
+     <p>No matches found.</p>
+  {{/if}}
 {{else}}
 
   {{#if users}}
