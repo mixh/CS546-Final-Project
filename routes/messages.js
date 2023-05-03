@@ -31,14 +31,11 @@ router.get("/:userId/messages/:matchUserId", checkSession, async (req, res) => {
         ],
       })
       .toArray();
-
-
           const userCollection = await users();
           const mu = await userCollection.findOne({
             _id: new ObjectId(matchUserId),
           });
           const muName = mu.name;
-
     // Render conversation view
     res.render("messages/conversation", {
       messages: conversation,
