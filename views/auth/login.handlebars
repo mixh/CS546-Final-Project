@@ -4,7 +4,8 @@ Use Handlebars expressions to render error messages if the user enters invalid c
 Use Handlebars expressions to render a success message if the user successfully logs in. --}}
 
 {{!-- <p> this is the login page route</p> --}}
-  <h1>Login</h1>
+{{!-- before valid html --}}
+ {{!-- <h1>Login</h1>
   <div id="error" hidden>
     <p class="p1">Wrong Input!</p>
   </div>
@@ -26,3 +27,36 @@ Use Handlebars expressions to render a success message if the user successfully 
   <script src="https://code.jquery.com/jquery-2.2.4.min.js"
    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
   <script src="/public/js/login.js"></script>
+after making this page valid html --}}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" type="text/css" href="/public/css/login.css">
+</head>
+<body>
+  <h1>Login</h1>
+  <div id="error" hidden>
+    <p class="p1">Wrong Input!</p>
+  </div>
+  <form action="/login" method="post" id="myForm2">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+    <div id="email-status"></div>
+    <span id="emailError"></span><br><br>
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"><br>
+    <span id="password-error"></span><br><br>
+
+    <input type="submit" value="Log In">
+  </form>
+  <p> Need to register? <a href="/register" class="button">Register here</a>.</p>
+  
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script src="/public/js/login.js"></script>
+</body>
+</html>

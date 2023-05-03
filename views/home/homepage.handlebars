@@ -3,9 +3,6 @@
 </p> --}}
  
 {{!-- <link rel="stylesheet" type="text/css" href="/public/css/homepage.css"> --}}
-<link rel="stylesheet" href="/public/css/matches.css">
-<h1>Welcome to our app!</h1>
-    <p>You have successfully logged in.</p>
     {{!-- <ul>
   <li><a href="/home/{{user._id}}" class="button">Home</a></li>
   <li><a href="/matches/{{user._id}}" class="button">Matches</a></li>
@@ -15,43 +12,78 @@
   <li><a href="/logout" class="button">logout</a></li>
 </ul> --}}
 
+{{!-- before valid html --}}
+
+{{!-- <link rel="stylesheet" href="/public/css/matches.css">
+<h1>Welcome to our app!</h1>
+    <p>You have successfully logged in.</p>
   <ul style="list-style: none; display: flex; justify-content: space-between; align-items: center; background-color: #333; padding: 10px;">
     <li style="margin-right: auto;">
-      <a href="/home/{{user._id}}" class="button" style="color: white; text-decoration: none;">Home</a>
-      {{!-- <button type="submit",name="home"></button> --}}
-      {{!-- <li><a href="/home/{{user._id}}" class="button">Home</a></li> --}}
+      <a href="/home/{{user._id}}" class="button">Home</a>
     </li>
     <li style="margin-right: 10px;">
       <a href="/matches/{{user._id}}" class="button" style="color: white; text-decoration: none;">Matches</a>
-      {{!-- <li><a href="/matches/{{user._id}}" class="button">Matches</a></li> --}}
-      {{!-- <button type="submit",name="Matches"></button> --}}
     </li>
     <li style="margin-right: 10px;">
       <a href="/potentialMatches/{{user._id}}?distance=all" class="button" style="color: white; text-decoration: none;">Potential Matches</a>
-       {{!-- <li><a href="/potentialMatches/{{user._id}}?distance=all" class="button">Potential Matches</a></li> --}}
-       {{!-- <button type="submit",name="Potential Matches"></button> --}}
+ 
     </li>
     <li style="margin-right: 10px;">
       <a href="/profile/{{user._id}}" class="button" style="color: white; text-decoration: none;">Profile</a>
-      {{!-- <li><a href="/profile/{{user._id}}" class="button">Profile</a></li> --}}
-      {{!-- <button type="submit",name="Profile"></button> --}}
     </li>
     <li style="margin-right: 10px;">
       <a href="/messages/{{user._id}}/messages" class="button" style="color: white; text-decoration: none;">Messages</a>
-     {{!-- <li><a href="/messages/{{user._id}}/messages" class="button">Messages</a></li> --}}
-     {{!-- <button type="submit",name="Messages"></button> --}}
     </li>
     <li style="margin-right: 10px;">
       <a href="/logout" class="button" style="color: white; text-decoration: none;">Logout</a>
-      {{!-- <button type="submit",name="Logout"></button> --}}
     </li>
      <li style="margin-right: 10px;">
       <a href="/delete/{{user._id}}" class="button">delete account</a>
-      {{!-- <button type="submit",name="Logout"></button> --}}
     </li>
-
   </ul>
 
-   
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="/public/js/homepage_delete.js"></script>
+  <script src="/public/js/homepage_delete.js"></script> --}}
+
+{{!-- after valid html --}}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to our app!</title>
+    <link rel="stylesheet" href="/public/css/matches.css">
+  </head>
+  <body>
+    <h1>Welcome to our app!</h1>
+    <p>You have successfully logged in.</p>
+    {{!-- background-color: #333; --}}
+    <ul style="list-style: none; display: flex; justify-content: space-between; align-items: center;  padding: 10px;">
+      <li style="margin-right: auto;">
+        <a href="/home/{{user._id}}" class="button">Home</a>
+      </li>
+      <li style="margin-right: 10px;">
+        <a href="/matches/{{user._id}}" class="button" style="color: white; text-decoration: none;">Matches</a>
+      </li>
+      <li style="margin-right: 10px;">
+        <a href="/potentialMatches/{{user._id}}?distance=all" class="button" style="color: white; text-decoration: none;">Potential Matches</a>
+      </li>
+      <li style="margin-right: 10px;">
+        <a href="/profile/{{user._id}}" class="button" style="color: white; text-decoration: none;">Profile</a>
+      </li>
+      <li style="margin-right: 10px;">
+        <a href="/messages/{{user._id}}/messages" class="button" style="color: white; text-decoration: none;">Messages</a>
+      </li>
+      <li style="margin-right: 10px;">
+        <a href="/logout" class="button" style="color: white; text-decoration: none;">Logout</a>
+      </li>
+      <li style="margin-right: 10px;">
+        <a href="/delete/{{user._id}}" class="button">Delete Account</a>
+      </li>
+    </ul>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/public/js/homepage_delete.js"></script>
+ </body>
+</html>
+{{!-- it gave bad html over {{user._id}} --}}
