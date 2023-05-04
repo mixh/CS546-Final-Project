@@ -64,6 +64,9 @@ function checkZip(zip_code, varName){
   if(isNaN(zip_code)){
     throw `${varName} must be a number`;
   }
+  if(zip_code.length !== 5){
+    throw 'Enter a valid USA zip'
+  }
 } 
 
 
