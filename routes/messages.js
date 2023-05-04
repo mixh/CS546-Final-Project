@@ -109,6 +109,7 @@ router.get(
       res.render("messages/message", {
         users: userMessageInfo,
         userId: userId,
+        title: "Messages"
       });
     } catch (error) {
       res.status(500).render("error", { error: error });

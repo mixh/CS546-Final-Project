@@ -44,7 +44,7 @@ router.route("/:id").get(checkSession,async(req,res)=>{
   try{
     const userId = req.params.id;
     const user = await userData.get(userId);
-    res.render("profile/view", { user });
+    res.render("profile/view", { user, title:"Profile" });
   }
   catch(error){
     res.status(500).render("error",{error:error});
@@ -60,7 +60,7 @@ router.route("/:id/edit")
   try {
     const userId = req.params.id;
     const user = await userData.get(userId);
-    res.render("profile/edit", { user });
+    res.render("profile/edit", { user, title:" Edit Profile" });
   } catch (error) {
     res.status(500).render("error", { error: error });
   }
