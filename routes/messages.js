@@ -46,7 +46,8 @@ router.get("/:userId/messages/:matchUserId", checkSession, async (req, res) => {
       userId: userId,
       matchUserId: matchUserId,
       muName : muName,
-      currtUser: currtUser
+      currtUser: currtUser,
+      title: "Conversation"
     });
   } catch (error) {
     res.status(500).render("error", { error: error });
