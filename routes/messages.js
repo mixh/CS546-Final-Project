@@ -70,31 +70,49 @@ router.post("/:userId/messages/:matchUserId/send", checkSession, async (req, res
   }
 });
 
-router.get("/:userId/messages", checkSession, async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const userCollection = await users();
-    const currentUser = await userCollection.findOne({
+router.get(
+  "/:userId/messages",
+  checkSession,
+  async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const userCollection = await users();
+      const currentUser = await userCollection.findOne({
         _id: new ObjectId(userId),
-    });
+      });
 
-    let filter = {
-      _id: { $ne: new ObjectId(userId) },
-      isPaused: false,
-      $and: [
-        { _id: { $in: currentUser.matches.map(id => new ObjectId(id)) } },
-      ]
-    };
+      const allUsers = await userCollection.find().toArray();
+      const potentialMatches = allUsers
 
-    const userMessageInfo = await userCollection.find(filter).toArray();
+      const likedUsers = currentUser.likedUsers;
 
-    res.render("messages/message", {
-      users: userMessageInfo,
-      userId: userId,
-    });
-  } catch (error) {
-    res.status(500).render("error", { error: error });
+      const likedBy = currentUser.likedBy;
+
+
+      const matchedUsers = potentialMatches.filter(
+        (user) =>
+          likedUsers.includes(user._id.toString()) &&
+          likedBy.includes(user._id.toString())
+      );
+
+      let filter = {
+        _id: { $ne: new ObjectId(userId) },
+        isPaused: false,
+        $and: [
+          { _id: { $in: matchedUsers.map((user) => new ObjectId(user._id)) } },
+        ],
+      };
+
+      const userMessageInfo = await userCollection.find(filter).toArray();
+
+      res.render("messages/message", {
+        users: userMessageInfo,
+        userId: userId,
+      });
+    } catch (error) {
+      res.status(500).render("error", { error: error });
+    }
   }
-});
+);
 
 export default router;
