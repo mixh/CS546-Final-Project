@@ -12,7 +12,7 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Dating App</a>
+  <a class="navbar-brand" href="#">Meeting App</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -51,7 +51,7 @@
 
 
 <!-- User Card -->
-{{!-- {{#if users}}
+{{#if users}}
   <div id="user-card">
     <h2>{{users.[0].name}}</h2>
     <a href="/potentialMatchesProfile/{{users.[0]._id}}">View Profile</a>
@@ -68,16 +68,16 @@
       <p>You both workout at {{{users.[0].gym}}}</p>
     {{/if}}
 
-    <form method="POST" action="/potentialMatches/{{users.[0]._id}}/like?distance={{../distance}}">
+    <form method="POST" action="/potentialMatches/{{users.[0]._id}}/like?distance={{distance}}">
       <button class = "potBtn" type="submit">Like</button>
     </form>
-    <form method="POST" action="/potentialMatches/{{users.[0]._id}}/dislike?distance={{../distance}}">
+    <form method="POST" action="/potentialMatches/{{users.[0]._id}}/dislike?distance={{distance}}">
       <button class = "potBtn" type="submit">Dislike</button>
     </form>
   </div>
 {{else}}
   <p>No potential matches found.</p>
-{{/if}} --}}
+{{/if}}
 
 {{!-- {{#if users}}
   <ul>
@@ -98,10 +98,10 @@
           <p>You both workout at {{{this.gym}}}</p>
         {{/if}}
 
-        <form method="POST" action="/potentialMatches/{{this._id}}/like?distance={{../distance}}">
+        <form method="POST" action="/potentialMatches/{{this._id}}/like?distance={{distance}}">
           <button type="submit">Like</button>
         </form>
-        <form method="POST" action="/potentialMatches/{{this._id}}/dislike?distance={{../distance}}">
+        <form method="POST" action="/potentialMatches/{{this._id}}/dislike?distance={{distance}}">
           <button type="submit">Dislike</button>
         </form>
       </li>
@@ -118,7 +118,7 @@
 
 <!-- Script -->
 
-{{#if users}}
+{{!-- {{#if users}}
   <div id="user-cards">
     {{#each users}}
       <div class="user-card">
@@ -136,10 +136,10 @@
         {{#if this.g}}
           <p>You both workout at {{{this.gym}}}</p>
         {{/if}}
-        <form id="lik" method="POST" action="/potentialMatches/{{this._id}}/like?distance={{../distance}}">
+        <form id="lik" method="POST" action="/potentialMatches/{{this._id}}/like?distance={{distance}}">
           <button type="submit" >Like</button>
         </form>
-        <form id="dislik" method="POST" action="/potentialMatches/{{this._id}}/dislike?distance={{../distance}}">
+        <form id="dislik" method="POST" action="/potentialMatches/{{this._id}}/dislike?distance={{distance}}">
           <button type="submit" >Dislike</button>
         </form>
       </div>
@@ -147,9 +147,9 @@
   </div>
 {{else}}
   <p>No potential matches found.</p>
-{{/if}}
+{{/if}} --}}
 
 
-<script src="/public/js/leftright.js"></script>
+{{!-- <script src="/public/js/leftright.js"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script src="/public/js/potentialMatch.js"></script>

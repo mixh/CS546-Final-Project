@@ -1,5 +1,5 @@
-const url = new URL(window.location.href);
-const distance = url.searchParams.get("distance");
+const urlParams = new URLSearchParams(window.location.search);
+const distance = urlParams.get("distance");
 
 if (distance === "all") {
   document.getElementById("showAllProfilesButton").style.display = "none";
