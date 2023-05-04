@@ -148,7 +148,7 @@ body {
     border-radius: 4px;
   }
   
- /*  input[type="submit"] {
+  input[type="submit"] {
     background-color: #4CAF50;
     color: white;
     padding: 12px 20px;
@@ -159,7 +159,7 @@ body {
   
   input[type="submit"]:hover {
     background-color: #45a049;
-  } */
+  }
 
   /* style for the container */
 .container {
