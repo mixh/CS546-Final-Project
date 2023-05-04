@@ -102,6 +102,14 @@ passwordInput.on("input", () => {
 
 loginForm.on("submit", (event) => {
   
+   if (!emailInput.val() || !passwordInput.val()) {
+      event.preventDefault();
+      errorDiv.prop("hidden", false);
+      errorDiv.html("Inputs must be entered");
+      return;
+    }
+
+
   if (emailInput.val().trim() === '') {
     emailErrorDiv.text("Please enter emailId");
     emailInput.get(0).setCustomValidity("");
