@@ -32,7 +32,7 @@ router.route("/").get(async (req, res,next) => {
 
           res.redirect("/home/" + req.session.userId);
   } else {
-    res.redirect("/login")
+    res.render("about", { title: "about" });
   }
 }, async(req,res) => {
   try {

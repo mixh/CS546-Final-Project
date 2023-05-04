@@ -1,131 +1,84 @@
-{{!-- <p>Matches for the current user, excluded current, liked and disliked users
-  already
-</p>
-<h1>Matches</h1>
-<link rel="stylesheet" href="/public/css/matches.css">
-<nav>
-   <ul style="list-style: none; display: flex; justify-content: space-between; align-items: center; background-color: #333; padding: 10px;">
-    <li style="margin-right: auto;">
-      <a href="/home/{{user._id}}" class="button" style="color: white; text-decoration: none;">Home</a>
-       <form method="GET" action="/home/{{userId}}">
-           <input type="text" name="home"  /> 
-          <button type="submit",name="home">home</button>
-      </form>
-    </li>
-    <li style="margin-right: 10px;"> 
-      <a href="/matches/{{user._id}}" class="button" style="color: white; text-decoration: none;">Matches</a>
-      <form method="GET" action="/matches/{{userId}}">
-          <input type="text" name="matches"  />
-          <button type="submit",name="matches">matches</button>
-      </form>
-    </li>
-    <li style="margin-right: 10px;">
-      <a href="/potentialMatches/{{user._id}}?distance=all" class="button" style="color: white; text-decoration: none;">Potential Matches</a>
-      
-       <form method="GET" action="/potentialMatches/{{userId}}">
-          <input type="text" name="potentialMatches"  />
-          <button type="submit",name="potentialMatches">potentialMatches</button>
-      </form>
-    </li>
-    <li style="margin-right: 10px;">
-      <a href="/profile/{{user._id}}" class="button" style="color: white; text-decoration: none;">Profile</a>
-      <form method="GET" action="/profile/{{userId}}">
-          <input type="text" name="profile"  />
-          <button type="submit",name="profile">profile</button>
-      </form>
-    </li>
-    <li style="margin-right: 10px;">
-    <a href="/messages/{{user._id}}/messages" class="button" style="color: white; text-decoration: none;">Messages</a>
-      <form method="GET" action="/messages/{{userId}}/messages">
-          <input type="text" name="profile"  />
-          <button type="submit",name="profile">messages</button>
-      </form>
-    </li>
-    <li>
-      <a href="/logout" class="button" style="color: white; text-decoration: none;">Logout</a>
-    </li>
-  </ul> 
-</nav> --}}
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Meeting App</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/home/{{userId}}">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/matches/{{userId}}">Matches</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/potentialMatches/{{userId}}?distance=all">Potential Matches</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/profile/{{userId}}">Profile</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/messages/{{userId}}/messages">Messages</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/logout">Logout</a>
-      </li>
-    </ul>
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="/home/{{userId}}">Meetup</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/home/{{userId}}">Homepage</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/matches/{{userId}}">Matches</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/potentialMatches/{{userId}}?distance=all">Potential Matches</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/profile/{{userId}}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/messages/{{userId}}/messages">Messages</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 
-<form method="GET" action="/matches/{{userId}}/search">
-  <input type="text" name="search" placeholder="Search.." />
-  <button type="submit">Search</button>
-</form>
-{{#if search}}
-  <ul>
-    {{#if users}}
-    {{#each users}}
-      <li>
-        <h2>{{this.name}}</h2>
-        <img
-          src="/{{this.image.destination}}/{{this.image.filename}}"
-          alt="Profile image"
-        />
-        <p>{{this.bio}}</p>
-        <a href="/matches/{{this._id}}/viewProfile">View Profile</a>
-        <form method="POST" action="/matches/{{this._id}}/unmatch">
-          <button type="submit">Unmatch</button>
-        </form>
-      </li>
-    {{/each}}
-  </ul>
-  {{else}}
-     <p>No matches found.</p>
-  {{/if}}
-{{else}}
+<br><br>
 
-  {{#if users}}
-    <ul>
-      {{#each users}}
-        <li>
-          <h2>{{this.name}}</h2>
-          <img
-            src="/{{this.image.destination}}/{{this.image.filename}}"
-            alt="Profile image"
-          />
-          <p>{{this.bio}}</p>
-          <a href="/matches/{{this._id}}/viewProfile">View Profile</a>
-          <form method="POST" action="/matches/{{this._id}}/unmatch">
-            <button type="submit">Unmatch</button>
-          </form>
-          <a href="/messages/{{../userId}}/messages/{{this._id}}">Message {{this.name}}</a>
-        </li>
-      {{/each}}
-    </ul>
-  {{else}}
-    <p>No matches found.</p>
-  {{/if}}
-{{/if}}
-<a href="/home/{{userId}}" class="button">Go to Home</a>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <form method="GET" action="/matches/{{userId}}/search" class="d-flex align-items-center my-3">
+        <input type="text" name="search" placeholder="Search.." class="form-control me-2" />
+        <button type="submit" class="btn btn-dark">Search</button>
+      </form>
+      {{#if search}}
+        <ul>
+          {{#if users}}
+            {{#each users}}
+              <li>
+                <h2>{{this.name}}</h2>
+                <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image" />
+                <p>{{this.bio}}</p>
+                <a href="/matches/{{this._id}}/viewProfile" class="btn btn-dark">View Profile</a>
+                <form method="POST" action="/matches/{{this._id}}/unmatch" class="d-inline">
+                  <button type="submit" class="btn btn-danger">Unmatch</button>
+                </form>
+              </li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <p>No matches found.</p>
+        {{/if}}
+      {{else}}
+        {{#if users}}
+          <ul>
+            {{#each users}}
+              <li>
+                <h2>{{this.name}}</h2>
+                <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image" />
+                <p>{{this.bio}}</p>
+                <a href="/matches/{{this._id}}/viewProfile" class="btn btn-primary">View Profile</a>
+                <form method="POST" action="/matches/{{this._id}}/unmatch" class="d-inline">
+                  <button type="submit" class="btn btn-danger">Unmatch</button>
+                </form>
+                <a href="/messages/{{../userId}}/messages/{{this._id}}" class="btn btn-success">Message {{this.name}}</a>
+              </li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <p>No matches found.</p>
+        {{/if}}
+      {{/if}}
+      <a href="/home/{{userId}}" class="btn btn-primary mt-3">Go to Home</a>
+    </div>
+  </div>
+</div>

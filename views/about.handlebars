@@ -1,8 +1,51 @@
-<p>
-    this is the initial page will contain links to login page, registration page, about the website
-</p>
-<link rel="stylesheet" type="text/css" href="/public/css/about.css">
-<ul>
-  <li><a href="/login" class="button">Log In</a></li>
-  <li><a href="/register" class="button">Register</a></li>
-</ul>
+<link rel="stylesheet" href="/public/css/about.css">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand mx-auto fs-3" href="/">Meetup Website</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto d-flex justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link btn btn-lg" href="/login">Log In</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-lg" href="/register">Register</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container my-5">
+    <h1 class="text-center">Welcome to Meetup Website</h1>
+    <p class="lead text-center mb-5">An application designed to connect us with people who frequent the places we visit on a daily basis like our school, workplace, gym, classes or places we want to visit but don’t have someone to go with like bucket list places.</p>
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="text-center">What We Do</h2>
+        <p>Our website has a simple interface to only show user which frequent places that are similars to yours like university, a bucket list place or gymnasium and gives you the option to like such users, you could also filter to show users only within 5kms and if liked back you can message each other. we also have the feature to pause your profile or delete if you no longer want to continue.</p>
+      </div>
+      <div class="col-md-6">
+        <h2 class="text-center">Features</h2>
+        <ul>
+          <li>View Your Profile</li>
+          <li>Edit Your Profile</li>
+          <li>Messages Have conversation with your meetups</li>
+          <li>Look at Potential Matches</li>
+          <li>Distance Filter (shows potential matches within 5 kms)</li>
+          <li>Pause Functionality (allows user to pause their profile from being seen in potential matches)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+    <div class="container-lg">
+    <div class="d-flex justify-content-center my-5">
+      <a class="btn btn btn-outline-dark btn-lg mx-4" href="/login">Log In</a>
+      <a class="btn btn-outline-dark btn-lg mx-4" href="/register">Register</a>
+    </div>
+  </div>
+
+  <!-- Bootstrap JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.min.js"></script>

@@ -1,16 +1,60 @@
-{{!-- In the view.hbs file, display the user's name, email, city name, and location coordinates.
-Include an option for the user to edit their profile. --}}
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="/home/{{user._id}}">Meetup</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/home/{{user._id}}">Homepage</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/matches/{{user._id}}?distance=all">Matches</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/potentialMatches/{{user._id}}">Potential Matches</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/profile/{{user._id}}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/messages/{{user._id}}/messages">Messages</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-<div>
-  <h1>Profile</h1>
-  {{#if user.image.path}}
-    <img src="/{{user.image.destination}}/{{user.image.filename}}" alt="Profile image">
-  {{else}}
-    <p>No image uploaded</p>
-  {{/if}}
-  <p>Name: {{user.name}}</p>
-  <p>Age: {{user.age}}</p>
-  <p>City: {{user.city_name}}</p>
-  <p>Zip : {{user.zip}}</p>
-  <p>Bio: {{user.bio}}</p>
+<br><br>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h1>Potential Match Profile</h1>
+        </div>
+        <div class="card-body">
+          {{#if user.image.path}}
+            <img src="/{{user.image.destination}}/{{user.image.filename}}" alt="Profile image">
+          {{else}}
+            <p>No image uploaded</p>
+          {{/if}}
+          <p>Name: {{user.name}}</p>
+          <p>Age: {{user.age}}</p>
+          <p>City: {{user.city_name}}</p>
+          <p>Zip : {{user.zip}}</p>
+          <p>Bio: {{user.bio}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+<script src="/public/js/homepage_delete.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
