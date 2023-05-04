@@ -7,19 +7,19 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/home/{{user._id}}">Homepage</a>
+          <a class="nav-link" href="/home/{{currUserId}}">Homepage</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/matches/{{user._id}}?distance=all">Matches</a>
+          <a class="nav-link" href="/matches/{{currUserId}}?distance=all">Matches</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/potentialMatches/{{user._id}}">Potential Matches</a>
+          <a class="nav-link" href="/potentialMatches/{{currUserId}}">Potential Matches</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/profile/{{user._id}}">Profile</a>
+          <a class="nav-link" href="/profile/{{currUserId}}">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/messages/{{user._id}}/messages">Messages</a>
+          <a class="nav-link" href="/messages/{{currUserId}}/messages">Messages</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/logout">Logout</a>
