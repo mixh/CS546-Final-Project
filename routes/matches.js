@@ -52,7 +52,7 @@ router.get("/:id", checkSession, async(req,res) =>{
       );
     }
      
-    res.render("matches/matches", { users: userInfo, userId: userId});
+    res.render("matches/matches", { users: userInfo, userId: userId, title: "Matches"});
     } catch (error) {
       res.status(500).render("error", { error: error });
     }
@@ -117,7 +117,7 @@ router.get("/:id", checkSession, async(req,res) =>{
       const userId = req.params.id;
       const currUserId = req.session.userId;
       const user = await userData.get(userId);
-      res.render("matches/viewMatches", { user: user, currUserId : currUserId});
+      res.render("matches/viewMatches", { user: user, currUserId : currUserId, title: "Potential Match Profile"});
     } catch (error) {
       res.status(500).render("error", { error: error });
     }
