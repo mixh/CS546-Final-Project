@@ -1,3 +1,66 @@
+<style>
+  .like-dislike-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.like-button, .dislike-button {
+  width: 120px;
+  height: 50px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.like-button {
+  background-color: #004b02;
+}
+
+.dislike-button {
+  background-color: #a40b00;
+}
+
+.like-button:hover, .dislike-button:hover {
+  transform: scale(1.1);
+}
+
+
+  .profile-pix {
+  width: 300px; /* increase the width to 300px */
+  height: 300px; /* increase the height to 300px */
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto; /* center the image horizontally */
+  display: block; /* make the image a block element */
+  margin-bottom: 20px;
+}
+
+  .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .common-attribute {
+    background-color: #f0f76a;
+    color: #000000f9;
+  }
+</style>
+
+
 <nav class="navbar navbar-expand-md navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" href="/home/{{userId}}">Meetup</a>
@@ -45,34 +108,37 @@
 
 <br>
 
-
-<div class="d-flex justify-content-center">
-  <div class="card" style="width: 18rem;">
+{{!-- class="d-flex justify-content-center" --}}
+<div class="card">
+  <div>
     {{#if users}}
-    <img class="card-img-top" src="/{{users.[0].image.destination}}/{{users.[0].image.filename}}" alt="Profile image">
+    <img class="profile-pix" src="/{{users.[0].image.destination}}/{{users.[0].image.filename}}" alt="Profile image">
       <div class="card-body">
-        <h5 class="card-title">{{users.[0].name}}</h5>
+        <h4 class="card-title">{{users.[0].name}}, {{users.[0].age}}</h4>
         <p class="card-text">{{users.[0].bio}}</p>
         <p class="card-text">A place I want to visit: {{users.[0].bucketlist}}</p>
         {{#if users.[0].u}}
-        <p class="card-text">You both go to {{{users.[0].university}}}</p>
+        <p class="card-text">You both went to <span class="common-attribute">{{{users.[0].university}}}</span></p>
         {{/if}}
         {{#if users.[0].w}}
-        <p class="card-text">You both work at {{{users.[0].work}}}</p>
+        <p class="card-text">You both work at <span class="common-attribute">{{{users.[0].work}}}</span></p>
         {{/if}}
         {{#if users.[0].g}}
-        <p class="card-text">You both workout at {{{users.[0].gym}}}</p>
+        <p class="card-text">You both workout at <span class="common-attribute">{{{users.[0].gym}}}</span></p>
         {{/if}}
         
         <div class="text-center">
         <a href="/potentialMatchesProfile/{{users.[0]._id}}" class="btn btn-dark">View Profile</a>
         <br> <br>
-        <form class="card-body d-inline" method="POST" action="/potentialMatches/{{users.[0]._id}}/like?distance={{distance}}">
-          <button type="submit" class="btn btn-success">Like</button>
-        </form> <br> <br>
-        <form class="card-body d-inline" method="POST" action="/potentialMatches/{{users.[0]._id}}/dislike?distance={{distance}}">
-          <button type="submit" class="btn btn-danger">Dislike</button>
-        </form>
+        <div class="like-dislike-container">
+          <form class="card-body d-inline" method="POST" action="/potentialMatches/{{users.[0]._id}}/like?distance={{distance}}">
+          <button type="submit" class="like-button">Like</button>
+          </form>
+          <form class="card-body d-inline" method="POST" action="/potentialMatches/{{users.[0]._id}}/dislike?distance={{distance}}">
+          <button type="submit" class="dislike-button">Dislike</button>
+          </form>
+        </div>
+
         <br>
       </div>
       </div>
