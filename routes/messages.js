@@ -37,14 +37,18 @@ router.get("/:userId/messages/:matchUserId", checkSession, async (req, res) => {
           const mu = await userCollection.findOne({
             _id: new ObjectId(matchUserId),
           });
+          const currUser = await userCollection.findOne({
+            _id: new ObjectId(userId),
+          });
           const muName = mu.name;
-
+          const currtUser = currUser.name; 
     // Render conversation view
     res.render("messages/conversation", {
       messages: conversation,
       userId: userId,
       matchUserId: matchUserId,
       muName : muName,
+      currtUser: currtUser
     });
   } catch (error) {
     res.status(500).render("error", { error: error });

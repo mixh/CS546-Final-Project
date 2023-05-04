@@ -1,5 +1,12 @@
 /* Center align the page content */
-body {
+/* body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+  } */
+.messagesDiv {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,7 +15,7 @@ body {
   }
   
   /* Style the navigation bar */
-  nav ul {
+  /* nav ul {
     list-style: none;
     display: flex;
     justify-content: space-between;
@@ -29,15 +36,15 @@ body {
     color: white;
     text-decoration: none;
     padding: 5px 10px;
-  }
+  } */
   
   /* Style the search form */
-  form {
+  /* form {
     margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+  } */
   
   input[type="text"] {
     padding: 10px;
@@ -57,7 +64,14 @@ body {
   }
   
   /* Style the list of matches */
-  ul {
+  /* ul {
+    margin-top: 20px;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  } */
+  .messUsers {
     margin-top: 20px;
     list-style: none;
     display: grid;
@@ -65,7 +79,17 @@ body {
     gap: 20px;
   }
   
-  li {
+  /* li{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  } */
+  .messLiUsers {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -76,12 +100,24 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
   
-  li h2 {
+  /* li h2 {
+    font-size: 20px;
+    margin-top: 0;
+  } */
+
+  .messLiUsers h2 {
     font-size: 20px;
     margin-top: 0;
   }
   
-  li img {
+ /*  li .messLiUsers img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: 50%;
+    margin: 10px 0;
+  } */
+  .messLiUsers img {
     width: 100%;
     max-width: 200px;
     height: auto;
@@ -89,13 +125,28 @@ body {
     margin: 10px 0;
   }
   
-  li p {
+  /* li .messLiUsers p {
+    font-size: 16px;
+    margin: 10px 0;
+    text-align: center;
+  } */
+  .messLiUsers p {
     font-size: 16px;
     margin: 10px 0;
     text-align: center;
   }
   
-  li a {
+  /* li .messLiUsers a {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    margin-top: 10px;
+  } */
+  .messLiUsers a {
     padding: 10px 20px;
     font-size: 16px;
     border-radius: 5px;
@@ -106,11 +157,23 @@ body {
     margin-top: 10px;
   }
   
-  li a:hover {
+  /* li .messLiUsers a:hover {
+    background-color: #555;
+  } */
+  .messLiUsers a:hover {
     background-color: #555;
   }
   
-  li form button {
+  /* li .messLiUsers form button {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+  } */
+  .messLiUsers form button {
     background-color: #d9534f;
     color: white;
     border: none;
@@ -120,7 +183,10 @@ body {
     cursor: pointer;
   }
   
-  li form button:hover {
+  /* li .messLiUsers form button:hover {
+    background-color: #c9302c;
+  } */
+  .messLiUsers form button:hover {
     background-color: #c9302c;
   }
   

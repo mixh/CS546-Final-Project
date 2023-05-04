@@ -1,6 +1,4 @@
-console.log("ooo")
-const form = document.getElementById('.form10');
-
+const form = document.getElementById('form10');
 const messagesList = document.getElementById('.messageslist');
 
 form.addEventListener('submit', (event) => {

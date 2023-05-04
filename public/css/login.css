@@ -5,8 +5,19 @@ body {
     align-items: center;
     height: 100vh;
   }
+.profileDet {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+/* .loginDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  } */
   
- 
 #error {
     color: red;
     margin-bottom: 10px;
@@ -63,3 +74,6 @@ body {
     background-color: #006f8b;
   }
   
+  .userDet{
+    margin-left: 457px;
+  }

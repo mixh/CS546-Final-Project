@@ -23,6 +23,22 @@ const rewriteUnsupportedBrowserMethods = (req, res, next) => {
   next();
 };
 
+const handlebarsInstance = exphbs.create({
+  defaultLayout: 'main',
+  // Specify helpers which are only registered on this instance.
+  helpers: {
+    asJSON: (obj, spacing) => {
+      if (typeof spacing === 'number')
+        return new Handlebars.SafeString(JSON.stringify(obj, null, spacing));
+
+      return new Handlebars.SafeString(JSON.stringify(obj));
+    },
+    eq: (a, b) => {
+      return a === b;
+    }
+  }
+});
+
 app.use("/public", staticDir);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -61,7 +77,7 @@ app.use("/register", async(req,res,next) => {
 
 app.use(express.static("uploads"));
 
-app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
+app.engine("handlebars", handlebarsInstance.engine);
 app.set("view engine", "handlebars");
 
 configRoutes(app);

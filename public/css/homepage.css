@@ -49,3 +49,33 @@ body {
     background-color: #3e8e41;
   }
   
+  .card {
+    width: 252px;
+    height: 200px;
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+  .square-img {
+    /* object-fit: cover; */
+    height: 300px;
+  }
+
+  .card-deck{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }

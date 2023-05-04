@@ -115,8 +115,9 @@ router.get("/:id", checkSession, async(req,res) =>{
   router.get("/:id/viewProfile", checkSession, async(req,res) =>{
     try {
       const userId = req.params.id;
+      const currUserId = req.session.userId;
       const user = await userData.get(userId);
-      res.render("matches/viewMatches", { user: user });
+      res.render("matches/viewMatches", { user: user, currUserId : currUserId});
     } catch (error) {
       res.status(500).render("error", { error: error });
     }

@@ -35,10 +35,8 @@ if (!/\d/.test(password)) {
 }
 
 
-loginForm.addEventListener('submit', (event) => {
+/* loginForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    
-    
   
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(emailInput.value.trim())) {
@@ -64,10 +62,91 @@ loginForm.addEventListener('submit', (event) => {
       return;
     }
     
-
+  const formData = new FormData(loginForm);
+  console.log("FormData: "+ JSON.stringify(formData));
+  const serializedFormData = new URLSearchParams(formData).toString();
+  console.log("serializedFormData: "+ JSON.stringify(serializedFormData));
+  fetch('/login', {
+    method: 'POST',
+    body: serializedFormData
+  })
+  .then(response => {
+    console.log("Inside response");
+    if (!response.ok) {
+      throw new Error(response.status + ': ' + response.statusText);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log("Inside then");
+    console.log(data); // process the response data
+  })
+  .catch(error => {
+    console.error(error);
+  });
     
-    loginForm.submit();
+    // loginForm.submit();
+
+    $.ajax({
+      type: 'POST',
+      url: '/login',
+      data: {
+          email: emailInput.value.trim(),
+          password: passwordInput.value.trim()
+      },
+      success: function (data) {
+          // Handle successful login response
+          console.log("Success Data: "+data);
+          // window.location.href = '/home'; // Redirect to dashboard on success
+      },
+      error: function (xhr, status, error) {
+          // Handle error response
+          console.log(error);
+          errorDiv.hidden = false;
+          errorDiv.innerHTML = 'Something went wrong. Please try again later.';
+      }
+  });
   }); */
+
+$("#submitBtn").on('click', function(event){
+  event.preventDefault();
+  
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(emailInput.value.trim())) {
+      errorDiv.hidden = false;
+      errorDiv.innerHTML = 'Please enter a valid email address';
+      emailInput.focus();
+      return;
+    }
+    
+   
+    if (passwordInput.value.trim() === '') {
+      errorDiv.hidden = false;
+      errorDiv.innerHTML = 'You must enter a password';
+      passwordInput.focus();
+      return;
+    }
+    
+    try {
+      checkEmail(emailInput.value.trim(), "Email");
+      checkPassword(passwordInput.value.trim(), "Password");;
+    } catch (error) {
+      errorDiv.hidden = false;
+      errorDiv.innerHTML = error;
+      return;
+    }
+/* 
+    let requestConfig = {
+      method: 'POST',
+      url: '/login',
+      data: {
+        email: emailInput.value.trim(),
+        password: passwordInput.value.trim()
+        },
+    };
+    
+    loginForm.submit(); */
+  });
 
 
 const loginForm = $("#myForm2");
@@ -193,5 +272,4 @@ loginForm.on("submit", (event) => {
     errorDiv.html("Please correct the errors above");
     return;
   }
-
 });
