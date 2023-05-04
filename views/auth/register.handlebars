@@ -3,7 +3,8 @@ Add a submit button to the form.
 Use Handlebars expressions to render error messages if the user enters invalid input.
 Use Handlebars expressions to render a success message if the user successfully signs up. --}}
 
-<link rel="stylesheet" href="/public/css/register.css">
+{{!-- before valid html --}}
+{{!-- <link rel="stylesheet" href="/public/css/register.css">
   
   <h1>Registration</h1>
   <div id="error" hidden>
@@ -65,4 +66,77 @@ Use Handlebars expressions to render a success message if the user successfully 
   <li><a href="/login">Already registered go to the login page.</a></li>
   <script src="https://code.jquery.com/jquery-2.2.4.min.js"
    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-  <script src="public/js/register.js"></script>
+  <script src="public/js/register.js"></script> --}}
+
+  {{!-- after valid html --}}
+
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link rel="stylesheet" href="/public/css/register.css">
+  </head>
+  <body>
+    <h1>Registration</h1>
+    <div id="error" hidden>
+      <p class="p1">Wrong Input!</p>
+    </div>
+    
+    <form method="POST" id="myForm" action="/register" enctype="multipart/form-data">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required><br><br>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <div id="email-status"></div>
+      <span id="emailError"></span><br><br>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br><br>
+
+      <label for="confpassword">Confirm Password:</label>
+      <input type="password" id="confpassword" name="confpassword" required><br><br>
+
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required><br><br>
+
+      <label for="zip_code">Zip Code:</label>
+      <input type="number" id="zip_code" name="zip_code" required><br><br>
+
+      <label for="bio">Bio:</label>
+      <textarea id="bio" name="bio" required></textarea><br><br>
+
+      <label for="image">Profile Picture:</label>
+      <input type="file" id="image" name="image" required><br><br>
+
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender">
+        <option value="select-gender">Select Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+        <option value="prefer not to say">Prefer not to say</option>
+      </select><br><br>
+
+      <label for="colleges">University:</label>
+      <select id="colleges" name="colleges"></select><br><br>
+
+      <label for="company">Place of Work: eg- Google</label>
+      <input type="text" id="company" name="company" ><br><br>
+
+      <label for="place">A place you want to visit:</label>
+      <select name="place" id="place"></select><br><br>
+
+      <label for="gym">Your gym/class:</label>
+      <select name="gym" id="gym"></select><br><br>
+
+      <input id="registerBtn" type="submit" value="Register">
+    </form>
+
+    <p>Already registered? <a href="/login">Go to the login page.</a></p>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+     integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="/public/js/register.js"></script>
+  </body>
