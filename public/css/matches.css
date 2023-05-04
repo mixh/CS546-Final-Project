@@ -1,277 +1,41 @@
-/* Center align the page content */
-/* body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    font-family: Arial, Helvetica, sans-serif;
-  } */
-.messagesDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  /* Style the navigation bar */
-  /* nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    padding: 10px;
-  }
-  
-  nav ul li {
-    margin-right: 10px;
-  }
-  
-  nav ul li:last-child {
-    margin-right: auto;
-  }
-  
-  nav ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 5px 10px;
-  } */
-  
-  /* Style the search form */
-  /* form {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  } */
-  
-  input[type="text"] {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-right: 10px;
-  }
-  
-  button[type="submit"] {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: none;
-    background-color: #333;
-    color: white;
-  }
-  
-  /* Style the list of matches */
-  /* ul {
-    margin-top: 20px;
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  } */
-  .messUsers {
-    margin-top: 20px;
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
-  
-  /* li{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  } */
-  .messLiUsers {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* li h2 {
-    font-size: 20px;
-    margin-top: 0;
-  } */
+body {
+  background-color: #F5F5F5;
+  font-family: "Open Sans", sans-serif;
+}
+ul .messUl {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li .messLi {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+a {
+  color: #333333;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+a:hover {
+  color: #007BFF;
+  text-decoration: underline;
+}
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #FFFFFF;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+}
+.button:hover {
+  background-color: #0056B3;
+}
 
-  .messLiUsers h2 {
-    font-size: 20px;
-    margin-top: 0;
-  }
-  
- /*  li .messLiUsers img {
-    width: 100%;
-    max-width: 200px;
-    height: auto;
-    border-radius: 50%;
-    margin: 10px 0;
-  } */
-  .messLiUsers img {
-    width: 100%;
-    max-width: 200px;
-    height: auto;
-    border-radius: 50%;
-    margin: 10px 0;
-  }
-  
-  /* li .messLiUsers p {
-    font-size: 16px;
-    margin: 10px 0;
-    text-align: center;
-  } */
-  .messLiUsers p {
-    font-size: 16px;
-    margin: 10px 0;
-    text-align: center;
-  }
-  
-  /* li .messLiUsers a {
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: none;
-    background-color: #333;
-    color: white;
-    text-decoration: none;
-    margin-top: 10px;
-  } */
-  .messLiUsers a {
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: none;
-    background-color: #333;
-    color: white;
-    text-decoration: none;
-    margin-top: 10px;
-  }
-  
-  /* li .messLiUsers a:hover {
-    background-color: #555;
-  } */
-  .messLiUsers a:hover {
-    background-color: #555;
-  }
-  
-  /* li .messLiUsers form button {
-    background-color: #d9534f;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    margin-top: 10px;
-    cursor: pointer;
-  } */
-  .messLiUsers form button {
-    background-color: #d9534f;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    margin-top: 10px;
-    cursor: pointer;
-  }
-  
-  /* li .messLiUsers form button:hover {
-    background-color: #c9302c;
-  } */
-  .messLiUsers form button:hover {
-    background-color: #c9302c;
-  }
-  
-  /* Style the "Go to Home" button */
-  a.button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: none;
-    background-color: #333;
-    color: white;
-    text-decoration: none;
-  }
-  
-  a.button:hover {
-    background-color: #555;
-  }
-  #messageslist {
-    display: flex;
-    flex-direction: column;
-  
-  }
-  #messageslist li {
-    display: inline-block;
-  }
-
-  #user-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    max-width: 400px;
-    text-align: center;
-  }
-  .user-card {
-    position: relative;
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-  }
-  
-  .user-card img {
-    display: block;
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-  }
-  
-  .user-card h2 {
-    margin-top: 20px;
-    font-size: 30px;
-  }
-  
-  .user-card p {
-    margin-top: 10px;
-    font-size: 18px;
-  }
-  
-  /* .user-card button {
-    position: absolute;
-    bottom: 20px;
-    width: 80px;
-    height: 80px;
-    font-size: 24px;
-    color: white;
-    border: none;
-    outline: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  } */
-  
-  .user-card button.like {
-    background-color: green;
-    right: 20px;
-  }
-  
-  .user-card button.dislike {
-    background-color: red;
-    left: 20px;
-  }
-  
-  
