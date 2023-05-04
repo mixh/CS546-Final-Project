@@ -46,8 +46,16 @@
           <p>Name: {{user.name}}</p>
           <p>Age: {{user.age}}</p>
           <p>City: {{user.city_name}}</p>
-          <p>Zip : {{user.zip}}</p>
           <p>Bio: {{user.bio}}</p>
+          {{#if user.university}}
+            <p>{{user.name}} goes/went to <strong>{{{user.university}}}</strong></p>
+          {{/if}}
+          {{#if user.work}}
+            <p>{{user.name}} works at <strong>{{user.work}}</strong></p>
+          {{/if}}
+          {{#if user.gym}}
+            <p>{{user.name}} works out at <strong>{{user.gym}}</strong></p>
+          {{/if}}
         </div>
       </div>
     </div>

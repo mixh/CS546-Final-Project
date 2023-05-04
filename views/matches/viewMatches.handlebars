@@ -50,6 +50,18 @@
           <p>City: {{user.city_name}}</p>
           <p>Zip : {{user.zip}}</p>
           <p>Bio: {{user.bio}}</p>
+        
+          {{#if user.university}}
+            <p>{{user.name}} goes/went to {{{user.university}}}</p>
+          {{/if}}
+          {{#if user.work}}
+            <p>{{user.name}} works at {{user.work}}</p>
+          {{/if}}
+          {{#if user.gym}}
+            <p>{{user.name}} works out at {{user.gym}}</p>
+          {{/if}}      
+
+
         </div>
       </div>
     </div>
