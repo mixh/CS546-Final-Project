@@ -19354,35 +19354,54 @@ const universities = [
   },
 ];
 
-const select = document.getElementById("colleges");
+// const select = document.getElementById("colleges");
 
-// Populate the select dropdown with options
-universities.forEach((university) => {
-  const option = document.createElement("option");
-  option.text = university.Name;
-  option.value = university.Name;
-  select.add(option);
-});
+// // Populate the select dropdown with options
+// universities.forEach((university) => {
+//   const option = document.createElement("option");
+//   option.text = university.Name;
+//   option.value = university.Name;
+//   select.add(option);
+// });
 
-// Preselect an option based on the value of {{user.university}}
-const userUniversity = decodeURIComponent(url.searchParams.get("university").replace(/\+/g, " "));
-if (userUniversity) {
-  select.value = userUniversity;
+// // Preselect an option based on the value of {{user.university}}
+// const userUniversity = decodeURIComponent(url.searchParams.get("university").replace(/\+/g, " "));
+// if (userUniversity) {
+//   select.value = userUniversity;
+// }
+
+// // Add an event listener to the select dropdown for search functionality
+// select.addEventListener("input", (event) => {
+//   const searchTerm = event.target.value.toLowerCase();
+//   Array.from(select.options).forEach((option) => {
+//     const optionText = option.text.toLowerCase();
+//     if (optionText.includes(searchTerm)) {
+//       option.style.display = "";
+//     } else {
+//       option.style.display = "none";
+//     }
+//   });
+// });
+
+function populateColleges() {
+  const select = document.getElementById("colleges");
+  const defaultOption = document.createElement("option");
+  const userUniversity = decodeURIComponent(url.searchParams.get("university").replace(/\+/g, " "));
+  defaultOption.value = userUniversity;
+  defaultOption.text = "No Change";
+  select.appendChild(defaultOption);
+
+  universities.forEach(college => {
+    const option = document.createElement("option");
+    option.value = college.Name;
+    option.text = college.Name;
+    select.appendChild(option);
+  });
 }
 
-// Add an event listener to the select dropdown for search functionality
-select.addEventListener("input", (event) => {
-  const searchTerm = event.target.value.toLowerCase();
-  Array.from(select.options).forEach((option) => {
-    const optionText = option.text.toLowerCase();
-    if (optionText.includes(searchTerm)) {
-      option.style.display = "";
-    } else {
-      option.style.display = "none";
-    }
-  });
+document.addEventListener("DOMContentLoaded", function(event) {
+  populateColleges();
 });
-
 const places = [
   "Yellowstone National Park",
   "Grand Canyon",

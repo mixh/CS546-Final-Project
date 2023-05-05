@@ -19721,10 +19721,10 @@ const universities=[
 
 function populateColleges() {
   const select = document.getElementById("colleges");
-  // const defaultOption = document.createElement("option");
-  // defaultOption.value = "NA";
-  // defaultOption.text = "My university is not listed";
-  // select.appendChild(defaultOption);
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "NA";
+  defaultOption.text = "My university is not listed";
+  select.appendChild(defaultOption);
 
   universities.forEach(college => {
     const option = document.createElement("option");
