@@ -30,17 +30,17 @@
 
       <div class="form-group">
         <label for="age">Age:</label>
-        <input type="number" id="age" name="age" class="form-control" required>
+        <input type="number" id="age" name="age" class="form-control" placeholder="Should be atleast 18" required>
       </div>
 
       <div class="form-group">
         <label for="zip_code">Zip Code:</label>
-        <input type="number" id="zip_code" name="zip_code" class="form-control" required>
+        <input type="number" id="zip_code" name="zip_code" class="form-control" placeholder="Enter a valid US zip eg: 10010" required>
       </div>
 
       <div class="form-group">
         <label for="bio">Bio:</label>
-        <textarea id="bio" name="bio" class="form-control" required></textarea>
+        <textarea id="bio" name="bio" class="form-control" placeholder="Share a little bit about yourself and your interests..." required></textarea>
       </div>
 
       <div class="form-group">
@@ -65,8 +65,8 @@
     </div>
 
     <div class="form-group">
-      <label for="company">Place of Work: eg- Google</label>
-      <input type="text" id="company" name="company" class="form-control">
+      <label for="company">Place of Work:</label>
+      <input type="text" id="company" name="company" placeholder="eg: google" class="form-control">
     </div>
 
     <div class="form-group">
@@ -82,4 +82,10 @@
     <button type="submit" id="registerBtn" value="Register" class="btn btn-outline-dark btn-lg">Register</button>
     </form>
   </div>
-    <p>Already registered? <a href="/login" class="btn btn-outline-dark btn-lg">Go to the login page.</a></p>
+  <div class="text-center">
+      <a href="/login" class="btn btn-outline-dark btn-lg">Already Registered? Login</a>
+  </div>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+     integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="/public/js/register.js"></script>
