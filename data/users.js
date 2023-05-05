@@ -27,6 +27,22 @@ export const create = async (
   gym,
   bucketlist
 ) => {
+  if(!image_destination || !image_filename || image_path){
+    throw new Error ('no image found');
+  }
+
+  if(!zip){
+    throw new Error ('zip code not found');
+  }
+
+  if(!gender){
+    throw new Error ('gender not found');
+  }
+
+  if(!university || !gym || !bucketlist){
+    throw new Error ('inputs not found');
+  }
+
   name = validation.checkString(name, "Name");
   work = validation.checkString(work, "Work");
   email = validation.checkEmail(email, "Email");
