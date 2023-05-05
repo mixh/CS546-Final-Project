@@ -108,6 +108,7 @@ router.get("/:id", checkSession, async (req, res) => {
       users: potentialMatchesWithFlags,
       userId: userId,
       distance: distance,
+      title: "Potential Matches"
     });
   } catch (error) {
     res.status(500).render("error", { error: error });

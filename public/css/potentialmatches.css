@@ -1,4 +1,4 @@
- body {
+ /* body {
   font-family: Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
@@ -13,7 +13,7 @@ a {
 
 a:hover {
   text-decoration: underline;
-}
+} */
 
 /* ul {
   list-style: none;
@@ -21,7 +21,7 @@ a:hover {
   padding: 0;
 } */
 
-button {
+/* button {
   background-color: #0077c0;
   border: none;
   border-radius: 5px;
@@ -42,18 +42,18 @@ input[type="text"] {
   font-size: 16px;
   padding: 10px;
   width: 300px;
-}
+} */
 
 /* Page-specific styles */
   
   /* Matches page */
-  #distanceToggleContainer {
+  /* #distanceToggleContainer {
     margin: 20px 0;
   }
   
   #distanceToggleContainer button {
     margin-right: 20px;
-  }
+  } */
   
   /* ul {
     display: flex;
@@ -72,7 +72,7 @@ input[type="text"] {
     padding: 20px;
   } */
   
-  li h2 {
+  /* li h2 {
     margin: 0 0 10px;
   }
   
@@ -105,10 +105,10 @@ input[type="text"] {
   li form button {
     background-color: #e20000;
     margin-left: 10px;
-  }
+  } */
   
   /* Potential matches page */
-  #showAllProfilesButton,
+  /* #showAllProfilesButton,
   #showWithin5kmButton {
     background-color: #0077c0;
     border-radius: 5px;
@@ -167,4 +167,66 @@ input[type="text"] {
 
 #navigation-buttons button:hover {
   background-color: #555;
-} 
+}  */
+
+/*New*/
+
+.like-dislike-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.like-button, .dislike-button {
+  width: 120px;
+  height: 50px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.like-button {
+  background-color: #004b02;
+}
+
+.dislike-button {
+  background-color: #a40b00;
+}
+
+.like-button:hover, .dislike-button:hover {
+  transform: scale(1.1);
+}
+
+
+  .profile-pix {
+  width: 300px; /* increase the width to 300px */
+  height: 300px; /* increase the height to 300px */
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto; /* center the image horizontally */
+  display: block; /* make the image a block element */
+  margin-bottom: 20px;
+}
+
+  .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .common-attribute {
+    background-color: #f0f76a;
+    color: #000000f9;
+  }
