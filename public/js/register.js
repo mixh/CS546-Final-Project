@@ -484,7 +484,7 @@ registerForm.addEventListener('submit', (event) => {
     return;
   }
 
-  if (genderInput.value.trim() === '') {
+  if (!genderInput.value) {
     errorDiv.hidden = false;
     errorDiv.innerHTML = 'You must enter a gender';
     genderInput.focus();
