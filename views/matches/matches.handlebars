@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light">
+{{!-- <nav class="navbar navbar-expand-md navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" href="/home/{{userId}}">Meetup</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,42 +78,90 @@
       <a href="/home/{{userId}}" class="btn btn-primary mt-3">Go to Home</a>
     </div>
   </div>
-</div>
+</div> --}}
 
 {{!-- srk's code --}}
 
-{{!-- <div class="container text-center">
+ <div class="container text-center">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Meetup</a>
+  <a class="navbar-brand" href="/home/{{userId}}">Meetup</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link btn btn-primary" href="/home/{{user._id}}">Home</a>
+        <a class="nav-link btn btn-primary" href="/home/{{userId}}">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link btn btn-success" href="/matches/{{user}}">Matches</a>
+        <a class="nav-link btn btn-success" href="/matches/{{userId}}">Matches</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link btn btn-info" href="/potentialMatches/{{user._id}}?distance=all">Potential Matches</a>
+        <a class="nav-link btn btn-info" href="/potentialMatches/{{userId}}?distance=all">Potential Matches</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link btn btn-warning" href="/profile/{{user._id}}">Profile</a>
+        <a class="nav-link btn btn-warning" href="/profile/{{userId}}">Profile</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link btn btn-secondary" href="/messages/{{user._id}}/messages">Messages</a>
+        <a class="nav-link btn btn-secondary" href="/messages/{{userId}}/messages">Messages</a>
       </li>
       <li class="nav-item">
         <a class="nav-link btn btn-danger" href="/logout">Logout</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link btn btn-light" href="/delete/{{user._id}}">Delete Account</a>
+        <a class="nav-link btn btn-light" href="/delete/{{userId}}">Delete Account</a>
       </li>
     </ul>
   </div>
 </nav>
-</div> --}}
+</div> 
 
-
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <form method="GET" action="/matches/{{userId}}/search" class="d-flex align-items-center my-3">
+        <input type="text" name="search" placeholder="Search.." class="form-control me-2" />
+        <button type="submit" class="btn btn-dark">Search</button>
+      </form>
+      {{#if search}}
+        <ul>
+          {{#if users}}
+            {{#each users}}
+              <li>
+                <h2>{{this.name}}</h2>
+                <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image" />
+                <p>{{this.bio}}</p>
+                <a href="/matches/{{this._id}}/viewProfile" class="btn btn-dark">View Profile</a>
+                <form method="POST" action="/matches/{{this._id}}/unmatch" class="d-inline">
+                  <button type="submit" class="btn btn-danger">Unmatch</button>
+                </form>
+              </li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <p>No matches found.</p>
+        {{/if}}
+      {{else}}
+        {{#if users}}
+          <ul>
+            {{#each users}}
+              <li>
+                <h2>{{this.name}}</h2>
+                <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image" />
+                <p>{{this.bio}}</p>
+                <a href="/matches/{{this._id}}/viewProfile" class="btn btn-primary">View Profile</a>
+                <form method="POST" action="/matches/{{this._id}}/unmatch" class="d-inline">
+                  <button type="submit" class="btn btn-danger">Unmatch</button>
+                </form>
+                <a href="/messages/{{../userId}}/messages/{{this._id}}" class="btn btn-success">Message {{this.name}}</a>
+              </li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <p>No matches found.</p>
+        {{/if}}
+      {{/if}}
+      <a href="/home/{{userId}}" class="btn btn-primary mt-3">Go to Home</a>
+    </div>
+  </div>
+</div>
