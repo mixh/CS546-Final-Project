@@ -29,10 +29,10 @@ const uploadImage = upload.single("image");
 router.route("/").get(async (req, res,next) => {
 
   if(req.session && req.session.userId){
-
-          res.redirect("/home/" + req.session.userId);
+    res.redirect("/home/" + req.session.userId);
   } else {
-    res.render("about", { title: "about" });
+    const message = req.query.message || null;
+    res.render("about", { title: "about", message: message });
   }
 }, async(req,res) => {
   try {
@@ -218,7 +218,8 @@ router.route("/logout").get(async (req, res) => {
      }
      await userData.deleteUserById(id);
      req.session.destroy();
-     res.redirect("/login");
+     const message = "Your account has been successfully deleted.";
+     res.redirect(`/?message=${message}`);
    } catch (error) {
      res.status(500).render("error", { error: error });
    }

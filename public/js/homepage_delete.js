@@ -10,7 +10,8 @@ $(document).ready(function () {
       url: `/delete/${userId}`,
       type: "GET",
       success: function (response) {
-        window.location.href = "/login";
+        const message = "Your account has been successfully deleted.";
+        window.location.href = `/?message=${message}`;
       },
       error: function (error) {
         console.log(error);
