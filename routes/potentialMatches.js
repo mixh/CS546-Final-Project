@@ -34,7 +34,8 @@ router.get("/:id", checkSession, async (req, res) => {
     if (currentUser.isPaused) {
       const uId = req.params.id;
       const user = await userData.get(uId);
-      return res.render("profile/pausedProfile", { user });
+      const title="Paused Profile"
+      return res.render("profile/pausedProfile", { user,title:title });
     }
 
     // Check the "distance" query parameter
