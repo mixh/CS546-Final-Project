@@ -120,12 +120,13 @@
 </div>
 
  
-
+<h1>Matches</h1>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-lg-6">
       <form method="GET" action="/matches/{{userId}}/search" class="d-flex align-items-center my-3">
-        <input type="text" name="search" placeholder="Search.." class="form-control me-2" />
+        <label for="search">Search:</label>
+        <input type="text" name="search" id="search" placeholder="Search.." class="form-control me-2">
         <button type="submit" class="btn btn-dark">Search</button>
       </form>
       {{#if search}}
@@ -153,7 +154,7 @@
             {{#each users}}
               <li>
                 <h2>{{this.name}}</h2>
-                <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image" />
+                <img src="/{{this.image.destination}}/{{this.image.filename}}" alt="Profile image">
                 <p>{{this.bio}}</p>
                 <a href="/matches/{{this._id}}/viewProfile" class="btn btn-primary">View Profile</a>
                 <form method="POST" action="/matches/{{this._id}}/unmatch" class="d-inline">
