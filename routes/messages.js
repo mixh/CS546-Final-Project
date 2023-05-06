@@ -61,6 +61,21 @@ router.post("/:userId/messages/:matchUserId/send", checkSession, async (req, res
     const content = xss(req.body.content);
     const createdAt = new Date();
 
+    //code for unmatch 
+     const userCollection = await users();
+     const sender = await userCollection.findOne({
+       _id: new ObjectId(senderId),
+     });
+     const receiver = await userCollection.findOne({
+       _id: new ObjectId(recieverId),
+     });
+     if (
+       sender.likedUsers.includes(recieverId) &&
+       !receiver.likedUsers.includes(senderId)
+     ) {
+       // The receiver has unmatched the sender, so the message cannot be sent
+      return res.redirect("/messages/"+ senderId + "/messages");
+     }
     // Save the message in the database
     await messageData.createMessage(senderId, recieverId, content, createdAt);
 
