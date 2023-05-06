@@ -27,7 +27,7 @@ export const create = async (
   gym,
   bucketlist
 ) => {
-  if(!image_destination || !image_filename || image_path){
+  if(!image_destination || !image_filename || !image_path){
     throw new Error ('no image found');
   }
 
