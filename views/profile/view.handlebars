@@ -94,30 +94,23 @@ From line 68, column 3; to line 68, column 164 --}}
   <p>Work : {{user.work}} </p>
 </div>
 <div>
-  <a href="/profile/{{user._id}}/edit?gender={{user.gender}}&university={{user.university}}&bucketlist={{user.bucketlist}}&gym={{user.gym}}" class="btn btn-primary">Edit profile</a>
-  {{!-- todo: encode the url such that this error doesn't occur
-  Error: Bad value /profile/644ec12c32b75769d013d1a8/edit?gender=male&university=Northeastern University&bucketlist=Walt Disney World&gym=Anytime Fitness for attribute href on element a: Illegal character in query: space is not allowed. --}}
+  {{!-- <a href="/profile/{{user._id}}/edit?gender={{user.gender}}&university={{user.university}}&bucketlist={{user.bucketlist}}&gym={{user.gym}}" class="btn btn-primary">Edit profile</a> --}}
+    <button onclick="editProfile('{{user._id}}', '{{user.gender}}', '{{user.university}}', '{{user.bucketlist}}', '{{user.gym}}')" class="btn btn-primary">Edit profile</button>
+
+  
   </div>
   {{#if user.isPaused}}
-  {{!-- <form method="POST" action="/profile/{{user._id}}/pause">
-    <button type="submit">Unpause profile</button>
-  </form><br><br> --}}
+
   <form method="POST" action="/profile/{{user._id}}/pause">
   <button type="submit" class="btn btn-danger btn-lg">Unpause Profile</button>
 </form>
 
   {{else}}
-  {{!-- <form method="POST" action="/profile/{{user._id}}/pause">
-    <button type="submit">Pause profile</button>
-  </form><br><br> --}}
   <form method="POST" action="/profile/{{user._id}}/pause">
   <button type="submit" class="btn btn-danger btn-lg">
     <i class="fas fa-pause-circle mr-2"></i> Pause Profile
   </button><br><br>
 </form>
   {{/if}}
-  {{!-- <div>
-  <a href="/profile/{{user._id}}/edit?gender={{user.gender}}&university={{user.university}}&bucketlist={{user.bucketlist}}&gym={{user.gym}}" class="btn btn-primary">Edit profile</a>
-
-  </div> --}}
+<script src="/public/js/view.js"></script>
 
