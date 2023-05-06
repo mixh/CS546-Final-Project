@@ -1,50 +1,50 @@
   <div class="container my-5">
     <h1 class="text-center">Registration</h1>
-    <div id="error" hidden>
+    <div class="alert alert-danger" role="alert" id="error" hidden>
       <p class="p1">Wrong Input!</p>
     </div>
 
     <form method="POST" id="myForm" action="/register" enctype="multipart/form-data">
       <div class="form-group">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" class="form-control" required>
+        <input type="text" id="name" name="name" class="form-control" >
       </div>
 
       <div class="form-group">
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" class="form-control" required>
+        <input type="email" id="email" name="email" class="form-control" >
         <div id="email-status"></div>
         <span id="emailError"></span>
       </div>
 
       <div class="form-group">
         <label for="password">Password (at least 8 characters, 1 uppercase, 1 lowercase, 1 number):</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder= "> 8 characters with at least 1 uppercase,lowercase and number each" required >
+        <input type="password" id="password" name="password" class="form-control" placeholder= "> 8 characters with at least 1 uppercase,lowercase and number each"  >
       </div>
 
       <div class="form-group">
         <label for="confpassword">Confirm Password:</label>
-        <input type="password" id="confpassword" name="confpassword" class="form-control" placeholder="Enter same password as above" required>
+        <input type="password" id="confpassword" name="confpassword" class="form-control" placeholder="Enter same password as above" >
       </div>
 
       <div class="form-group">
         <label for="age">Age:</label>
-        <input type="number" id="age" name="age" class="form-control" placeholder="Should be atleast 18" required>
+        <input type="number" id="age" name="age" class="form-control" placeholder="Should be atleast 18" >
       </div>
 
       <div class="form-group">
         <label for="zip_code">Zip Code:</label>
-        <input type="number" id="zip_code" name="zip_code" class="form-control" placeholder="Enter a valid US zip eg: 10010" required>
+        <input type="number" id="zip_code" name="zip_code" class="form-control" placeholder="Enter a valid US zip eg: 10010" >
       </div>
 
       <div class="form-group">
         <label for="bio">Bio:</label>
-        <textarea id="bio" name="bio" class="form-control" placeholder="Share a little bit about yourself and your interests..." required></textarea>
+        <textarea id="bio" name="bio" class="form-control" placeholder="Share a little bit about yourself and your interests..." ></textarea>
       </div>
 
       <div class="form-group">
         <label for="image">Profile Picture:</label>
-        <input type="file" id="image" name="image" class="form-control-file" required>
+        <input type="file" id="image" name="image" class="form-control-file" >
       </div>
 
       <div class="form-group">

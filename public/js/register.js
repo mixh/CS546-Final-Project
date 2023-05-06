@@ -412,36 +412,27 @@ registerForm.addEventListener('submit', (event) => {
   if (nameInput.value.trim() === '') {
     errorDiv.hidden = false;
     errorDiv.innerHTML = 'You must enter a name';
-    frmLabel.className = 'error';
-    firstNameInput.focus();
+    
+    
     return;
   }
   
   if (nameInput.length < 2 || nameInput.length > 50 ) {
     errorDiv.hidden = false;
     errorDiv.innerHTML = 'Enter correct name';
-    frmLabel.className = 'error';
-    firstNameInput.focus();
+    
+    
     return;
   }
   
   if (emailInput.value.trim() === '') {
     errorDiv.hidden = false;
     errorDiv.innerHTML = 'You must enter an email';
-    frmLabel.className = 'error';
-    firstNameInput.focus();
+    
+    
     return;
   }
-
-  // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  // if (!emailPattern.test(emailInput.value.trim())) {
-  //   errorDiv.hidden = false;
-  //   errorDiv.innerHTML = 'Please enter a valid email address';
-  //   emailInput.focus();
-  //   return;
-  // }
   
- 
   if (passwordInput.value.trim() === '') {
     errorDiv.hidden = false;
     errorDiv.innerHTML = 'You must enter a password';
@@ -495,6 +486,26 @@ registerForm.addEventListener('submit', (event) => {
     errorDiv.hidden = false;
     errorDiv.innerHTML = 'You must enter a bio';
     bioInput.focus();
+    return;
+  }
+
+  if(!file.value){
+    errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a image';
+    return;
+  }
+
+  if(companyInput.value.trim() === ''){
+        errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a work input';
+    companyInput.focus();
+    return;
+  }
+
+  if(!companyInput.value){
+        errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a workplace or simply enter NA';
+    companyInput.focus();
     return;
   }
 
@@ -557,193 +568,7 @@ registerForm.addEventListener('submit', (event) => {
   registerForm.submit();
 });
 
-/* $("#registerBtn").on('click', function(event){
-  event.preventDefault();
-  
-  if (nameInput.value.trim() === '') {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must enter a name';
-    frmLabel.className = 'error';
-    firstNameInput.focus();
-    return;
-  }
-  
-  if (nameInput.length < 2 || nameInput.length > 50 ) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'Enter correct name';
-    frmLabel.className = 'error';
-    firstNameInput.focus();
-    return;
-  }
-  
-  if (emailInput.value.trim() === '') {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must enter an email';
-    // frmLabel.className = 'error';
-    emailInput.focus();
-    return;
-  }
-  
-  if (passwordInput.value.trim() === '') {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must enter a password';
-    passwordInput.focus();
-    return;
-  }
-  
-  if (confirmPasswordInput.value.trim() === '') {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must enter a password again';
-    confirmPasswordInput.focus();
-    return;
-  }
 
-  if (passwordInput.value.trim() !== confirmPasswordInput.value.trim()) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'Your Passwords do not match';
-    confirmPasswordInput.focus();
-    return;
-  }
-  
-  
-  if (ageInput.value.trim() === '') {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must enter your age';
-    ageInput.focus();
-    return;
-  }
-
-  if (Number(ageInput.value.trim())<13) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must be atleast 13 years old';
-    ageInput.focus();
-    return;
-  }
-  if (zipInput.value.trim() === '') {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'Please enter your zip code';
-    zipInput.focus();
-    return;
-  }
-
-  if (genderInput.value.trim() === '') {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must enter a gender';
-    genderInput.focus();
-    return;
-  }
-
-  if (bioInput.value.trim() === '') {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must enter a bio';
-    bioInput.focus();
-    return;
-  }
-
-  try {
-    checkString(nameInput.value.trim(), "Name");
-  } catch (error) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = error;
-    return;
-  }
-  
-  try {
-    checkString(companyInput.value.trim(), "Work");
-  } catch (error) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = error;
-    return;
-  }
-  
-  try {
-    checkEmail(emailInput.value.trim(), "Email");
-  } catch (error) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = error;
-    return;
-  }
-  
-  try {
-    checkPassword(passwordInput.value.trim(), "Password");
-  } catch (error) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = error;
-    return;
-  }
-  
-  try {
-    checkAge(ageInput.value.trim(), "Age");
-  } catch (error) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = error;
-    return;
-  }
-  
-  try {
-    checkZip(zipInput.value.trim(), "Zip Code");
-  } catch (error) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = error;
-    return;
-  }
-  
-  try {
-    checkString(bioInput.value.trim(), "Bio");
-  } catch (error) {
-    errorDiv.hidden = false;
-    errorDiv.innerHTML = error;
-    return;
-  } */
- /*  let regForm = $('#myForm')[0];
-  let formData = new FormData(regForm); */
-  // let fd = new FormData($("form").get(0));
-  // console.log("Form Data: "+JSON.stringify(fd));
-  // formData.append('image', file.files[0]);
-  /* let requestConfig = {
-      method: 'POST',
-      url: '/register',
-      data: {
-        name: nameInput.value.trim(),
-        email: emailInput.value.trim(),
-        password: passwordInput.value.trim(),
-        confpassword: confirmPasswordInput.value.trim(),
-        age: ageInput.value.trim(),
-        company: companyInput.value.trim(),
-        zip_code: zipInput.value.trim(),
-        bio: bioInput.value.trim(), 
-        place: placeInput.value.trim(),
-        },
-        // contentType: "application/json",
-        // processData: false,
-    };
-    
-    $.ajax(requestConfig).then(function (responseMessage) {
-      console.log("Response Message: "+responseMessage);
-      let newElement = $(responseMessage);
-      $('body').html(responseMessage);
-    }); */
-    
-    /* $.ajax({
-      url: '/register',
-      data: fd,
-      dataType: 'json',
-      type: 'POST',
-      // enctype: 'multipart/form-data',
-      processData: false,
-      contentType: false,
-      // cache: false,
-       success: function (data) {
-        console.log('Success:', data);
-        $('body').html(data);
-      },
-      error: function (e) {
-        console.log('Error:', e);
-      },
-    }); */
-// });
-
-//DO NOT TOUCH!!!!
 
 const universities=[
   {

@@ -19716,6 +19716,20 @@ editForm.addEventListener('submit', (event) => {
       ageInput.focus();
       return;
     }
+
+      if(companyInput.value.trim() === ''){
+        errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a work input';
+    companyInput.focus();
+    return;
+  }
+
+  if(!companyInput.value){
+        errorDiv.hidden = false;
+    errorDiv.innerHTML = 'You must enter a workplace or simply enter NA';
+    companyInput.focus();
+    return;
+  }
   
     if (Number(ageInput.value.trim())<18) {
       errorDiv.hidden = false;
