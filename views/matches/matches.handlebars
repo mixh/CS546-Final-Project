@@ -135,6 +135,7 @@
                 <form method="POST" action="/matches/{{this._id}}/unmatch" class="d-inline">
                   <button type="submit" class="btn btn-danger">Unmatch</button>
                 </form>
+                <a href="/messages/{{../userId}}/messages/{{this._id}}" class="btn btn-success">Message {{this.name}}</a>
               </li>
             {{/each}}
           </ul>
