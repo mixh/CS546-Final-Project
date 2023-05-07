@@ -461,9 +461,9 @@ registerForm.addEventListener('submit', (event) => {
     return;
   }
 
-  if (Number(ageInput.value.trim())<13) {
+  if (Number(ageInput.value.trim())<18) {
     errorDiv.hidden = false;
-    errorDiv.innerHTML = 'You must be atleast 13 years old';
+    errorDiv.innerHTML = 'You must be atleast 18 years old';
     ageInput.focus();
     return;
   }
