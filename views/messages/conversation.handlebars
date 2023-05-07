@@ -80,6 +80,7 @@
   </ul>
 
   <form action="/messages/{{userId}}/messages/{{matchUserId}}/send" method="post">
-    <input type="text" name="content" placeholder="Type your message..." required>
+    <label for="content">Enter your message here:</label>
+    <input type="text" id="content" name="content" placeholder="Type your message..." required>
     <input type="submit" value="Send">
   </form>
