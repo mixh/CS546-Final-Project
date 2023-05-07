@@ -9,7 +9,7 @@ dotenv.config();
 //TODO - ASK TA/PROF if passwords need to be encrypted in database or the routing file
 import bcrypt from "bcrypt";
 import validation from "../validation.js";
-const saltRounds = 1; // TODO change it to 16 at final
+const saltRounds = 16; // TODO change it to 16 at final
 
 export const create = async (
   name,
