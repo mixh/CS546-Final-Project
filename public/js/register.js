@@ -344,7 +344,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 function checkUserMatch() {
   const emailInp = $('#email');
   const emailError = $('#emailError');
-  const email = emailInp.val().trim();
+  const email = emailInp.val().trim().toLowerCase();
     if(email === ""){
       $("#emailError").html("");
       emailInp.get(0).setCustomValidity("");

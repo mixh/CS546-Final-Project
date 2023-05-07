@@ -46,6 +46,7 @@ export const create = async (
   name = validation.checkString(name, "Name");
   work = validation.checkString(work, "Work");
   email = validation.checkEmail(email, "Email");
+  email = email.toLowerCase();
   password = validation.checkPassword(password, "Password");
   age = validation.checkAge(age, "Age");
   bio = validation.checkString(bio, "Bio");
@@ -135,6 +136,7 @@ export const get = async (id) => {
 
 export const loginAuth = async (email, password) => {
   email = validation.checkEmail(email, "Email");
+  email = email.toLowerCase();
   password = validation.checkPassword(password, "Password");
   const userCollection = await users();
   const inDb = await userCollection.findOne({ email: email });

@@ -37,7 +37,7 @@ function checkPassword(password, varName) {
 }
 
 emailInput.on("input", () => {
-  const email = emailInput.val().trim();
+  const email = emailInput.val().trim().toLowerCase();
 
   if (email === "") {
     $("#email-status").html("");
