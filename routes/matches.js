@@ -100,7 +100,7 @@ router.get("/:id", checkSession, async(req,res) =>{
         const unMatched = matchesUser.filter(
           (user) => JSON.stringify(user) !== JSON.stringify(userId)
         );
-        console.log("Unmatched User Matches: "+ JSON.stringify(unMatched));
+
         await userCollection.updateOne(
           { _id: new ObjectId(unmatchedUserId) },
           { $set: { matches: unMatched } }

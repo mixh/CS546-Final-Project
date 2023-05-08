@@ -7,7 +7,6 @@ function checkEmail(email, varName){
   if(typeof email !== 'string'){
       throw `${varName} must be a string`;
   }
-  console.log(email)
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     throw `The ${varName} must be a valid email address`;
@@ -63,22 +62,18 @@ if (!/\d/.test(password)) {
     }
     
   const formData = new FormData(loginForm);
-  console.log("FormData: "+ JSON.stringify(formData));
   const serializedFormData = new URLSearchParams(formData).toString();
-  console.log("serializedFormData: "+ JSON.stringify(serializedFormData));
   fetch('/login', {
     method: 'POST',
     body: serializedFormData
   })
   .then(response => {
-    console.log("Inside response");
     if (!response.ok) {
       throw new Error(response.status + ': ' + response.statusText);
     }
     return response.json();
   })
   .then(data => {
-    console.log("Inside then");
     console.log(data); // process the response data
   })
   .catch(error => {
@@ -160,8 +155,6 @@ function checkEmail(email, varName) {
   if (typeof email !== "string") {
     throw `${varName} must be a string`;
   }
-  console.log(email);
-  // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if (!emailRegex.test(email)) {
     throw `The ${varName} must be a valid email address`;

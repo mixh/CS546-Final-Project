@@ -153,8 +153,6 @@ router
         gym,
         place);
 
-      // console.log(im);
-
       res.redirect("/login");
     } catch (error) {
       console.log(error);
@@ -180,7 +178,6 @@ router.route("/logout").get(async (req, res) => {
   
   router.route("/validateUser").post(async (req, res) => {
     const regData = req.body;
-    console.log("Reg Data: "+ JSON.stringify(regData));
     if (!regData || Object.keys(regData).length === 0) {
       return res
       .status(400)
@@ -197,7 +194,6 @@ router.route("/logout").get(async (req, res) => {
     const userCollection = await users();
     const email = xss(req.body.email);
     const user = await userCollection.findOne({email: email});
-    console.log("User: "+user);
 
     if(user){
       res.status(200).send({exists: true});

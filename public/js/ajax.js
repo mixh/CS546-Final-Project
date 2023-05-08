@@ -3,7 +3,6 @@ const messagesList = document.getElementById('.messageslist');
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
-  console.log('srk')
   const formData = new FormData(form);
   
   fetch(form.action, {

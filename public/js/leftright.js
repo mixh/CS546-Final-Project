@@ -25,18 +25,14 @@ function dragStart(e) {
 }
 
 function dragEnd(e) {
-    //console.log("dragend")
     if (xOffset < -50) {
       currentCard.style.transform = `translateX(-200%)`;
       currentCard.classList.add('dislike');
     //   var likeForm = currentCard.querySelector('form[action$="/like"]');
-    //   console.log(likeForm)
     //     if (likeForm) {
     //       likeForm.querySelector('button[type="submit"]').click();
-    //       console.log("in dislike form")
     //     }
     const dislikBtn = document.getElementById('dislik');
-    // console.log(dislikBtn)
     dislikBtn.querySelector('button[type="submit"]').click();
       setTimeout(() => {
         currentCard.remove();
@@ -49,7 +45,6 @@ function dragEnd(e) {
     //       likeForm.querySelector('button[type="submit"]').click();
     //     }
     const likBtn = document.getElementById('lik');
-    console.log(likBtn)
     likBtn.querySelector('button[type="submit"]').click();
 
       setTimeout(() => {

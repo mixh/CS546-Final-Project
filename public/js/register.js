@@ -41,7 +41,7 @@ function checkEmail(email, varName){
   if(typeof email !== 'string'){
       throw `${varName} must be a string`;
   }
-  // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if(!email.match(emailRegex)){
      throw `The ${varName} must be a valid email address`;
@@ -362,7 +362,6 @@ function checkUserMatch() {
             dataType: "json",
             success: function (data) {
               if (!data.exists) {
-                console.log("Inside not data exists!");
                 $("#email-status").html('');
                 $("#emailError").html("");
                 emailInp.get(0).setCustomValidity("");
@@ -382,7 +381,6 @@ function checkUserMatch() {
               }
             },
             error: function (e) {
-              console.log("Error: "+ e.responseText);
               $("#email-status").html('');
               $("#email-status").html('<i class="fa-sharp fa-solid fa-circle-xmark" style="color: red;"></i>'
               );
@@ -399,12 +397,8 @@ function checkUserMatch() {
     }
 
 emailInput.addEventListener("keyup", () => {
-  console.log("Inside confirm email input");
   checkUserMatch();
 });
-
-/* emailInput.on("input", () =>{
-}); */
 
 registerForm.addEventListener('submit', (event) => {
   event.preventDefault();

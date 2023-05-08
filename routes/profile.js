@@ -152,17 +152,13 @@ router.route("/:id/edit")
       updateData.work= xss(req.body.company);
     }
     
-    // console.log(req.body.places)
     if (req.body.places){
       updateData.bucketlist= req.body.places;
     }
-    // console.log(updateData.bucketlist)
 
     if (req.body.gym){
       updateData.gym= req.body.gym;
     }
-
-    // console.log(userData);
   
     await userData.update(userId, updateData);
   
@@ -177,12 +173,9 @@ router.route("/:id/pause").
 post(checkSession, async (req, res) => {
   try {
     const userId = req.params.id;
-    console.log("UserId: "+userId);
     const userCollection = await users();
     const user = await userCollection.findOne({ _id: new ObjectId(userId) });
-    console.log("User Pause Route: "+ JSON.stringify(user));
     const isPaused = user.isPaused || false; // if isPaused is not set, default to false
-    console.log("isPaused: "+isPaused);
     const userInfo = await userCollection.updateOne(
       { _id: new ObjectId(userId) },
       { $set: { isPaused: !isPaused } }
