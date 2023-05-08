@@ -54,8 +54,11 @@
   <p>Work : {{user.work}} </p>
 </div>
 <div>
-  {{!-- <a href="/profile/{{user._id}}/edit?gender={{user.gender}}&university={{user.university}}&bucketlist={{user.bucketlist}}&gym={{user.gym}}" class="btn btn-primary">Edit profile</a> --}}
-    <button onclick="editProfile('{{user._id}}', '{{user.gender}}', '{{user.university}}', '{{user.bucketlist}}', '{{user.gym}}')" class="btn btn-primary">Edit profile</button>
+
+  {{!-- TODO - Gives invalid html but changing to button breaks the code if any of fields has apostrophe  --}}
+  <a href="/profile/{{user._id}}/edit?gender={{user.gender}}&university={{user.university}}&bucketlist={{user.bucketlist}}&gym={{user.gym}}" class="btn btn-primary">Edit profile</a>
+    
+    {{!-- <button onclick="editProfile('{{user._id}}', '{{user.gender}}', '{{user.university}}', '{{user.bucketlist}}', '{{user.gym}}')" class="btn btn-primary">Edit profile</button> --}}
 
   
   </div>
@@ -72,10 +75,11 @@
   </button><br><br>
 </form>
   {{/if}}
-<script src="/public/js/view.js"></script>
 
-<!-- jQuery library -->
+
+{{!-- <script src="/public/js/view.js"></script> --}}
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Bootstrap JS file -->
+
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
