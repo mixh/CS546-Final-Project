@@ -1,6 +1,6 @@
-# Meetup Github Repo: https://github.com/mixh/CS546-Final-Project
-## Group 8 Project for CS 546 Web Programming
-### Group Members : Mihir Jain, Sarthak Vaidya, Yash Nitesh Baleri, Shiva Mandadapu
+
+Full Stack Dating Website 
+Node, Javascript, MongoDB, Express, Handlebars and Bootstrap
 
 
 HOW TO RUN 
